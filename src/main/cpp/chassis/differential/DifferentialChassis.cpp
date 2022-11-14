@@ -33,14 +33,12 @@ DifferentialChassis::DifferentialChassis
     shared_ptr<IDragonMotorController>             rightMotor,
     units::meter_t                                 trackWidth,
     units::velocity::meters_per_second_t           maxSpeed,
-    units::angular_velocity::degrees_per_second_t  maxAngSpeed,
     units::length::inch_t                          wheelDiameter,
     string                                         networktablename,
     string                                         controlfilename 
 ) : m_leftMotor(leftMotor),
     m_rightMotor(rightMotor),
     m_maxSpeed(maxSpeed),
-    m_maxAngSpeed(maxAngSpeed),
     m_wheelDiameter(wheelDiameter),
     m_track(trackWidth),
     m_kinematics(new frc::DifferentialDriveKinematics(trackWidth)),
@@ -56,28 +54,18 @@ IChassis::CHASSIS_TYPE DifferentialChassis::GetType() const
     return IChassis::CHASSIS_TYPE::DIFFERENTIAL;
 }
 
-void DifferentialChassis::Drive
-(
-    frc::ChassisSpeeds            chassisSpeeds,
-    IChassis::CHASSIS_DRIVE_MODE  mode,
-    IChassis::HEADING_OPTION      headingOption
-) 
-{
-    Drive(chassisSpeeds);
-}
-
 //Moves the robot
 void DifferentialChassis::Drive(frc::ChassisSpeeds chassisSpeeds)
 {
     auto wheels = m_kinematics->ToWheelSpeeds(chassisSpeeds);
-    wheels.Desaturate(m_maxSpeed);
+    wheels.Desaturate(units::velocity::meters_per_second_t(1.0));
     if (m_leftMotor.get() != nullptr)
     {
-        m_leftMotor.get()->Set(wheels.left/m_maxSpeed);
+        m_leftMotor.get()->Set(wheels.left/units::velocity::meters_per_second_t(1.0));
     }
     if (m_rightMotor.get() != nullptr)
     {
-        m_rightMotor.get()->Set(wheels.right/m_maxSpeed);
+        m_rightMotor.get()->Set(wheels.right/units::velocity::meters_per_second_t(1.0));
     }
 }
 
@@ -99,11 +87,6 @@ void DifferentialChassis::UpdateOdometry()
 units::velocity::meters_per_second_t DifferentialChassis::GetMaxSpeed() const
 {
     return m_maxSpeed;
-}
-
-units::angular_velocity::radians_per_second_t DifferentialChassis::GetMaxAngularSpeed() const
-{
-    return m_maxAngSpeed;
 }
 
 units::length::inch_t DifferentialChassis::GetWheelDiameter() const
@@ -138,8 +121,5 @@ void DifferentialChassis::SetEncodersToZero()
         auto driveMotorSensors = fx->GetSensorCollection();
         driveMotorSensors.SetIntegratedSensorPosition(0, 0);
     }
-}
-void DifferentialChassis::SetTargetHeading(units::angle::degree_t targetYaw) 
-{
 }
 

@@ -21,10 +21,9 @@
 
 class CyclePrimitives;
 class TeleopControl;
-class ArcadeDrive;
-class SwerveDrive;
+class MecanumChassis;
 class DragonLimelight;
-class IChassis;
+class HolonomicDrive;
 
 class Robot : public frc::TimedRobot 
 {
@@ -42,10 +41,7 @@ class Robot : public frc::TimedRobot
 
     private:
         TeleopControl*        m_controller;
-        IChassis*             m_chassis;
+        MecanumChassis*       m_chassis;
         CyclePrimitives*      m_cyclePrims;
-        frc::Timer*           m_timer;
-        SwerveDrive*          m_swerve;
-        ArcadeDrive*          m_arcade;
-        DragonLimelight*      m_dragonLimeLight;
+        HolonomicDrive*       m_holonomic;
 };

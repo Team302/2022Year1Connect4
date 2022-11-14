@@ -19,6 +19,7 @@
 // C++ Includes
 #include <memory>
 #include <map>
+#include <vector>
 
 // FRC includes
 #include <frc/Driverstation.h>
@@ -33,9 +34,9 @@ class TeleopControl
         enum FUNCTION_IDENTIFIER
         {
             UNKNOWN_FUNCTION,
-            SWERVE_DRIVE_DRIVE,
-            SWERVE_DRIVE_ROTATE,
-            SWERVE_DRIVE_STEER,
+            HOLONOMIC_DRIVE_FORWARD,
+            HOLONOMIC_DRIVE_ROTATE,
+            HOLONOMIC_DRIVE_STRAFE,
             REZERO_PIGEON,
             HOLD_POSITION,
             FINDTARGET,        

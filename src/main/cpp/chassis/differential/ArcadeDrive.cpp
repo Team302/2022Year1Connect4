@@ -18,7 +18,6 @@
 #include <memory>
 
 // FRC includes
-#include <frc/drive/Vector2d.h>
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 
@@ -75,9 +74,9 @@ void ArcadeDrive::Run()
         auto steer = m_controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::ARCADE_STEER);
 
         frc::ChassisSpeeds speeds;
-        speeds.vx = throttle * m_chassis->GetMaxSpeed();
+        speeds.vx = throttle * units::velocity::meters_per_second_t(1.0);
         speeds.vy = 0_mps; //units::velocity::meters_per_second_t(0)
-        speeds.omega = steer * m_chassis->GetMaxAngularSpeed();
+        speeds.omega = steer * units::angular_velocity::radians_per_second_t(1.0);
         m_chassis->Drive(speeds);
     }
 }

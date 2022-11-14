@@ -37,19 +37,12 @@ class DifferentialChassis : public IChassis {
                             std::shared_ptr<IDragonMotorController>         rightMotor,
                             units::meter_t                                  trackWidth,
                             units::velocity::meters_per_second_t            maxSpeed,
-                            units::angular_velocity::degrees_per_second_t   maxAngSpeed,
                             units::length::inch_t                           wheelDiameter,
                             std::string                                     networktablename,
                             std::string                                     controlfilename);
 
         IChassis::CHASSIS_TYPE GetType() const override;
-        void Drive(frc::ChassisSpeeds chassisSpeeds);
-        void Drive
-        (
-            frc::ChassisSpeeds            chassisSpeeds,
-            IChassis::CHASSIS_DRIVE_MODE  mode,
-            IChassis::HEADING_OPTION      headingOption
-        ) override;
+        void Drive(frc::ChassisSpeeds chassisSpeeds) override;
         
         inline void Initialize() override {};
         frc::Pose2d GetPose() const override;
@@ -59,11 +52,9 @@ class DifferentialChassis : public IChassis {
         ) override;
         void UpdateOdometry() override;
         units::velocity::meters_per_second_t GetMaxSpeed() const override;
-        units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const override;
         units::length::inch_t GetWheelDiameter() const override ;
         units::length::inch_t GetTrack() const override;
         units::angle::degree_t GetYaw() const override;
-        void SetTargetHeading(units::angle::degree_t targetYaw) override;
         void SetEncodersToZero() override;
 
 

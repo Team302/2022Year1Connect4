@@ -15,43 +15,65 @@
 //====================================================================================================================================================
 
 #pragma once
-#include <mechanisms/base/IState.h>
-#include <units/angle.h>
+
+// C++ Includes
+
+// FRC includes
 #include <units/angular_velocity.h>
-#include <units/angular_acceleration.h>
 
-#include <frc/controller/PIDController.h>
-//#include <frc/controller/ProfiledPIDController.h>
-//#include <frc/trajectory/TrapezoidProfile.h>
+// Team 302 includes
 
-#include <chassis/swerve/SwerveChassis.h>
+// Third Party Includes
 
-///	 @brief     this state will allow the robot to rotate to a specified angle
-class TurnToAngle : public IState
+
+namespace frc
+{
+    struct ChassisSpeeds;
+}
+
+
+///	 @interface IHolonomicChassis
+///  @brief	    Interface for differential drives
+class IHolonomicChassis
 {
 	public:
-        
-        TurnToAngle() = delete;
-        TurnToAngle
+        enum CHASSIS_DRIVE_MODE
+        {
+            ROBOT_ORIENTED,
+            FIELD_ORIENTED,
+            POLAR_DRIVE
+        };
+
+        enum HEADING_OPTION
+        {
+            DEFAULT,
+            MAINTAIN,
+            POLAR_HEADING,
+            TOWARD_GOAL,
+            TOWARD_GOAL_DRIVE,
+            TOWARD_GOAL_LAUNCHPAD,
+            SPECIFIED_ANGLE,
+            LEFT_INTAKE_TOWARD_BALL,
+            RIGHT_INTAKE_TOWARD_BALL
+        };
+
+
+        /// @brief      Run chassis 
+        /// @returns    void
+        virtual void Drive
         (
-            units::angle::degree_t  targetAngle
-        );
-        ~TurnToAngle() = default;
+            frc::ChassisSpeeds  chassisSpeeds,
+            CHASSIS_DRIVE_MODE  mode,
+            HEADING_OPTION      headingOption
+        ) = 0;
+        
 
-        void Init() override;
-        void Run() override;
-        bool AtTarget() const override;
+        virtual units::angular_velocity::radians_per_second_t GetMaxAngularSpeed() const = 0;
+        virtual void SetTargetHeading(units::angle::degree_t targetYaw) = 0;
 
-    private:
-        units::angle::degree_t  m_targetAngle;
-
-        // Need to tune these
-        const double kP = 0.004;
-        const double kI = 0.0001;
-        const double kD = 0.0;
-        const double kF = 0.0;
-        const units::angle::degree_t m_angleTolerance = units::angle::degree_t(2.0);
-        frc::PIDController m_pid{kP, kI, kD};
-        SwerveChassis*  m_chassis;
-        bool            m_atTarget;
+	    IHolonomicChassis() = default;
+	    virtual ~IHolonomicChassis() = default;
 };
+
+
+

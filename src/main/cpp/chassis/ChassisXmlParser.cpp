@@ -36,15 +36,12 @@
 
 // Team302 includes
 #include <chassis/ChassisFactory.h>
-#include <chassis/ChassisSpeedCalcEnum.h>
 #include <chassis/IChassis.h>
-#include <chassis/PoseEstimatorEnum.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
 #include <utils/Logger.h>
 #include <chassis/ChassisXmlParser.h>
 #include <hw/xml/MotorXmlParser.h>
-#include <chassis/swerve/SwerveModuleXmlParser.h>
 
 // Third Party includes
 #include <pugixml/pugixml.hpp>
@@ -81,7 +78,7 @@ IChassis* ChassisXmlParser::ParseXML
     string controlFileName;
 
     //ChassisSpeedCalcEnum speedCalcOption = ChassisSpeedCalcEnum::ETHER;
-    PoseEstimatorEnum poseEstOption   = PoseEstimatorEnum::EULER_AT_CHASSIS;
+    //PoseEstimatorEnum poseEstOption   = PoseEstimatorEnum::EULER_AT_CHASSIS;
 
     bool hasError = false;
 
@@ -153,64 +150,6 @@ IChassis* ChassisXmlParser::ParseXML
         {
             controlFileName = attr.as_string();
         }
-        /** TODO: remove this is unused **/
-        else if (attrName.compare("wheelSpeedCalcOption") ==0)
-        {
-            /**
-            auto val = string( attr.value() );
-            if (val.compare( "WPI") == 0)
-            {
-                speedCalcOption = ChassisSpeedCalcEnum::WPI_METHOD;
-            }
-            else if (val.compare("ETHER") == 0)
-            {
-                speedCalcOption = ChassisSpeedCalcEnum::ETHER;
-            }
-            else if (val.compare("ETHER") == 0)
-            {
-                speedCalcOption = ChassisSpeedCalcEnum::ETHER;
-            }
-            else
-            {
-                string msg = "unknown Chassis Speed Calc Option ";
-                msg += val;
-                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser::ParseXML"), msg );
-                hasError = true;
-            }
-            **/
-        }
-        /** **/
-        else if (attrName.compare("poseEstimationOption") ==0)
-        {
-            auto val = string( attr.value() );
-            if (val.compare( "WPI") == 0)
-            {
-                poseEstOption = PoseEstimatorEnum::WPI;
-            }
-            else if (val.compare("EULERCHASSIS") == 0)
-            {
-                poseEstOption = PoseEstimatorEnum::EULER_AT_CHASSIS;
-            }
-            else if (val.compare("EULERWHEEL") == 0)
-            {
-                poseEstOption = PoseEstimatorEnum::EULER_USING_MODULES;
-            }
-            else if (val.compare("POSECHASSIS") == 0)
-            {
-                poseEstOption = PoseEstimatorEnum::POSE_EST_AT_CHASSIS;
-            }
-            else if (val.compare("POSEWHEEL") == 0)
-            {
-                poseEstOption = PoseEstimatorEnum::POSE_EST_USING_MODULES;
-            }
-            else
-            {
-                string msg = "unknown Chassis Pose Estimation Option ";
-                msg += val;
-                Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"),string("ParseXML"), msg );
-                hasError = true;
-            }
-        }
         else   // log errors
         {
             string msg = "unknown attribute ";
@@ -224,13 +163,6 @@ IChassis* ChassisXmlParser::ParseXML
     // Process child element nodes
     IDragonMotorControllerMap motors;
     unique_ptr<MotorXmlParser> motorXML = make_unique<MotorXmlParser>();
-    
-    shared_ptr<SwerveModule> lfront;
-    shared_ptr<SwerveModule> rfront;
-    shared_ptr<SwerveModule> lback;
-    shared_ptr<SwerveModule> rback;
-    unique_ptr<SwerveModuleXmlParser> moduleXML = make_unique<SwerveModuleXmlParser>();
-
 
     for (xml_node child = chassisNode.first_child(); child; child = child.next_sibling())
     {
@@ -245,34 +177,13 @@ IChassis* ChassisXmlParser::ParseXML
     	}        
     	else if (childName.compare("swervemodule") == 0)
     	{
-            shared_ptr<SwerveModule> module = moduleXML.get()->ParseXML(networkTableName, child);
-            switch ( module.get()->GetType() )
-            {
-                case SwerveModule::ModuleID::LEFT_FRONT:
-                    lfront = module;
-                    break;
 
-                case SwerveModule::ModuleID::LEFT_BACK:
-                    lback = module;
-                    break;
-
-                case SwerveModule::ModuleID::RIGHT_FRONT:
-                    rfront = module;
-                    break;
-                
-                case SwerveModule::ModuleID::RIGHT_BACK:
-                    rback = module;
-                    break;
-
-                default:
-                    break;
-            }
     	}
     	else  // log errors
     	{
             string msg = "unknown child ";
             msg += child.name();
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("SwerveChassisXmlParser"), string("ParseXML"), msg );
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("ChassisXmlParser"), string("ParseXML"), msg );
     	}
     }
 
@@ -293,14 +204,7 @@ IChassis* ChassisXmlParser::ParseXML
                                               maxAngularSpeed,
                                               maxAcceleration,
                                               maxAngularAcceleration,
-                                              motors,
-                                              lfront,
-                                              rfront,
-                                              lback,
-                                              rback,
-                                              //speedCalcOption,
-                                              poseEstOption, 
-                                              odometryComplianceCoefficient );
+                                              motors);
         }
         else  // log errors
         {

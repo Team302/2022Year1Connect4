@@ -38,12 +38,9 @@
 #include <units/velocity.h>
 
 #include <chassis/ChassisFactory.h>
-#include <chassis/ChassisSpeedCalcEnum.h>
 #include <chassis/differential/DifferentialChassis.h>
+#include <chassis/mecanum/MecanumChassis.h>
 #include <chassis/IChassis.h>
-#include <chassis/PoseEstimatorEnum.h>
-#include <chassis/swerve/SwerveChassis.h>
-#include <chassis/swerve/SwerveModule.h>
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
@@ -59,11 +56,6 @@ ChassisFactory* ChassisFactory::GetChassisFactory()
         ChassisFactory::m_chassisFactory = new ChassisFactory();
     }
     return ChassisFactory::m_chassisFactory;
-}
-
-IChassis* ChassisFactory::GetIChassis()
-{
-    return m_chassis;
 }
 
 //=======================================================================================
@@ -83,13 +75,7 @@ IChassis* ChassisFactory::CreateChassis
     units::radians_per_second_t 								maxAngularSpeed,
     units::acceleration::meters_per_second_squared_t 			maxAcceleration,
     units::angular_acceleration::radians_per_second_squared_t 	maxAngularAcceleration,
- 	const IDragonMotorControllerMap&                            motors, 		        
-    std::shared_ptr<SwerveModule>                               frontLeft, 
-    std::shared_ptr<SwerveModule>                               frontRight,
-    std::shared_ptr<SwerveModule>                               backLeft, 
-    std::shared_ptr<SwerveModule>                               backRight, 
-	PoseEstimatorEnum 										    poseEstOption,
-    double                                                      odometryComplianceCoefficient
+ 	const IDragonMotorControllerMap&                            motors
 )
 {
     switch ( type )
@@ -102,7 +88,6 @@ IChassis* ChassisFactory::CreateChassis
                                                 rightMotor,
                                                 track,
                                                 maxVelocity,
-                                                maxAngularSpeed,
                                                 wheelDiameter,
                                                 networkTableName,
                                                 controlFileName);
@@ -112,28 +97,28 @@ IChassis* ChassisFactory::CreateChassis
 
         case ChassisFactory::CHASSIS_TYPE::MECANUM_CHASSIS:
         {
-            // todo plug in mecanum drive
+            auto leftFrontMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::MECANUM_LEFT_FRONT);
+            auto leftBackMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::MECANUM_LEFT_BACK);
+            auto rightFrontMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::MECANUM_RIGHT_FRONT);
+            auto rightBackMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::MECANUM_RIGHT_BACK);
+            auto chassis = new MecanumChassis(leftFrontMotor,
+                                              leftBackMotor,
+                                              rightFrontMotor,
+                                              rightBackMotor,
+                                              wheelBase,
+                                              track,
+                                              maxVelocity,
+                                              maxAngularSpeed,
+                                              wheelDiameter,
+                                              networkTableName);
+            m_chassis = chassis;
+            m_holonomicChassis = chassis;
         }
         break;
 
         case ChassisFactory::CHASSIS_TYPE::SWERVE_CHASSIS:
         {
-            m_chassis = new SwerveChassis( frontLeft, 
-                                           frontRight, 
-                                           backLeft, 
-                                           backRight, 
-                                           wheelDiameter,
-                                           wheelBase, 
-                                           track, 
-                                           odometryComplianceCoefficient,
-                                           maxVelocity, 
-                                           maxAngularSpeed, 
-                                           maxAcceleration,
-                                           maxAngularAcceleration
-                                           //poseEstOption, 
-                                           //networkTableName,
-                                           //controlFileName
-                                           );
+            // todo plug in swerve drive
         }
         break;
 
@@ -172,115 +157,4 @@ shared_ptr<IDragonMotorController> ChassisFactory::GetMotorController
 	return motor;
 }
 
-
-//=====================================================================================
-/// Method:         CreateSwerveModule
-/// Description:    Find or create the swerve module
-/// Returns:        SwerveModule *    pointer to the swerve module or nullptr if it 
-///                                         doesn't exist and cannot be created.
-//=====================================================================================
-std::shared_ptr<SwerveModule> ChassisFactory::CreateSwerveModule
-(
-    SwerveModule::ModuleID                                      type, 
-    const IDragonMotorControllerMap&        				    motorControllers,   // <I> - Motor motorControllers
-    DragonCanCoder*                                 		    canCoder,
-    double                                                      turnP,
-    double                                                      turnI,
-    double                                                      turnD,
-    double                                                      turnF,
-    double                                                      turnNominalVal,
-    double                                                      turnPeakVal,
-    double                                                      turnMaxAcc,
-    double                                                      turnCruiseVel
-)
-{
-    std::shared_ptr<SwerveModule> swerve = nullptr;
-	auto driveMotor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SWERVE_DRIVE);
-	auto turnMotor  = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SWERVE_TURN);
-
-    switch (type)
-    {
-        case SwerveModule::ModuleID::LEFT_FRONT:
-            if ( m_leftFront.get() == nullptr )
-            {
-                m_leftFront = make_shared<SwerveModule>(type, 
-                                                        driveMotor, 
-                                                        turnMotor, 
-                                                        canCoder, 
-                                                        turnP,
-                                                        turnI,
-                                                        turnD,
-                                                        turnF,
-                                                        turnNominalVal,
-                                                        turnPeakVal,
-                                                        turnMaxAcc,
-                                                        turnCruiseVel );
-            }
-            swerve = m_leftFront;
-            break;
-
-        case SwerveModule::ModuleID::LEFT_BACK:
-            if ( m_leftBack.get() == nullptr )
-            {
-                m_leftBack = make_shared<SwerveModule>( type, 
-                                                        driveMotor, 
-                                                        turnMotor, 
-                                                        canCoder, 
-                                                        turnP,
-                                                        turnI,
-                                                        turnD,
-                                                        turnF,
-                                                        turnNominalVal,
-                                                        turnPeakVal,
-                                                        turnMaxAcc,
-                                                        turnCruiseVel );
-            }
-            swerve = m_leftBack;
-
-            break;
-
-        case SwerveModule::ModuleID::RIGHT_FRONT:
-            if ( m_rightFront.get() == nullptr )
-            {
-                m_rightFront = make_shared<SwerveModule>(type, 
-                                                         driveMotor, 
-                                                         turnMotor, 
-                                                         canCoder, 
-                                                         turnP,
-                                                         turnI,
-                                                         turnD,
-                                                         turnF,
-                                                         turnNominalVal,
-                                                         turnPeakVal,
-                                                         turnMaxAcc,
-                                                         turnCruiseVel );
-           }
-            swerve = m_rightFront;
-            break;
-
-        case SwerveModule::ModuleID::RIGHT_BACK:
-            if ( m_rightBack.get() == nullptr )
-            {
-                m_rightBack = make_shared<SwerveModule>(type, 
-                                                        driveMotor, 
-                                                        turnMotor, 
-                                                        canCoder, 
-                                                        turnP,
-                                                        turnI,
-                                                        turnD,
-                                                        turnF,
-                                                        turnNominalVal,
-                                                        turnPeakVal,
-                                                        turnMaxAcc,
-                                                        turnCruiseVel );
-            }            
-            swerve = m_rightBack;
-            break;
-
-        default:
-            break;
-    }
-
-    return swerve;
-}
 

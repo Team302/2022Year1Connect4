@@ -26,12 +26,12 @@
 #include <memory>
 
 #include <chassis/IChassis.h>
+#include <chassis/IHolonomicChassis.h>
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
-#include <chassis/swerve/SwerveModule.h>
-#include <chassis/swerve/SwerveChassis.h>
 #include <chassis/differential/DifferentialChassis.h>
+#include <chassis/mecanum/MecanumChassis.h>
 
 namespace ctre
 {
@@ -58,10 +58,12 @@ class ChassisFactory
 			};
 			static ChassisFactory* GetChassisFactory();
 
-			IChassis* GetIChassis();
+			inline IChassis* GetIChassis(){return m_chassis;};
+			inline IHolonomicChassis* GetHolonomicChassis() {return m_holonomicChassis;};
 
-			inline SwerveChassis* GetSwerveChassis() {return (SwerveChassis*) m_chassis; };
-			inline DifferentialChassis* GetDifferentialChassis() {return (DifferentialChassis*) m_chassis; };
+			inline DifferentialChassis* GetDifferentialChassis() {return static_cast<DifferentialChassis*>(m_chassis); };
+			inline MecanumChassis* GetMecanumChassis() {return static_cast<MecanumChassis*>(m_chassis); };
+
 
 			//=======================================================================================
 			// Method:  		CreateChassis
@@ -80,39 +82,9 @@ class ChassisFactory
 				units::radians_per_second_t 								maxAngularSpeed,
 				units::acceleration::meters_per_second_squared_t 			maxAcceleration,
 				units::angular_acceleration::radians_per_second_squared_t 	maxAngularAcceleration,
-				const IDragonMotorControllerMap&    						motors, 		        // <I> - Motor motorControllers
-				std::shared_ptr<SwerveModule>                               frontLeft, 
-				std::shared_ptr<SwerveModule>                               frontRight,
-				std::shared_ptr<SwerveModule>                               backLeft, 
-				std::shared_ptr<SwerveModule>                               backRight, 
-    			PoseEstimatorEnum 										poseEstOption,
-				double                                                      odometryComplianceCoefficient
+				const IDragonMotorControllerMap&    						motors 		        // <I> - Motor motorControllers
 			);
 
-			//=====================================================================================
-			/// Method:         CreateSwerveModule
-			/// Description:    Find or create the swerve module
-			/// Returns:        SwerveModule *    pointer to the swerve module or nullptr if it 
-			///                                         doesn't exist and cannot be created.
-			//=====================================================================================
-			std::shared_ptr<SwerveModule> CreateSwerveModule
-			(
-				SwerveModule::ModuleID                            			type,
-				const IDragonMotorControllerMap&        					motorControllers,   // <I> - Motor motorControllers
-				DragonCanCoder*								     			turnSensor,
-				double                                                      turnP,
-				double                                                      turnI,
-				double                                                      turnD,
-				double                                                      turnF,
-				double                                                      turnNominalVal,
-				double                                                      turnPeakVal,
-				double                                                      turnMaxAcc,
-				double                                                      turnCruiseVel
-			);
-			std::shared_ptr<SwerveModule>	GetLeftFrontSwerveModule() { return m_leftFront; }
-			std::shared_ptr<SwerveModule> GetLeftBackSwerveModule() { return m_leftBack; }
-			std::shared_ptr<SwerveModule>	GetRightFrontSwerveModule() { return m_rightFront; }
-			std::shared_ptr<SwerveModule>	GetRightBackSwerveModule() { return m_rightBack; }
 
 		private:
 			std::shared_ptr<IDragonMotorController> GetMotorController
@@ -122,11 +94,9 @@ class ChassisFactory
 			);
 			ChassisFactory() = default;
 			~ChassisFactory() = default;
-			IChassis*        m_chassis;
-			std::shared_ptr<SwerveModule>	    		m_leftFront;
-			std::shared_ptr<SwerveModule>	    		m_leftBack;
-			std::shared_ptr<SwerveModule>	    		m_rightFront;
-			std::shared_ptr<SwerveModule>	    		m_rightBack;
+
+			IChassis*        	m_chassis;
+			IHolonomicChassis* 	m_holonomicChassis;
 
 			static ChassisFactory*	m_chassisFactory;
 

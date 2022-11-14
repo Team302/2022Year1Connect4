@@ -108,12 +108,12 @@ void TeleopControl::Initialize()
     auto ctrlNo = 0;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
-		m_controllerIndex[ SWERVE_DRIVE_DRIVE]			= ctrlNo;
-		m_axisIDs[ SWERVE_DRIVE_DRIVE]					= IDragonGamePad::LEFT_JOYSTICK_Y;
-		m_controllerIndex[ SWERVE_DRIVE_STEER]			= ctrlNo;
-		m_axisIDs[ SWERVE_DRIVE_STEER]					= IDragonGamePad::LEFT_JOYSTICK_X;
-		m_controllerIndex[ SWERVE_DRIVE_ROTATE]			= ctrlNo;
-		m_axisIDs[ SWERVE_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
+		m_controllerIndex[ HOLONOMIC_DRIVE_FORWARD]			= ctrlNo;
+		m_axisIDs[ HOLONOMIC_DRIVE_FORWARD]					= IDragonGamePad::LEFT_JOYSTICK_Y;
+		m_controllerIndex[ HOLONOMIC_DRIVE_STRAFE]			= ctrlNo;
+		m_axisIDs[ HOLONOMIC_DRIVE_STRAFE]					= IDragonGamePad::LEFT_JOYSTICK_X;
+		m_controllerIndex[ HOLONOMIC_DRIVE_ROTATE]			= ctrlNo;
+		m_axisIDs[ HOLONOMIC_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 
 		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
 		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	

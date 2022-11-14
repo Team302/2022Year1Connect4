@@ -16,11 +16,35 @@
 
 #pragma once
 
-enum PoseEstimatorEnum
+// C++ Includes
+
+// frc Includes
+
+// Team 302 Includes
+
+namespace frc
 {
-    WPI,
-    EULER_AT_CHASSIS,
-    EULER_USING_MODULES,
-    POSE_EST_AT_CHASSIS,
-    POSE_EST_USING_MODULES
+    class ChassisSpeeds;
+}
+
+class DragonPigeon;
+
+class FieldDriveUtils
+{
+    public:
+        FieldDriveUtils() = delete;
+        ~FieldDriveUtils() = delete;
+
+        /// @brief convert chassis speeds specified in Field Oriented values to Robot Values
+        /// @param [in] ChassisSpeeds the desired kinemetics of the chassis in a field oriented frame
+        /// @param [in] DragonPigeon gyro which has the angle the robot is facing
+        /// @returns ChassisSpeeds the converted speeds in the robot frame
+        static frc::ChassisSpeeds ConvertFieldOrientedToRobot
+        (
+            frc::ChassisSpeeds  input,
+            DragonPigeon*       pigeon
+        );
+
 };
+
+

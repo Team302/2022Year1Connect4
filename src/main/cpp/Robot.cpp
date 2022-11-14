@@ -11,12 +11,10 @@
 
 #include <auton/CyclePrimitives.h>
 #include <chassis/ChassisFactory.h>
-#include <chassis/IChassis.h>
-#include <chassis/differential/ArcadeDrive.h>
-#include <chassis/swerve/SwerveDrive.h>
+#include <chassis/holonomic/HolonomicDrive.h>
+#include <chassis/IHolonomicChassis.h>
+#include <chassis/mecanum/MecanumChassis.h>
 #include <TeleopControl.h>
-#include <hw/DragonLimelight.h>
-#include <hw/factories/LimelightFactory.h>
 #include <utils/Logger.h>
 #include <utils/LoggerData.h>
 #include <utils/LoggerEnums.h>
@@ -30,9 +28,6 @@ void Robot::RobotInit()
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
 
-    //CameraServer::SetSize(CameraServer::kSize320x240);
-    //CameraServer::StartAutomaticCapture();
-
     // Read the XML file to build the robot 
     auto XmlParser = new RobotXmlParser();
     XmlParser->ParseXML();
@@ -40,16 +35,12 @@ void Robot::RobotInit()
     // Get local copies of the teleop controller and the chassis
     m_controller = TeleopControl::GetInstance();
     auto factory = ChassisFactory::GetChassisFactory();
-    m_chassis = factory->GetIChassis();
-    m_swerve = nullptr;
-    m_arcade = nullptr;
+    m_chassis = factory->GetMecanumChassis();
+    m_holonomic = nullptr;
     if (m_chassis != nullptr)
     {
-         m_swerve = m_chassis->GetType() == IChassis::CHASSIS_TYPE::SWERVE ? new SwerveDrive() : nullptr;
-         m_arcade = m_chassis->GetType() == IChassis::CHASSIS_TYPE::DIFFERENTIAL ? new ArcadeDrive() : nullptr;
-    }
-    m_dragonLimeLight = LimelightFactory::GetLimelightFactory()->GetLimelight();
-        
+         m_holonomic = m_chassis->GetType() != IChassis::CHASSIS_TYPE::DIFFERENTIAL ? new HolonomicDrive() : nullptr;
+    }        
 
     m_cyclePrims = new CyclePrimitives();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
@@ -67,13 +58,6 @@ void Robot::RobotPeriodic()
     if (m_chassis != nullptr)
     {
         m_chassis->UpdateOdometry();
-    }
-    if (m_dragonLimeLight != nullptr)
-    {
-        LoggerDoubleValue horAngle = {string("Horizontal Angle"), m_dragonLimeLight->GetTargetHorizontalOffset().to<double>()};
-        LoggerDoubleValue distance = { string("distance "), m_dragonLimeLight->EstimateTargetDistance().to<double>()};
-        LoggerData  data = {LOGGER_LEVEL::PRINT, string("DragonLimelight"), {}, {}, {horAngle, distance}, {}};
-        Logger::GetLogger()->LogData(data);
     }
     Logger::GetLogger()->PeriodicLog();
 }
@@ -110,16 +94,9 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit() 
 {
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("arrived"));   
-    if (m_chassis != nullptr && m_controller != nullptr)
+    if (m_chassis != nullptr && m_controller != nullptr && m_holonomic != nullptr)
     {
-        if (m_swerve != nullptr)
-        {
-            m_swerve->Init();
-        }
-        else if (m_arcade != nullptr)
-        {
-            m_arcade->Init();
-        }
+        m_holonomic->Init();
     }
     StateMgrHelper::RunCurrentMechanismStates();
 
@@ -129,16 +106,9 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic() 
 {
-    if (m_chassis != nullptr && m_controller != nullptr)
+    if (m_chassis != nullptr && m_controller != nullptr && m_holonomic != nullptr)
     {
-        if (m_swerve != nullptr)
-        {
-            m_swerve->Run();
-        }
-        else if (m_arcade != nullptr)
-        {
-            m_arcade->Run();
-        }
+        m_holonomic->Run();
     }
     StateMgrHelper::RunCurrentMechanismStates();
 }
