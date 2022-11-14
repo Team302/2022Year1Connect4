@@ -41,6 +41,8 @@ class ServoUsage
         {
             UNKNOWN_SERVO_USAGE = -1,
             RELEASE_SERVO, 
+            RELEASE_SERVO2,
+            FLAG_SERVO,
             MAX_SERVO_USAGES
         };
 
