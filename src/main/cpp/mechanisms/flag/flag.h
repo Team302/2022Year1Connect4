@@ -22,23 +22,18 @@
 ///     This controls the flag arm/subsystem
 ///
 //========================================================================================================
-
+using namespace std;
 #pragma once
 
 #include <mechanisms/base/Mech1Servo.h>
-class flagarm : public Mech1Servo {
+class Flagarm : public Mech1Servo {
 public :
- Mech1Servo
-        (
-            MechanismTypes::MECHANISM_TYPE              type,
-            std::string                                 controlFileName,
-            std::string                                 networkTableName,
+ Flagarm
+    (
+            string                                 controlFileName,
+            string                                 networkTableName,
             DragonServo*                                servo
-        );
-	    Mech1Servo() = delete;
-	    virtual ~Mech1Servo() = default;
-
-
-
-    
-}
+    );
+	    Flagarm() = delete;
+	    virtual ~Flagarm() = default;
+};
