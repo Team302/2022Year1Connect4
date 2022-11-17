@@ -145,13 +145,12 @@
           turn_cruise_vel   CDATA "0.0"
 >
 
-
 <!-- ========================================================================================================================================== -->
 <!--	mechanism  																																-->
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              ( LEFT_INTAKE | RIGHT_INTAKE | BALL_TRANSFER | SHOOTER | CLIMBER | INDEXER | LIFT) "SHOOTER"
+          type              (INTAKE | ARM | RELEASE | FLAG) "INTAKE"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >
