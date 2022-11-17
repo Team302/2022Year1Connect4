@@ -39,25 +39,7 @@ class arm : public Mech1IndMotor
 	    arm() = delete;
 	    ~arm() override = default;
 
-        /// @brief log data to the network table if it is activated and time period has past
-        void LogHardwareInformation() override;
-
-        /// @brief update the output to the mechanism using the current controller and target value(s)
-        /// @return void 
-        void Update();
-
-        void UpdateTarget
-        (
-            double      target
-        );
-
-         /// @brief  Return the current position of the mechanism.  The value is in inches or degrees.
-        /// @return double	position in inches (translating mechanisms) or degrees (rotating mechanisms)
-        double GetPosition() const;
-
-        /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
-        /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        double GetSpeed() const;
+       
 
         
 

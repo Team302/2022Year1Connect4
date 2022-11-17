@@ -30,7 +30,7 @@ std::string                                 controlFileName,
 std::string                                 networkTableName,  
 std::shared_ptr<IDragonMotorController>     motorController
 
-):Mech1IndMotor(,controlFileName,networkTableName,motorController)
+):Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::ARM,controlFileName,networkTableName,motorController)
 {
     
 }
