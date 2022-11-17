@@ -32,7 +32,6 @@ class arm : public Mech1IndMotor
         /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
         arm
         (
-            MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
             std::shared_ptr<IDragonMotorController>     motorController
@@ -59,5 +58,7 @@ class arm : public Mech1IndMotor
         /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
         double GetSpeed() const;
+
+        
 
 };
