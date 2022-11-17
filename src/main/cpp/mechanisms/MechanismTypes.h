@@ -42,6 +42,7 @@ class MechanismTypes
             MAX_MECHANISM_TYPES
         };
 
+
         static MechanismTypes* GetInstance();
 
         MECHANISM_TYPE GetType
