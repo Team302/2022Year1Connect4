@@ -37,7 +37,7 @@ class MechanismTypes
             // @ADDMECH add your mechanism 
             INTAKE,
             ARM,
-            RELEAEE,
+            RELEASE,
             FLAG,
             MAX_MECHANISM_TYPES
         };
