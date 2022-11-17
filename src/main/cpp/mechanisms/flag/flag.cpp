@@ -29,4 +29,7 @@ Flagarm::Flagarm
             string                                 networkTableName,
             DragonServo*                                servo
     ):
-    Mech1Servo(MechanismTypes::MECHANISM_TYPE::)
+    Mech1Servo(MechanismTypes::MECHANISM_TYPE::FLAG,controlFileName,networkTableName,servo)
+    {
+        
+    }
