@@ -15,24 +15,45 @@
 
 #pragma once
 
-#include <mechanisms/base/Mech1Servo.h>
+#include <mechanisms/base/Mech2Servos.h>
 
-class release : public Mech1Servo{
-public :   
-        release(
-            MechanismTypes::MECHANISM_TYPE              type,
+class DragonServo;
+class release : public Mech2Servos
+{
+    public:
+        /// @brief Create a generic mechanism wiht 1 servo 
+        /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
+        release
+        (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            DragonServo*                                servo
+            DragonServo*                                servo,
+            DragonServo*                                servo2
         );
-        release() = delete;
-	    ~release() = default;
-        
+	    release() = delete;
+	    virtual ~release() = default;
+
+
+        /// @brief      Move servo to the desired angle
+        /// @param [in] double angle: Target angle in degrees
+        /// @return     void
         void SetAngle
         (
             double angle       
         );
 
-        double GetAngle() const;
+        /// @brief      Move servo to the desired angle
+        /// @param [in] double angle: Target angle in degrees
+        /// @return     void
+        void SetAngle2
+        (
+            double angle       
+        );
 
-};      
+        double GetAngle() const;
+        double GetAngle2() const;
+
+    private:
+        DragonServo*                                m_servo;
+        DragonServo*                                m_servo2;
+};
