@@ -35,7 +35,10 @@ class MechanismTypes
         {
             UNKNOWN_MECHANISM = -1,
             // @ADDMECH add your mechanism 
-
+            INTAKE,
+            ARM,
+            RELEAEE,
+            FLAG,
             MAX_MECHANISM_TYPES
         };
 
