@@ -28,7 +28,7 @@
 #include <gamepad/button/POVButton.h>
 #include <gamepad/button/ToggleButton.h>
 #include <gamepad/DragonXBox.h>
-#include <utils/DragonAssert.h>
+#include <utils/Logger.h>
 
  using namespace std;
  using namespace frc;
@@ -102,10 +102,11 @@ bool DragonXBox::IsButtonPressed
     BUTTON_IDENTIFIER    button // <I> - button to check
 ) const
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_button[button] != nullptr, string("DragonXBox::IsButtonPressed: button is Nullptr")))
+    if (m_button[button] != nullptr)
     {
         return m_button[button]->IsButtonPressed();
     }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("IsButtonPressed"), to_string(button), string("button is Nullptr"));
     return false;
 }
         
@@ -122,10 +123,11 @@ bool DragonXBox::WasButtonReleased
     BUTTON_IDENTIFIER    button // <I> - button to check
  ) const    
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_button[button] != nullptr, string("DragonXBox::WasButtonReleased: button is Nullptr")))
+    if (m_button[button] != nullptr)
     {
         return m_button[button]->WasButtonReleased();
     }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonReleased"), to_string(button), string("button is Nullptr"));
     return false;
 }
 
@@ -143,10 +145,11 @@ bool DragonXBox::WasButtonPressed
     BUTTON_IDENTIFIER    button // <I> - button to check
 ) const        
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_button[button] != nullptr, string("DragonXBox::WasButtonPressed: button is Nullptr")))
+    if (m_button[button] != nullptr)
     {
         return m_button[button]->WasButtonPressed();
     }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonPressed"), to_string(button), string("button is Nullptr"));
     return false;
 }
  
@@ -167,12 +170,16 @@ void DragonXBox::SetButtonMode
     BUTTON_MODE mode          /// <I> - button behavior
 )
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_button[button] != nullptr, string("DragonXBox::SetButtonMode: button is Nullptr")))
+    if (m_button[button] != nullptr)
     {
         if (mode == BUTTON_MODE::TOGGLE)
         {
             auto btn = new ToggleButton(m_button[button]);
             m_button[button] = btn;
+        }
+        else
+        {
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetButtonMode"), to_string(button), string("button is Nullptr"));
         }
         // TODO: should have else to re-create the button or remove the toggle decorator
     }
@@ -188,10 +195,12 @@ double DragonXBox::GetAxisValue
     AXIS_IDENTIFIER    axis// <I> - axis identifier to read
 ) const
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_axis[axis] != nullptr, string("DragonXBox::GetAxisValue: Axis is Nullptr")))
+    if (m_axis[axis] != nullptr)
     {
         return m_axis[axis]->GetAxisValue();
     }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("GetAxisValue"), to_string(axis), string("button is Nullptr"));
+
     return 0.0;
 }
 
@@ -212,10 +221,14 @@ void DragonXBox::SetAxisProfile
     AXIS_PROFILE  	                curve       // <I> - the definition of the sensitivity
 )
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_axis[axis] != nullptr, string("DragonXBox::SetAxisProfile: Axis is Nullptr")))
+    if (m_axis[axis] != nullptr)
     {
         m_axis[axis]->SetAxisProfile(curve);
-    }        
+    }  
+    else
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisProfile"), to_string(axis), string("button is Nullptr"));
+    }      
 }
 
 
@@ -233,10 +246,14 @@ void DragonXBox::SetAxisScale
     double                              scaleFactor // <I> - value  (0 < scale <= 1.0) to scale the axis value
 )
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_axis[axis] != nullptr, string("DragonXBox::SetAxisScale: Axis is Nullptr")))
+    if (m_axis[axis] != nullptr)
     {
         m_axis[axis]->SetAxisScaleFactor(scaleFactor);
-    }        
+    }    
+    else
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisScale"), to_string(axis), string("button is Nullptr"));
+    }    
 } 
 
  
@@ -254,10 +271,14 @@ void DragonXBox::SetAxisDeadband
     AXIS_DEADBAND type    /// <I> - deadband option
 ) 
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_axis[axis] != nullptr, string("DragonXBox::SetAxisDeadband: Axis is Nullptr")))
+    if (m_axis[axis] != nullptr)
     {
         m_axis[axis]->SetDeadBand(type);
     }        
+    else
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisDeadband"), to_string(axis), string("button is Nullptr"));
+    }    
 }
 
 void DragonXBox::SetAxisFlipped
@@ -266,10 +287,14 @@ void DragonXBox::SetAxisFlipped
     bool            isInverted      /// <I> - deadband option
 ) 
 {
-    if (DragonAssert::GetDragonAssert()->Always(m_axis[axis] != nullptr, string("DragonXBox::SetAxisFlipped: Axis is Nullptr")))
+    if (m_axis[axis] != nullptr)
     {
         m_axis[axis]->SetInverted(isInverted);
-    }        
+    }     
+    else
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisFlipped"), to_string(axis), string("button is Nullptr"));
+    }    
 }
 
 

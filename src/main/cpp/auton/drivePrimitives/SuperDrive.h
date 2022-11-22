@@ -20,7 +20,7 @@
 #include <memory>
 
 // FRC includes
-#include <frc/kinematics/DifferentialDriveKinematics.h>
+//#include <frc/kinematics/DifferentialDriveKinematics.h>
 
 // Team 302 includes
 #include <auton/drivePrimitives/IPrimitive.h>
@@ -76,6 +76,6 @@ protected:
 		double m_accelDecelTime;
 		double m_currentTime;
 		double m_minSpeedSlowdown;
-		frc::DifferentialDriveKinematics* m_kinematics;
+		//frc::DifferentialDriveKinematics* m_kinematics;
 };
 

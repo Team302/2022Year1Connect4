@@ -5,7 +5,7 @@
             type="REV"/>
        <pigeon canId="0"
                usage="CENTER_OF_ROTATION"
-               type="pigeon2"
+               type="pigeon1"
                rotation="0.0"/>
 
  <!-- ====================================================
@@ -24,8 +24,8 @@
               controlFile="chassis.xml">
 			 
             <motor  usage="MECANUM_LEFT_FRONT"
-                    canId="0"
-                    pdpID="0"
+                    canId="1"
+                    pdpID="1"
                     type="TALONSRX"
                     inverted="false"
                     sensorInverted="false"
@@ -43,8 +43,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="MECANUM_LEFT_BACK"
-                    canId="2"
-                    pdpID="2"
+                    canId="3"
+                    pdpID="3"
                     type="TALONSRX"
                     inverted="false"
                     sensorInverted="false"
@@ -63,8 +63,8 @@
                     reverselimitswitchopen="true"/>        
   			 
             <motor  usage="MECANUM_RIGHT_FRONT"
-                    canId="2"
-                    pdpID="2"
+                    canId="0"
+                    pdpID="0"
                     type="TALONSRX"
                     inverted="true"
                     sensorInverted="false"
@@ -82,8 +82,8 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="MECANUM_RIGHT_BACK"
-                    canId="3"
-                    pdpID="3"
+                    canId="2"
+                    pdpID="2"
                     type="TALONSRX"
                     inverted="true"
                     sensorInverted="false"

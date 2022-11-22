@@ -31,6 +31,7 @@
 #include <hw/factories/PigeonFactory.h>
 #include <hw/DragonPigeon.h>
 #include <utils/ConversionUtils.h>
+#include <utils/Logger.h>
 
 #include <chassis/mecanum/MecanumChassis.h>
 
@@ -78,6 +79,11 @@ void MecanumChassis::Drive
     IHolonomicChassis::HEADING_OPTION      headingOption
 ) 
 {
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Vx"), chassisSpeeds.vx.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Vy"), chassisSpeeds.vy.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Omega"), chassisSpeeds.omega.value());
+
     auto speeds = mode == IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? FieldDriveUtils::ConvertFieldOrientedToRobot(chassisSpeeds, m_pigeon) : chassisSpeeds;
     auto forward = speeds.vx / m_maxSpeed;
     auto strafe  = speeds.vy / m_maxSpeed;

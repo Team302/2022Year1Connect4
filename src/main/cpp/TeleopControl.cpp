@@ -108,12 +108,13 @@ void TeleopControl::Initialize()
     auto ctrlNo = 0;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 0"), string("XBOX plugged in"));
 		m_controllerIndex[ HOLONOMIC_DRIVE_FORWARD]			= ctrlNo;
-		m_axisIDs[ HOLONOMIC_DRIVE_FORWARD]					= IDragonGamePad::LEFT_JOYSTICK_Y;
+		m_axisIDs[HOLONOMIC_DRIVE_FORWARD]					= IDragonGamePad::LEFT_JOYSTICK_Y;
 		m_controllerIndex[ HOLONOMIC_DRIVE_STRAFE]			= ctrlNo;
-		m_axisIDs[ HOLONOMIC_DRIVE_STRAFE]					= IDragonGamePad::LEFT_JOYSTICK_X;
+		m_axisIDs[HOLONOMIC_DRIVE_STRAFE]					= IDragonGamePad::LEFT_JOYSTICK_X;
 		m_controllerIndex[ HOLONOMIC_DRIVE_ROTATE]			= ctrlNo;
-		m_axisIDs[ HOLONOMIC_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
+		m_axisIDs[HOLONOMIC_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 
 		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
 		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	
@@ -128,74 +129,79 @@ void TeleopControl::Initialize()
     }
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("No controller plugged into port 0"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 0"), string("No controller plugged in"));
     }
 
     ctrlNo = 1;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
-
-
-
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 1"), string("XBOIX controller plugged in"));
 	}
     else if ( m_controller[ctrlNo] != nullptr )
     {
-
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 1"), string("Non-XBOIX controller plugged in"));
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 1 not handled"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 1"), string("No controller plugged in"));
     }
 
 	ctrlNo = 2;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
-
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 2"), string("XBOIX controller plugged in"));
 	}
     else if ( m_controller[ctrlNo] != nullptr )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 2"), string("Non-XBOIX controller plugged in"));
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 2 not handled"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 2"), string("No controller plugged in"));
     }
 
     ctrlNo = 3;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
-
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 3"), string("XBOIX controller plugged in"));
 	}
     else if ( m_controller[ctrlNo] != nullptr )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 3"), string("Non-XBOIX controller plugged in"));
 	}
 	else
 	{
-		Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 3 not handled"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 3"), string("No controller plugged in"));
 
 	}
 
     ctrlNo = 4;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 4"), string("XBOIX controller plugged in"));
 	}
     else if ( m_controller[ctrlNo] != nullptr )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 4"), string("Non-XBOIX controller plugged in"));
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 4 not handled"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 4"), string("No controller plugged in"));
     }
 
     ctrlNo = 5;
     if ( m_controller[ctrlNo] != nullptr && DriverStation::GetJoystickIsXbox(ctrlNo) )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 5"), string("XBOIX controller plugged in"));
 	}
     else if ( m_controller[ctrlNo] != nullptr )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 5"), string("Non-XBOIX controller plugged in"));
+
 	}
 	else
 	{
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("TeleopControl"), string("Initialize"), string("Controller 5 not handled"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("TeleopControl"), string("Controller 5"), string("No controller plugged in"));
     }
 }
 
@@ -280,6 +286,11 @@ double TeleopControl::GetAxisValue
     double value = 0.0;
 	int ctlIndex = m_controllerIndex[ function];
 	IDragonGamePad::AXIS_IDENTIFIER axis = m_axisIDs[ function ];
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("GetAxisValue"), string("function"), function);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("GetAxisValue"), string("control index"), ctlIndex);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("GetAxisValue"), string("Axis"), axis);
+
     if ( ctlIndex > -1 && axis != IDragonGamePad::AXIS_IDENTIFIER::UNDEFINED_AXIS  )
     {
     	if (m_controller[ ctlIndex ] != nullptr)

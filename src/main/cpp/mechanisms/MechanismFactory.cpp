@@ -122,6 +122,21 @@ Mech* MechanismFactory::GetMechanism
 	switch (type)
 	{
 		// @ADDMECH  Add case for Mechanism
+		case MechanismTypes::ARM:
+		    return nullptr;
+			break;
+
+		case MechanismTypes::FLAG:
+			return nullptr;
+			break;
+
+		case MechanismTypes::INTAKE:
+			return nullptr;
+			break;
+		
+		case MechanismTypes::RELEASE:
+			return nullptr;
+			break;
 
 		default:
 			return nullptr;
