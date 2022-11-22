@@ -33,27 +33,7 @@ class release : public Mech2Servos
 	    release() = delete;
 	    virtual ~release() = default;
 
+        
 
-        /// @brief      Move servo to the desired angle
-        /// @param [in] double angle: Target angle in degrees
-        /// @return     void
-        void SetAngle
-        (
-            double angle       
-        );
 
-        /// @brief      Move servo to the desired angle
-        /// @param [in] double angle: Target angle in degrees
-        /// @return     void
-        void SetAngle2
-        (
-            double angle       
-        );
-
-        double GetAngle() const;
-        double GetAngle2() const;
-
-    private:
-        DragonServo*                                m_servo;
-        DragonServo*                                m_servo2;
 };
