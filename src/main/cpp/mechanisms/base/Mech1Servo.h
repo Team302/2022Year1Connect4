@@ -60,6 +60,9 @@ class Mech1Servo : public Mech
     private:
         DragonServo*                                m_servo;
 
+    protected:
+    int             m_test;
+
 };
 
 
