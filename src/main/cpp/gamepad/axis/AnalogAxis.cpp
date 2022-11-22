@@ -73,22 +73,23 @@ double AnalogAxis::GetAxisValue()
 {
     if (m_gamepad != nullptr)
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("AnalogAxis"), string("GetAxisValue"), string("arrived"));
         auto value = GetRawValue();
         value = m_deadband->ApplyDeadband(value);
         value = m_profile->ApplyProfile(value);
         value = m_scale->Scale(value);
         value = m_inversion->ApplyInversion(value);
         
-        if (m_secondaryAxis != nullptr)
-        {
-            auto value2 = m_secondaryAxis->GetAxisValue();
-            auto angle = atan2(value2, value);
-            auto cosAngle = abs(cos(angle));
-            value = cosAngle > 0 ? value / cosAngle : value;
-        }
+        // if (m_secondaryAxis != nullptr)
+        // {
+        //     auto value2 = m_secondaryAxis->GetAxisValue();
+        //     auto angle = atan2(value2, value);
+        //     auto cosAngle = abs(cos(angle));
+        //     value = cosAngle > 0 ? value / cosAngle : value;
+        // }
         return value;
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("GetAxisValue"), string("Gamepad"), string("m_gamepad is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::GetAxisValue"), string("Gamepad"), string("m_gamepad is Nullptr"));
     return 0.0;
 }
 
@@ -117,7 +118,7 @@ void AnalogAxis::SetDeadBand
             break;
 
         default:
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetDeadBand"), string("invalid deadband"), string("true"));
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::AnalogAxis::SetDeadBand"), string("invalid deadband"), string("true"));
             break;
     }
 
@@ -149,7 +150,7 @@ void AnalogAxis::SetAxisProfile
             break;
 
         default:
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisProfile"), string("invalid profile"), string("true"));
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::SetAxisProfile"), string("invalid profile"), string("true"));
             break;
     }
 }
@@ -170,7 +171,7 @@ void AnalogAxis::SetAxisScaleFactor
     }
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisScaleFactor"), string("no scale"), string("true"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::SetAxisScaleFactor"), string("no scale"), string("true"));
     }
 }
 
@@ -186,7 +187,7 @@ void AnalogAxis::SetInverted
     }
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetInverted"), string("no scale"), string("true"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::SetInverted"), string("no scale"), string("true"));
     }
 }
 //==================================================================================
@@ -202,7 +203,7 @@ double AnalogAxis::GetRawValue()
     }
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("GetRawValue"), string("gamepad is nullptr"), string("true"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::GetRawValue"), string("gamepad is nullptr"), string("true"));
     }
 
     return 0.0;
