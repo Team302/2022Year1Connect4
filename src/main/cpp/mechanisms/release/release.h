@@ -33,7 +33,4 @@ class release : public Mech2Servos
 	    release() = delete;
 	    virtual ~release() = default;
 
-        
-
-
 };
