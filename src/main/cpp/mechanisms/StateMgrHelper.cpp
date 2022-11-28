@@ -23,6 +23,7 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
+#include <mechanisms/example/ExampleState.h>
 #include <utils/Logger.h>
 
 using namespace std;
@@ -58,6 +59,10 @@ IState* StateMgrHelper::CreateState
     IState* thisState = nullptr;
     switch (type)
     {
+        case StateType::EXAMPLE_STATE:
+            thisState = new ExampleState(controlData, target);
+            break;
+
         // @ADDMECH Add case(s) tto create your state(s) 
         //case StateType::SHOOTER:
         //    thisState = new ShooterState(controlData, 

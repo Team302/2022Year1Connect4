@@ -93,6 +93,7 @@ void HolonomicDrive::Run()
         auto maxSpeed = m_chassis->GetMaxSpeed();
         auto maxAngSpeed = m_holonomicChassis->GetMaxAngularSpeed();
 
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("about to read joysticks"), string("xxx"));
         auto forward = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD);
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("forward"), forward);
         auto strafe = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE);

@@ -52,7 +52,7 @@ bool DigitalButton::IsButtonPressed() const
     {
         return m_gamepad->GetRawButton(m_button);
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("IsButtonPressed"), string("Gampad"), string("is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DigitalButton::DigitalButton::IsButtonPressed"), string("Gampad"), string("is Nullptr"));
     return false;
 }
 
@@ -62,7 +62,7 @@ bool DigitalButton::WasButtonReleased() const
     {
         return m_gamepad->GetRawButtonReleased(m_button);
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonReleased"), string("Gampad"), string("is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DigitalButton::DigitalButton::WasButtonReleased"), string("Gampad"), string("is Nullptr"));
     return false;
 }
 
@@ -72,7 +72,7 @@ bool DigitalButton::WasButtonPressed() const
     {
         return  m_gamepad->GetRawButtonPressed(m_button);
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonPressed"), string("Gampad"), string("is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DigitalButton::WasButtonPressed"), string("Gampad"), string("is Nullptr"));
     return false;
 }
 
