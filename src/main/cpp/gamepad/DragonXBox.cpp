@@ -106,7 +106,7 @@ bool DragonXBox::IsButtonPressed
     {
         return m_button[button]->IsButtonPressed();
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("IsButtonPressed"), to_string(button), string("button is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::IsButtonPressed"), to_string(button), string("button is Nullptr"));
     return false;
 }
         
@@ -127,7 +127,7 @@ bool DragonXBox::WasButtonReleased
     {
         return m_button[button]->WasButtonReleased();
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonReleased"), to_string(button), string("button is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::WasButtonReleased"), to_string(button), string("button is Nullptr"));
     return false;
 }
 
@@ -149,7 +149,7 @@ bool DragonXBox::WasButtonPressed
     {
         return m_button[button]->WasButtonPressed();
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("WasButtonPressed"), to_string(button), string("button is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::WasButtonPressed"), to_string(button), string("button is Nullptr"));
     return false;
 }
  
@@ -179,7 +179,7 @@ void DragonXBox::SetButtonMode
         }
         else
         {
-            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetButtonMode"), to_string(button), string("button is Nullptr"));
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::SetButtonMode"), to_string(button), string("button is Nullptr"));
         }
         // TODO: should have else to re-create the button or remove the toggle decorator
     }
@@ -195,11 +195,12 @@ double DragonXBox::GetAxisValue
     AXIS_IDENTIFIER    axis// <I> - axis identifier to read
 ) const
 {
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("DragonXBox::GetAxisValue"), string("top of Xbox GetAxisValue"), string("xxx"));
     if (m_axis[axis] != nullptr)
     {
         return m_axis[axis]->GetAxisValue();
     }
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("GetAxisValue"), to_string(axis), string("button is Nullptr"));
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::GetAxisValue"), to_string(axis), string("button is Nullptr"));
 
     return 0.0;
 }
@@ -227,7 +228,7 @@ void DragonXBox::SetAxisProfile
     }  
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisProfile"), to_string(axis), string("button is Nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::SetAxisProfile"), to_string(axis), string("button is Nullptr"));
     }      
 }
 
@@ -252,7 +253,7 @@ void DragonXBox::SetAxisScale
     }    
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisScale"), to_string(axis), string("button is Nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::SetAxisScale"), to_string(axis), string("button is Nullptr"));
     }    
 } 
 
@@ -277,7 +278,7 @@ void DragonXBox::SetAxisDeadband
     }        
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisDeadband"), to_string(axis), string("button is Nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::SetAxisDeadband"), to_string(axis), string("button is Nullptr"));
     }    
 }
 
@@ -293,7 +294,7 @@ void DragonXBox::SetAxisFlipped
     }     
     else
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("SetAxisFlipped"), to_string(axis), string("button is Nullptr"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("DragonXBox::SetAxisFlipped"), to_string(axis), string("button is Nullptr"));
     }    
 }
 
