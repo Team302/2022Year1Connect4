@@ -92,7 +92,7 @@ void MechanismFactory::CreateMechanism
 	// Create the mechanism
 	switch ( type )
 	{
-		case MechanismTypes::EXAMPLE:
+		case MechanismTypes::MECHANISM_TYPE::EXAMPLE:
 		{
 			auto motor = GetMotorController(motorControllers, MotorControllerUsage::EXAMPLE);
 			m_example = new Example(controlFileName, networkTableName, motor);
@@ -119,24 +119,24 @@ Mech* MechanismFactory::GetMechanism
 {
 	switch (type)
 	{
-		case MechanismTypes::EXAMPLE:
+		case MechanismTypes::MECHANISM_TYPE::EXAMPLE:
 			return m_example;
 			break;
 
 		// @ADDMECH  Add case for Mechanism
-		case MechanismTypes::ARM:
+		case MechanismTypes::MECHANISM_TYPE::ARM:
 		    return nullptr;
 			break;
 
-		case MechanismTypes::FLAG:
+		case MechanismTypes::MECHANISM_TYPE::FLAG:
 			return nullptr;
 			break;
 
-		case MechanismTypes::INTAKE:
+		case MechanismTypes::MECHANISM_TYPE::INTAKE:
 			return nullptr;
 			break;
 		
-		case MechanismTypes::RELEASE:
+		case MechanismTypes::MECHANISM_TYPE::RELEASE:
 			return nullptr;
 			break;
 
