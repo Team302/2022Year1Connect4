@@ -80,13 +80,21 @@ double AnalogAxis::GetAxisValue()
         value = m_scale->Scale(value);
         value = m_inversion->ApplyInversion(value);
         
-        // if (m_secondaryAxis != nullptr)
-        // {
-        //     auto value2 = m_secondaryAxis->GetAxisValue();
-        //     auto angle = atan2(value2, value);
-        //     auto cosAngle = abs(cos(angle));
-        //     value = cosAngle > 0 ? value / cosAngle : value;
-        // }
+        /**
+        if (value != 0.0)
+        {
+            if (m_secondaryAxis != nullptr)
+            {
+                auto value2 = m_secondaryAxis->GetAxisValue();
+                if (value2 != 0.0)
+                {
+                    auto angle = atan(value2/value);
+                    auto cosAngle = abs(cos(angle));
+                    value /= cosAngle;
+                }
+            }
+        }
+        **/
         return value;
     }
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT_ONCE, string("AnalogAxis::GetAxisValue"), string("Gamepad"), string("m_gamepad is Nullptr"));
