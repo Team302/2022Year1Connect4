@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -16,47 +15,26 @@
 
 #pragma once
 
-#include <map>
+// C++ Includes
+#include <memory>
 #include <string>
 
-//========================================================================================================
-///	 @class			MechanismTypes
-///  @brief      	This contains the enum for the mechanism types
-//========================================================================================================
-class MechanismTypes
+// Team 302 includes
+#include <mechanisms/base/Mech1IndMotor.h>
+
+class Example : public Mech1IndMotor
 {
 	public:
-
-        //==================================================================================
-        /// enum:           MECHANISM_TYPE
-        /// description:    Indicates the type of mechanism
-        //==================================================================================
-        enum MECHANISM_TYPE
-        {
-            UNKNOWN_MECHANISM = -1,
-            EXAMPLE,
-            // @ADDMECH add your mechanism 
-            INTAKE,
-            ARM,
-            RELEASE,
-            FLAG,
-            MAX_MECHANISM_TYPES
-        };
-
-        static MechanismTypes* GetInstance();
-
-        MECHANISM_TYPE GetType
-        ( 
-            std::string         typeString
+        /// @brief Create an Example mechanism wiht 1 independent motor 
+        /// @param [in] std::string the name of the file that will set control parameters for this mechanism
+        /// @param [in] std::string the name of the network table for logging information
+        /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
+        Example
+        (
+            std::string                                 controlFileName,
+            std::string                                 networkTableName,
+            std::shared_ptr<IDragonMotorController>     motorController
         );
-
-
-    private:
-        static MechanismTypes*    m_instance;
-        MechanismTypes();
-        ~MechanismTypes();
-        
-		std::map <std::string, MECHANISM_TYPE> m_typeMap;
-
+	    Example() = delete;
+	    ~Example() override = default;
 };
-
