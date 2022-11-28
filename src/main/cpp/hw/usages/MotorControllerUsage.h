@@ -50,8 +50,9 @@ class MotorControllerUsage
             MECANUM_RIGHT_FRONT,
             MECANUM_RIGHT_BACK,
             INTAKE,
-            INTAKE_TRANSFER,
+            INTAKE2,
             ARM,
+            EXAMPLE,
             MAX_MOTOR_CONTROLLER_USAGES
         };
 
