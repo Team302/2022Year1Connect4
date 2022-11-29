@@ -19,7 +19,7 @@
 enum StateType
 {
     // @ADDMECH Add your states
-
+    RELEASE,
     MAX_STATE_TYPES
 };
 

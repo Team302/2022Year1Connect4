@@ -42,47 +42,38 @@ class ReleaseStateMgr : public StateMgr
             CLOSED_CLOSED,
             
         };
-        const std::string m_shooterOffXmlString = "SHOOTER_OFF";
-        const std::string m_shooterHighGoalCloseXmlString = "SHOOT_HIGHGOAL_CLOSE";
-        const std::string m_shooterHighGoalFarXmlString = "SHOOT_HIGHGOAL_FAR";
-        const std::string m_shooterLowGoalXmlString = "SHOOT_LOWGOAL";
-        const std::string m_shooterManualXmlString = "MANUAL_SHOOT";
-        const std::string m_shooterPrepareXmlString = "PREPARETOSHOOT";
+        const std::string m_releaseOpenClosedXMLString = "RELEASE_OPEN_CLOSED";
+        const std::string m_releaseOpenOpenXMLString = "RELEASE_OPEN_OPEN";
+        const std::string m_releaseClosedOpenXmlString = "RELEASE_CLOSED_OPEN";
+        const std::string m_releaseClosedClosedXmlString = "RELEASE_CLOSED_CLOSED";
         
-        const std::map<const std::string, SHOOTER_STATE> m_shooterXmlStringToStateEnumMap
-        {   {m_shooterOffXmlString, SHOOTER_STATE::OFF},
-            {m_shooterHighGoalCloseXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE},
-            {m_shooterHighGoalFarXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR},
-            {m_shooterLowGoalXmlString, SHOOTER_STATE::SHOOT_LOW_GOAL},
-            {m_shooterManualXmlString, SHOOTER_STATE::SHOOT_MANUAL},
-            {m_shooterPrepareXmlString, SHOOTER_STATE::PREPARE_TO_SHOOT}
+        const std::map<const std::string, RELEASE_STATE> m_releaseXmlStringToStateEnumMap
+        {   {m_releaseOpenClosedXMLString, RELEASE_STATE::OPEN_CLOSED},
+            {m_releaseOpenOpenXMLString, RELEASE_STATE::OPEN_OPEN},
+            {m_releaseClosedOpenXmlString, RELEASE_STATE::CLOSED_OPEN},
+            {m_releaseClosedClosedXmlString, RELEASE_STATE::CLOSED_CLOSED},
         };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
-		static ShooterStateMgr* GetInstance();
+		static ReleaseStateMgr* GetInstance();
 
         void CheckForStateTransition() override;
         bool AtTarget() const;
         bool IsShooting() const;
     private:
 
-        ShooterStateMgr();
-        ~ShooterStateMgr() = default;
+        ReleaseStateMgr();
+        ~ReleaseStateMgr() = default;
         
-        DragonLimelight* m_dragonLimeLight;
-        Shooter*                                m_shooter;
         std::shared_ptr<nt::NetworkTable>       m_nt;
         bool m_buttonTriggerStateChange;
 
+		static ReleaseStateMgr*	m_instance;
 
-        const double m_CHANGE_STATE_TARGET = 120.0; 
-		static ShooterStateMgr*	m_instance;
-        const StateStruc m_offState = {SHOOTER_STATE::OFF, StateType::SHOOTER, true};
-        const StateStruc m_shootFarState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR, StateType::SHOOTER_AUTO, false};
-        const StateStruc m_shootCloseState = {SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE, StateType::SHOOTER_AUTO, false};
-        const StateStruc m_shootLowState = {SHOOTER_STATE::SHOOT_LOW_GOAL, StateType::SHOOTER, false};
-        const StateStruc m_manualShootState = {SHOOTER_STATE::SHOOT_MANUAL, StateType::SHOOTER, false};
-        const StateStruc m_prepareToShoot = {SHOOTER_STATE::PREPARE_TO_SHOOT, StateType::SHOOTER, false};
+        const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, StateType::RELEASE, false};
+        const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, StateType::RELEASE, false};
+        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE, false};
+        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE, true};
 };
