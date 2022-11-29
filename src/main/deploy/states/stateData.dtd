@@ -17,11 +17,12 @@
 
 <!ELEMENT mechanismTarget EMPTY>
 <!ATTLIST mechanismTarget 
-          stateIdentifier ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL | INTAKE_RETRACT |
-                            SHOOTER_OFF | SHOOT_LOWGOAL | MANUAL_SHOOT | ADJUSTHOOD | PREPARETOSHOOT | SHOOT_HIGHGOAL_CLOSE | SHOOT_HIGHGOAL_FAR | 
-                            CLIMBER_OFF | CLIMBER_MANUAL | CLIMBER_INITIALREACH | CLIMBER_RETRACT | CLIMBER_RELEASE | CLIMBER_REACHTOBAR | CLIMBER_ROTATEOUT | CLIMBER_ROTATEIN | CLIMBER_HOLD |
-                            LIFT_LIFT | LIFT_LOWER | LIFT_OFF |
-                            INDEXER_INDEX | INDEXER_EXPEL | INDEXER_OFF |
+
+          stateIdentifier ( INTAKE_OFF | INTAKE_ON | INTAKE_EXPEL | 
+                            ARM_OFF | ARM_UP | ARM_DOWN | ARM_GOING_UP | ARM_GOING_DOWN |
+                            RELEASE_OPEN_OPEN | RELEASE_OPEN_CLOSED | RELEASE_CLOSED_OPEN | RELEASE_CLOSED_CLOSED | 
+                            FLAG_GRAB | FLAG_RELEASE |
+                            EXAMPLE_OFF | EXAMPLE_FORWARD | EXAMPLE_REVERSE |
                             UNKNOWN ) "UNKNOWN"
           controlDataIdentifier         CDATA #REQUIRED
           controlDataIdentifier2        CDATA #IMPLIED
