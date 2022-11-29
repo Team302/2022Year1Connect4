@@ -3,27 +3,27 @@
 <statedata>
 	<controlData identifier="openloop" 
 	             mode="POSITION_DEGREES"/>
-	<mechanismTarget stateIdentifier="SERVO_OPEN_OPEN"
+	<mechanismTarget stateIdentifier="RELEASE_OPEN_OPEN"
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
 					 value="0.0"
                      secondValue="0.0"/>
 
-	<mechanismTarget stateIdentifier="SERVO_OPEN_CLOSED"
+	<mechanismTarget stateIdentifier="RELEASE_OPEN_CLOSED"
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
 					 value="0.0"
-                     secondValue="0.0"/>
+                     secondValue="45.0"/>
 
-	<mechanismTarget stateIdentifier="SERVO_CLOSED_OPEN"
+	<mechanismTarget stateIdentifier="RELEASE_CLOSED_OPEN"
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
-					 value="0.0"
+					 value="45.0"
                      secondValue="0.0"/>
                      
-	<mechanismTarget stateIdentifier="SERVO_CLOSED_CLOSED"
+	<mechanismTarget stateIdentifier="RELEASE_CLOSED_CLOSED"
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
-					 value="0.0"
-                     secondValue="0.0"/>
+					 value="45.0"
+                     secondValue="45.0"/>
 </statedata>
