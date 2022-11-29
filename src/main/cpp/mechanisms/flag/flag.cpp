@@ -31,5 +31,4 @@ Flagarm::Flagarm
     ):
     Mech1Servo(MechanismTypes::MECHANISM_TYPE::FLAG,controlFileName,networkTableName,servo)
     {
-        
     }
