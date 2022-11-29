@@ -69,7 +69,6 @@ IChassis* ChassisXmlParser::ParseXML
     units::length::inch_t wheelDiameter(0.0);
     units::length::inch_t wheelBase(0.0);
     units::length::inch_t track(0.0);
-    double odometryComplianceCoefficient = 1.0;
     units::velocity::meters_per_second_t maxVelocity(0.0);
     units::radians_per_second_t maxAngularSpeed(0.0);
     units::acceleration::meters_per_second_squared_t maxAcceleration(0.0);
@@ -137,10 +136,6 @@ IChassis* ChassisXmlParser::ParseXML
         else if (  attrName.compare("wheelDiameter") == 0 )
         {
         	wheelDiameter = units::length::inch_t(attr.as_double());
-        }
-        else if ( attrName.compare("odometryComplianceCoefficient") == 0 )
-        {
-            odometryComplianceCoefficient = attr.as_double();
         }
         else if (attrName.compare("networkTable") == 0)
         {

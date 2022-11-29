@@ -30,7 +30,7 @@
 #include <hw/DragonCanCoder.h>
 #include <hw/interfaces/IDragonMotorController.h>
 #include <hw/usages/IDragonMotorControllerMap.h>
-#include <chassis/differential/DifferentialChassis.h>
+//#include <chassis/differential/DifferentialChassis.h>
 #include <chassis/mecanum/MecanumChassis.h>
 
 namespace ctre
@@ -61,7 +61,7 @@ class ChassisFactory
 			inline IChassis* GetIChassis(){return m_chassis;};
 			inline IHolonomicChassis* GetHolonomicChassis() {return m_holonomicChassis;};
 
-			inline DifferentialChassis* GetDifferentialChassis() {return static_cast<DifferentialChassis*>(m_chassis); };
+			//inline DifferentialChassis* GetDifferentialChassis() {return static_cast<DifferentialChassis*>(m_chassis); };
 			inline MecanumChassis* GetMecanumChassis() {return static_cast<MecanumChassis*>(m_chassis); };
 
 
