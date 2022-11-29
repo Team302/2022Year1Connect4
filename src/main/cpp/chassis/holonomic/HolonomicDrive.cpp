@@ -20,6 +20,7 @@
 // FRC includes
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
+#include <frc/kinematics/ChassisSpeeds.h>
 
 // Team 302 Includes
 #include <chassis/holonomic/HolonomicDrive.h>
@@ -57,6 +58,7 @@ HolonomicDrive::HolonomicDrive() : IState(),
 /// @return void
 void HolonomicDrive::Init()
 {
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("HolonomicDrive::Init"), string("arrived"));   
     auto controller = GetController();
     if (controller != nullptr)
     {
@@ -72,24 +74,49 @@ void HolonomicDrive::Init()
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
         controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, 0.5);
     }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("HolonomicDrive::Init"), string("end"));   
 }
 
 /// @brief calculate the output for the wheels on the chassis from the throttle and steer components
 /// @return void
 void HolonomicDrive::Run()
 {
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run"), string("begin"));
     auto controller = GetController();
     if (controller != nullptr && m_holonomicChassis != nullptr && m_chassis != nullptr)
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run"), string("not nullptr"));
+
         IHolonomicChassis::CHASSIS_DRIVE_MODE mode = IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
         IHolonomicChassis::HEADING_OPTION headingOpt = IHolonomicChassis::HEADING_OPTION::MAINTAIN;
+
+        auto maxSpeed = m_chassis->GetMaxSpeed();
+        auto maxAngSpeed = m_holonomicChassis->GetMaxAngularSpeed();
+
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("about to read joysticks"), string("xxx"));
+        auto forward = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("forward"), forward);
+        auto strafe = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("strafe"), strafe);
+        auto rotate = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE);
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("rotate"), rotate);
+
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run"), string("axis read"));
+
+        ChassisSpeeds speeds{forward*maxSpeed, strafe*maxSpeed, rotate*maxAngSpeed};
+        //speeds.vx = forward * maxSpeed;
+        //speeds.vy =  strafe * maxSpeed;
+        //speeds.omega = rotate * maxAngSpeed;
         
-        ChassisSpeeds speeds;
-        speeds.vx = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD) * m_chassis->GetMaxSpeed();
-        speeds.vy =  controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE) * m_chassis->GetMaxSpeed();
-        speeds.omega = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE) * m_holonomicChassis->GetMaxAngularSpeed();
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run Vx"), speeds.vx.value());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run Vy"), speeds.vy.value());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run Omega"), speeds.omega.value());
 
         m_holonomicChassis->Drive(speeds, mode, headingOpt);
+    }
+    else
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("HolonomicDrive"), string("Run"), string("nullptr"));
     }
 }
 

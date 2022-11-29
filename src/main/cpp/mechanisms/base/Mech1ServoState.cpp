@@ -41,7 +41,7 @@ Mech1ServoState::Mech1ServoState
 {
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech1ServoState::Mech1ServoState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("Mech1Servo"), ("Mech1ServoState::Mech1ServoState"), string("no mechanism"));
     }    
 }
 

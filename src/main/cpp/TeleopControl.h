@@ -34,6 +34,7 @@ class TeleopControl
         enum FUNCTION_IDENTIFIER
         {
             UNKNOWN_FUNCTION,
+            ROBOT_ORIENTED_DRIVE,
             HOLONOMIC_DRIVE_FORWARD,
             HOLONOMIC_DRIVE_ROTATE,
             HOLONOMIC_DRIVE_STRAFE,
@@ -45,7 +46,9 @@ class TeleopControl
             ARCADE_THROTTLE,
             ARCADE_STEER,            
 		    // @ADDMECH add functions here for robot
-            
+            EXAMPLE_FORWARD,
+            EXAMPLE_REVERSE,
+
             MAX_FUNCTIONS
         };
 

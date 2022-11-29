@@ -1,6 +1,5 @@
-
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -16,66 +15,22 @@
 
 #pragma once
 
-// C++ Includes
-#include <memory>
+#include <mechanisms/base/Mech2Servos.h>
 
-// FRC includes
-//#include <frc/kinematics/DifferentialDriveKinematics.h>
-
-// Team 302 includes
-#include <auton/drivePrimitives/IPrimitive.h>
-
-// Third Party Includes
-
-
-class IChassis;
-namespace frc
+class DragonServo;
+class release : public Mech2Servos
 {
-	class Timer;
-}
+    public:
+        /// @brief Create a generic mechanism wiht 1 servo 
+        /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
+        release
+        (
+            std::string                                 controlFileName,
+            std::string                                 networkTableName,
+            DragonServo*                                servo,
+            DragonServo*                                servo2
+        );
+	    release() = delete;
+	    virtual ~release() = default;
 
-
-class SuperDrive : public IPrimitive 
-{
-	public:
-		void Init(PrimitiveParams* params) override;
-		void Run() override;
-		bool IsDone() override;
-		void SlowDown();
-		bool ReachedTargetSpeed();
-
-		const double GYRO_CORRECTION_CONSTANT = 0.001;//0.1//6; //2.3
-		const double INCHES_PER_SECOND_SECOND = 120; //120
-		const double MIN_SPEED_SLOWDOWN       = 13;
-
-protected: 
-		SuperDrive();
-		virtual ~SuperDrive() = default;
-
-	private:
-		const double PROPORTIONAL_COEFF  = 12.0; //16
-		const double INTREGRAL_COEFF     = 0;
-		const double DERIVATIVE_COEFF    = 0.0; //.16
-		const double FEET_FORWARD_COEFF  = 0.0;
-
-        std::shared_ptr<IChassis> m_chassis;
-   		std::unique_ptr<frc::Timer> m_timer;
-
-		double m_targetSpeed;
-		double m_currentSpeed;
-		double m_speedOffset;
-
-		double m_leftSpeed;
-		double m_rightSpeed;
-
-		double m_currentHeading;
-		double m_startHeading;
-
-		bool m_slowingDown;
-		bool m_reachedTargetSpeed;
-		double m_accelDecelTime;
-		double m_currentTime;
-		double m_minSpeedSlowdown;
-		//frc::DifferentialDriveKinematics* m_kinematics;
 };
-
