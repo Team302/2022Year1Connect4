@@ -52,8 +52,8 @@ SuperDrive::SuperDrive() : m_chassis( ChassisFactory::GetChassisFactory()->GetIC
 						   m_reachedTargetSpeed(false),
 						   m_accelDecelTime(0),
 						   m_currentTime(0),
-						   m_minSpeedSlowdown(0),
-						   m_kinematics(new frc::DifferentialDriveKinematics(ChassisFactory::GetChassisFactory()->GetIChassis()->GetTrack()))
+						   m_minSpeedSlowdown(0)//,
+						   //m_kinematics(new frc::DifferentialDriveKinematics(ChassisFactory::GetChassisFactory()->GetIChassis()->GetTrack()))
 {
 }
 

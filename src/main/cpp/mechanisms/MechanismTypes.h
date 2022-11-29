@@ -34,6 +34,7 @@ class MechanismTypes
         enum MECHANISM_TYPE
         {
             UNKNOWN_MECHANISM = -1,
+            EXAMPLE,
             // @ADDMECH add your mechanism 
             INTAKE,
             ARM,

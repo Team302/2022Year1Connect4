@@ -45,7 +45,11 @@ MechanismTypes* MechanismTypes::GetInstance()
 MechanismTypes::MechanismTypes()
 {
     // @ADDMECH add your mechanism to m_typeMap 
-    //m_typeMap["LEFT_INTAKE"]    = MECHANISM_TYPE::LEFT_INTAKE;
+    m_typeMap["EXAMPLE"]    = MECHANISM_TYPE::EXAMPLE;
+    m_typeMap["INTAKE"]     = MECHANISM_TYPE::INTAKE;
+    m_typeMap["ARM"]        = MECHANISM_TYPE::ARM;
+    m_typeMap["RELEASE"]    = MECHANISM_TYPE::RELEASE;
+    m_typeMap["FLAG"]       = MECHANISM_TYPE::FLAG;
 }
 
 MechanismTypes::~MechanismTypes()

@@ -38,7 +38,7 @@
 #include <units/velocity.h>
 
 #include <chassis/ChassisFactory.h>
-#include <chassis/differential/DifferentialChassis.h>
+//#include <chassis/differential/DifferentialChassis.h>
 #include <chassis/mecanum/MecanumChassis.h>
 #include <chassis/IChassis.h>
 #include <hw/DragonCanCoder.h>
@@ -82,16 +82,7 @@ IChassis* ChassisFactory::CreateChassis
     {
         case ChassisFactory::CHASSIS_TYPE::TANK_CHASSIS:
         {
-            auto leftMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::DIFFERENTIAL_LEFT_MAIN);
-            auto rightMotor = GetMotorController(motors, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::DIFFERENTIAL_RIGHT_MAIN);
-            m_chassis = new DifferentialChassis(leftMotor,
-                                                rightMotor,
-                                                track,
-                                                maxVelocity,
-                                                wheelDiameter,
-                                                networkTableName,
-                                                controlFileName);
-
+            // todo plug in swerve drive
         }
         break;
 
