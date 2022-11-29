@@ -19,7 +19,8 @@
 enum StateType
 {
     // @ADDMECH Add your states
-    EXAMPLE_STATE,
+    INTAKE,
+    EXAMPLE,
     MAX_STATE_TYPES
 };
 

@@ -1,9 +1,13 @@
+#pragma once
 #include <string>
-
-
+#include <mechanisms/base/StateMgr.h>
+#include <mechanisms/example/Example.h>
+#include <mechanisms/StateStruc.h>
+#include <networktables/NetworkTable.h>
+#include <frc/Timer.h>
+#include <mechanisms\Intake\Intake.h>
 
  
-
 class Intake;
 
 class IntakeStateMgr : public StateMgr
@@ -24,19 +28,25 @@ class IntakeStateMgr : public StateMgr
         
         
         const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
-        {   {m_intakeOffXmlString, INTAKE_STATE::OFF},
-            {m_intakeIntakeXmlString, INTAKE_STATE::INTAKE},
-            {m_intakeExpelXmlString, INTAKE_STATE::EXPEL}
-        };
-        static ShooterStateMgr* GetInstance();
-        void CheckForStateTransition() override;
-};
-protected:
-   IntakeState()
-   ~IntakeState()
-
-const std::map<const std::string, INTAKE_STATE> m_intakeXmlStringToStateEnumMap
-        {   {m_intake_onXmlString, INTAKE_STATE::INTAKE_ON},
-            {m_intake_offXmlString, INTAKE_STATE::INTAKE_OFF},
+        {   {m_intakeOffXmlString, INTAKE_STATE::INTAKE_OFF},
+            {m_intakeIntakeXmlString, INTAKE_STATE::INTAKE_ON},
             {m_intakeExpelXmlString, INTAKE_STATE::INTAKE_EXPEL}
         };
+        static IntakeStateMgr* GetInstance();
+        void CheckForStateTransition() override;
+
+private:
+   IntakeStateMgr();
+   ~IntakeStateMgr() = default;
+
+   Intake*                                m_intake;
+        std::string                             m_nt;
+
+
+
+        const double m_CHANGE_STATE_TARGET = 120.0; 
+        static IntakeStateMgr*	m_instance;
+        const StateStruc m_offState = {INTAKE_STATE::INTAKE_OFF, StateType::INTAKE, true};
+        const StateStruc m_onState = {INTAKE_STATE::INTAKE_ON, StateType::INTAKE, false};
+        const StateStruc m_expelState = {INTAKE_STATE::INTAKE_EXPEL, StateType::INTAKE, false};
+};

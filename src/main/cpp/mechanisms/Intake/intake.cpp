@@ -43,7 +43,7 @@ using namespace std;
 /// @param [in] std::string the name of the network table for logging information
 /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
 /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-intake::intake
+Intake::Intake
 (
     MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,

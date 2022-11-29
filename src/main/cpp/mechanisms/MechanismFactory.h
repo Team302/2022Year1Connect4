@@ -41,7 +41,7 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/example/Example.h>
-
+#include <mechanisms\Intake\IntakeStateManager.h>
 // @ADDMECH include for your mechanism 
 
 // Third Party Includes
@@ -78,7 +78,7 @@ class MechanismFactory
 		);
 		
 		inline Example* GetExample() const {return m_example;};
-		
+		inline Intake* GetIntake() const {return m_intake;};
 		// @ADDMECH  Add inline Get method for your mechanism
 
 		Mech* GetMechanism
@@ -122,7 +122,7 @@ class MechanismFactory
 		
 		Example* 		m_example;
 		// @ADDMECH  Add your mechanism here
-
+		Intake*                                m_intake;
 
 		
 
