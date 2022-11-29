@@ -1,5 +1,5 @@
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -13,22 +13,24 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// flag.h
-//========================================================================================================
-///
-/// File Description:
-///     This controls the flag arm/subsystem
-///
-//========================================================================================================
-using namespace std;
-#include <mechanisms/flag/flag.h>
-Flagarm::Flagarm
- (
-            string                                 controlFileName,
-            string                                 networkTableName,
-            DragonServo*                                servo
-    ):
-    Mech1Servo(MechanismTypes::MECHANISM_TYPE::FLAG,controlFileName,networkTableName,servo)
-    {
-    }
+#pragma once
+
+#include <mechanisms/base/Mech2Servos.h>
+
+class DragonServo;
+class release : public Mech2Servos
+{
+    public:
+        /// @brief Create a generic mechanism wiht 1 servo 
+        /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
+        release
+        (
+            std::string                                 controlFileName,
+            std::string                                 networkTableName,
+            DragonServo*                                servo,
+            DragonServo*                                servo2
+        );
+	    release() = delete;
+	    virtual ~release() = default;
+
+};

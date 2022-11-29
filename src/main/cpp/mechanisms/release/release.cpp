@@ -1,5 +1,5 @@
 //====================================================================================================================================================
-// Copyright 2022 Lake Orion Robotics FIRST Team 302
+// Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -13,22 +13,25 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// flag.h
-//========================================================================================================
-///
-/// File Description:
-///     This controls the flag arm/subsystem
-///
-//========================================================================================================
+// C++ Includes
+#include <string>
+
+// FRC includes
+
+// Team 302 includes
+#include <hw/DragonServo.h>
+#include <mechanisms/base/Mech2Servos.h>
+#include <mechanisms/release/release.h>
+
 using namespace std;
-#include <mechanisms/flag/flag.h>
-Flagarm::Flagarm
- (
-            string                                 controlFileName,
-            string                                 networkTableName,
-            DragonServo*                                servo
-    ):
-    Mech1Servo(MechanismTypes::MECHANISM_TYPE::FLAG,controlFileName,networkTableName,servo)
-    {
-    }
+
+release::release
+(
+    std::string                                 controlFileName,
+    std::string                                 networkTableName,
+    DragonServo*                                servo,
+    DragonServo*                                servo2
+) : Mech2Servos(MechanismTypes::MECHANISM_TYPE::RELEASE, controlFileName, networkTableName, servo, servo2)
+{}
+  
+
