@@ -22,44 +22,61 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
-#include <states/StateMgr.h>
-#include <states/StateStruc.h>
-#include <hw/DragonLimelight.h>
-#include <subsys/Shooter.h>
+#include <mechanisms\base\StateMgr.h>
+#include <mechanisms\StateStruc.h>
+#include <mechanisms\ARM\arm.h>
 
 
 
 
 // Third Party Includes
 
-class ShooterStateMgr : public StateMgr
+class ArmStateMgr : public StateMgr
 {
     public:
         /// @enum the various states of the Intake
         enum ARM_STATE
         {
-           
+           OFF,
+           UP,
+           DOWN,
+           MOVING_UP,
+           MOVING_DOWN
         };
-        const std::string  = "";
-        const std::string  = "";
-        const std::string  = "";
-        const std::string  = "";
-        const std::string  = "";
-        const std::string  = "";
+        const std::string m_armOFFXmlString = "OFF";
+        const std::string m_armARM_UPXmlString = "ARM_UP";
+        const std::string m_armARM_DOWNXmlString = "ARM_DOWN";
+        const std::string  m_armARM_MOVING_UPXmlString = "ARM_MOVING_UP";
+        const std::string m_armARM_MOVING_DOWNXmlString = "ARM_MOVING_DOWN";
         
-        const std::map<const std::string, SHOOTER_STATE> m_shooterXmlStringToStateEnumMap
-        {   {m_shooterOffXmlString, SHOOTER_STATE::OFF},
-            {m_shooterHighGoalCloseXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_CLOSE},
-            {m_shooterHighGoalFarXmlString, SHOOTER_STATE::AUTO_SHOOT_HIGH_GOAL_FAR},
-            {m_shooterLowGoalXmlString, SHOOTER_STATE::SHOOT_LOW_GOAL},
-            {m_shooterManualXmlString, SHOOTER_STATE::SHOOT_MANUAL},
-            {m_shooterPrepareXmlString, SHOOTER_STATE::PREPARE_TO_SHOOT}
+        const std::map<const std::string, ARM_STATE> m_armXmlStringToStateEnumMap
+        {   {m_armOFFXmlString, ARM_STATE::OFF},
+            {m_armARM_UPXmlString, ARM_STATE::UP},
+            {m_armARM_DOWNXmlString, ARM_STATE::DOWN},
+            {m_armARM_MOVING_UPXmlString, ARM_STATE::MOVING_UP},
+            {m_armARM_MOVING_DOWNXmlString, ARM_STATE::MOVING_DOWN}
         };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
-		static ShooterStateMgr* GetInstance();
+		static ArmStateMgr* GetInstance();
 
         void CheckForStateTransition() override;
+        private:
+
+       ArmStateMgr();
+        ~ArmStateMgr() = default;
+        
+        arm*                                m_arm;
+        std::string                             m_nt;
+
+
+        const double m_CHANGE_STATE_TARGET = 120.0; 
+		static ArmStateMgr*	m_instance;
+        const StateStruc m_offState = {ARM_STATE::OFF, StateType::ARM_STATE, true};
+        const StateStruc m_upState = {ARM_STATE::UP, StateType::ARM_STATE, false};
+        const StateStruc m_downState = {ARM_STATE::DOWN, StateType::ARM_STATE, false};
+        const StateStruc m_movingDownState = {ARM_STATE::MOVING_DOWN, StateType::ARM_STATE, false};
+        const StateStruc m_movingUpState = {ARM_STATE::MOVING_UP, StateType::ARM_STATE, false};
 };

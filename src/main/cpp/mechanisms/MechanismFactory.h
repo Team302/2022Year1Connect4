@@ -41,6 +41,7 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/example/Example.h>
+#include <mechanisms\ARM\arm.h>
 
 // @ADDMECH include for your mechanism 
 
@@ -78,6 +79,7 @@ class MechanismFactory
 		);
 		
 		inline Example* GetExample() const {return m_example;};
+		inline arm* GetArm() const {return m_arm;};
 		
 		// @ADDMECH  Add inline Get method for your mechanism
 
