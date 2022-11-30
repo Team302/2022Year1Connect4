@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE statedata SYSTEM "stateData.dtd">
 <statedata>
-    <controlData identifier="openloop"
-                mode = "PERCENT_OUTPUT"/>
-
     <controlData identifier="closedloopposdegrees"
 				 mode="POSITION_DEGREES"/>
 
-    <mechanismTarget stateIdentifier= "closed"
+    <mechanismTarget stateIdentifier= "Closed"
     controlDataIdentifier="closedloopposdegrees"
     value="0.0"/>
 
-        <mechanismTarget stateIdentifier= "open"
+        <mechanismTarget stateIdentifier= "Open"
     controlDataIdentifier="closedloopposdegrees"
     value="90.0"/>
 </stateData>
