@@ -29,7 +29,7 @@
 class ControlData;
 class IDragonMotorController;
 
-class Intake : public Mech
+class Intake : public Mech2IndMotors
 {
 	public:
         /// @brief Create a generic mechanism wiht 2 independent motors 
@@ -40,15 +40,15 @@ class Intake : public Mech
         /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
          Intake
         (
-            MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     primaryMotor,
-            std::shared_ptr<IDragonMotorController>     secondaryMotor
+            std::shared_ptr<IDragonMotorController>     spinMotor,
+            std::shared_ptr<IDragonMotorController>     liftMotor
         );
 	    Intake() = delete;
 	    ~Intake() = default;
     private:
-    std::shared_ptr<IDragonMotorController> m_primaryMotor;
-    std::shared_ptr<IDragonMotorController> m_secondaryMotor;
+    std::shared_ptr<IDragonMotorController> m_spinMotor;
+    std::shared_ptr<IDragonMotorController> m_liftMotor;
+
 };

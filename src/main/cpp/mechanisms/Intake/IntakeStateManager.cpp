@@ -10,7 +10,6 @@
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
-#include <hw/factories/LimelightFactory.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/StateMgr.h>

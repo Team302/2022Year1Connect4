@@ -45,22 +45,21 @@ using namespace std;
 /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
 Intake::Intake
 (
-    MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,
     std::string                                 networkTableName,
-    shared_ptr<IDragonMotorController>          primaryMotor,
-    shared_ptr<IDragonMotorController>          secondaryMotor
-) : Mech(type, controlFileName, networkTableName),
-    m_primaryMotor( primaryMotor),
-    m_secondaryMotor( secondaryMotor)
+    shared_ptr<IDragonMotorController>          spinMotor,
+    shared_ptr<IDragonMotorController>          liftMotor
+):Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::INTAKE,controlFileName,networkTableName,spinMotor,liftMotor),
+    m_primaryMotor( spinMotor),
+    m_secondaryMotor( liftMotor)
     
 {
-    if ( primaryMotor.get() == nullptr )
+    if ( spinMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
     }    
     
-    if ( secondaryMotor.get() == nullptr )
+    if ( liftMotor.get() == nullptr )
     {
         Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
     }
