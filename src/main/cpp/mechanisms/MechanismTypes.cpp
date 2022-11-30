@@ -49,7 +49,7 @@ MechanismTypes::MechanismTypes()
     m_typeMap["INTAKE"]     = MECHANISM_TYPE::INTAKE;
     m_typeMap["ARM"]        = MECHANISM_TYPE::ARM;
     m_typeMap["RELEASE"]    = MECHANISM_TYPE::RELEASE;
-    m_typeMap["FLAG"]       = MECHANISM_TYPE::FLAG;
+    m_typeMap["FLAGARM"]    = MECHANISM_TYPE::FLAGARM;
 }
 
 MechanismTypes::~MechanismTypes()

@@ -19,55 +19,52 @@
 #include <string>
 
 // FRC includes
-#include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
+
 
 // Team 302 includes
 #include <mechanisms/base/StateMgr.h>
-#include <mechanisms/example/Example.h>
 #include <mechanisms/StateStruc.h>
 
 
 
 
 // Third Party Includes
-class Flagarm;
+class FlagArm;
 
-class Flagstatemanager : public StateMgr
+class FlagArmStateManager : public StateMgr
 {
     public:
         /// @enum the various states of the Intake
         enum FLAG_ARM
         {
-            Open,
-            Closed
+            GRABBER_OPEN,
+            GRABBER_CLOSED
             
         };
-        const std::string m_OpenXmlString = "Open";
-        const std::string m_ClosedXmlString = "Closed";
+        const std::string m_openXmlString = "FLAG_RELEASE";
+        const std::string m_closedXmlString = "FLAG_GRAB";
         
-        const std::map<const std::string, Flagstatemanager> m_FlagXmlStringToStateEnumMap
-        {   {m_OpenXmlString, Flagstatemanager::Open},
-            {m_ClosedXmlString, Flagstatemanager::Closed}
+        const std::map<const std::string, FlagArmStateManager::FLAG_ARM> m_FlagXmlStringToStateEnumMap
+        {   {m_openXmlString, FlagArmStateManager::FLAG_ARM::GRABBER_OPEN},
+            {m_closedXmlString, FlagArmStateManager::FLAG_ARM::GRABBER_CLOSED}
         };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
-		static Flagstatemanager* GetInstance();
+		static FlagArmStateManager* GetInstance();
 
         /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;
     private:
 
-        Flagstatemanager();
-        ~Flagstatemanager() = default;
-        Flagarm*                               m_Flagarm;
-        std::shared_ptr<nt::NetworkTable>       m_nt;
+        FlagArmStateManager();
+        ~FlagArmStateManager() = default;
 
-        static Flagstatemanager* m_instance;
+        FlagArm*                    m_flagArm;
 
-        const double m_CHANGE_STATE_TARGET = 120.0; 
-		static flagstatemanager*	m_instance;
-        const StateStruc m_open = {Flagstatemanager::Open, StateType::Flag_State, true};
-        const StateStruc m_closed = {Flagstatemanager::Closed, StateType::Flag_State, false};
+        static FlagArmStateManager* m_instance;
+
+        const StateStruc m_openState = {FlagArmStateManager::FLAG_ARM::GRABBER_OPEN, StateType::FLAGARM_STATE, true};
+        const StateStruc m_closedState = {FlagArmStateManager::FLAG_ARM::GRABBER_CLOSED, StateType::FLAGARM_STATE, false};
+};

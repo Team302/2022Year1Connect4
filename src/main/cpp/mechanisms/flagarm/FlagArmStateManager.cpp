@@ -13,13 +13,13 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #include <map>
-#include <memory>
-#include <vector>
+//#include <memory>
+//#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
+//#include <networktables/NetworkTableInstance.h>
+//#include <networktables/NetworkTable.h>
+//#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
@@ -29,17 +29,17 @@
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/base/IState.h>
-#include <utils/Logger.h>
+//#include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
-#include <mechanisms/flag/Flagstatemanager.h>
+#include <mechanisms/flagarm/FlagArmStateManager.h>
 
 // Third Party Includes
 
 using namespace std;
 
 
-Flagstatemanager* Flagstatemanager::m_instance = nullptr;
-Flagstatemanager* Flagstatemanager::GetInstance()
+FlagArmStateManager* FlagArmStateManager::m_instance = nullptr;
+FlagArmStateManager* FlagArmStateManager::GetInstance()
 {
 	if ( FlagStatemanager::m_instance == nullptr )
 	{
@@ -56,13 +56,13 @@ Flagstatemanager* Flagstatemanager::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-Flagstatemanager::Flagstatemanager() : StateMgr(),
+FlagArmStateManager::FlagArmStateManager() : StateMgr(),
                                      m_Flag(MechanismFactory::GetMechanismFactory()->GetFlag()),
                                      m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap[Flagstatemanager::Open] = m_ClosedState;
-    stateMap[Flagstatemanager::Open] = m_OpenState; 
+    stateMap[FlagArmStateManager::Open] = m_ClosedState;
+    stateMap[FlagArmStateManager::Open] = m_OpenState; 
 
     Init(m_Flagarm, stateMap);
     if (m_Flagarm != nullptr)
