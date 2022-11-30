@@ -43,6 +43,10 @@
 #include <mechanisms/example/Example.h>
 #include <mechanisms\Intake\IntakeStateManager.h>
 // @ADDMECH include for your mechanism 
+#include <mechanisms/ARM/arm.h>
+#include <mechanisms/flag/flag.h>
+#include <mechanisms/Intake/intake.h>
+#include <mechanisms/release/release.h>
 
 // Third Party Includes
 
@@ -78,8 +82,11 @@ class MechanismFactory
 		);
 		
 		inline Example* GetExample() const {return m_example;};
-		inline Intake* GetIntake() const {return m_intake;};
 		// @ADDMECH  Add inline Get method for your mechanism
+		inline Intake* GetIntake() const {return m_intake;};
+		inline arm* GetArm() const {return m_arm;};
+		inline release* GetRelease() const {return m_release;};
+		inline Flagarm* GetFlag() const {return m_flag;};
 
 		Mech* GetMechanism
 		(
@@ -122,7 +129,11 @@ class MechanismFactory
 		
 		Example* 		m_example;
 		// @ADDMECH  Add your mechanism here
-		Intake*                                m_intake;
+		Intake*			m_intake;
+		arm*			m_arm;
+		release*        m_release;
+		Flagarm*		m_flag;
+
 
 		
 

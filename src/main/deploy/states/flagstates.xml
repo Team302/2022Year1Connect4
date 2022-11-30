@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE statedata SYSTEM "stateData.dtd">
 <statedata>
-    <controlData identifier="openloop"
-                mode = "PERCENT_OUTPUT"/>
-
     <controlData identifier="closedloopposdegrees"
 				 mode="POSITION_DEGREES"/>
 

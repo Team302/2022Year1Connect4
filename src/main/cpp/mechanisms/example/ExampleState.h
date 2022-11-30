@@ -15,9 +15,9 @@
 #pragma once
 
 #include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/example/Example.h>
 
 class ControlData;
+class Example;
 
 class ExampleState : public Mech1MotorState
 {

@@ -49,9 +49,8 @@ Intake::Intake
     std::string                                 networkTableName,
     shared_ptr<IDragonMotorController>          spinMotor,
     shared_ptr<IDragonMotorController>          liftMotor
-):Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::INTAKE,controlFileName,networkTableName,spinMotor,liftMotor),
-    m_primaryMotor( spinMotor),
-    m_secondaryMotor( liftMotor)
+):Mech2IndMotors(MechanismTypes::MECHANISM_TYPE::INTAKE,controlFileName,networkTableName,spinMotor,liftMotor)
+
     
 {
     if ( spinMotor.get() == nullptr )
