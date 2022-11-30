@@ -41,31 +41,30 @@ using namespace std;
 FlagArmStateManager* FlagArmStateManager::m_instance = nullptr;
 FlagArmStateManager* FlagArmStateManager::GetInstance()
 {
-	if ( FlagStatemanager::m_instance == nullptr )
+	if ( FlagArmStateManager::m_instance == nullptr )
 	{
 	    auto mechFactory = MechanismFactory::GetMechanismFactory();
 	    auto flagarm = mechFactory->GetFlag();
 	    if (flagarm != nullptr)
         {
-		    FlagStatemanager::m_instance = new FlagStatemanager();
+		    FlagArmStateManager::m_instance = new FlagArmStateManager();
         }
 	}
-	return FlagStatemanager::m_instance;
+	return FlagArmStateManager::m_instance;
     
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 FlagArmStateManager::FlagArmStateManager() : StateMgr(),
-                                     m_Flag(MechanismFactory::GetMechanismFactory()->GetFlag()),
-                                     m_nt()
+                                     m_flagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
     map<string, StateStruc> stateMap;
-    stateMap[FlagArmStateManager::Open] = m_ClosedState;
-    stateMap[FlagArmStateManager::Open] = m_OpenState; 
+    stateMap[m_closedXmlString] = m_closedState;
+    stateMap[m_openXmlString] = m_openState; 
 
-    Init(m_Flagarm, stateMap);
-    if (m_Flagarm != nullptr)
+    Init(m_flagArm, stateMap);
+    if (m_flagArm != nullptr)
     {
         auto m_nt = m_Flagarm->GetNetworkTableName();
     }
