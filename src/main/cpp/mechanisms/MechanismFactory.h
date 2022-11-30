@@ -44,7 +44,7 @@
 
 // @ADDMECH include for your mechanism 
 #include <mechanisms/ARM/arm.h>
-#include <mechanisms/flag/flag.h>
+#include <mechanisms/flagarm/FlagArm.h>
 #include <mechanisms/Intake/intake.h>
 #include <mechanisms/release/release.h>
 
@@ -86,7 +86,7 @@ class MechanismFactory
 		inline intake* GetIntake() const {return m_intake;};
 		inline arm* GetArm() const {return m_arm;};
 		inline release* GetRelease() const {return m_release;};
-		inline Flagarm* GetFlag() const {return m_flag;};
+		inline FlagArm* GetFlag() const {return m_flag;};
 
 		Mech* GetMechanism
 		(
@@ -132,7 +132,7 @@ class MechanismFactory
 		intake*			m_intake;
 		arm*			m_arm;
 		release*        m_release;
-		Flagarm*		m_flag;
+		FlagArm*		m_flag;
 
 
 		

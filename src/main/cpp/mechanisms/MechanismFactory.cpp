@@ -40,7 +40,7 @@
 // @ADDMECH include for your mechanism 
 #include <mechanisms/example/Example.h>
 #include <mechanisms/ARM/arm.h>
-#include <mechanisms/flag/flag.h>
+#include <mechanisms/flagarm/FlagArm.h>
 #include <mechanisms/Intake/intake.h>
 #include <mechanisms/release/release.h>
 
@@ -110,10 +110,10 @@ void MechanismFactory::CreateMechanism
 		}
 		break;
 
-		case MechanismTypes::MECHANISM_TYPE::FLAG:
+		case MechanismTypes::MECHANISM_TYPE::FLAGARM:
 		{
 			auto servo = GetServo(servos, ServoUsage::SERVO_USAGE::FLAG_SERVO);
-			m_flag = new Flagarm(controlFileName, networkTableName, servo);
+			m_flag = new FlagArm(controlFileName, networkTableName, servo);
 		}
 		break;
 
@@ -160,7 +160,7 @@ Mech* MechanismFactory::GetMechanism
 		    return m_arm;
 			break;
 
-		case MechanismTypes::MECHANISM_TYPE::FLAG:
+		case MechanismTypes::MECHANISM_TYPE::FLAGARM:
 			return m_flag;
 			break;
 

@@ -1,3 +1,4 @@
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302
 //
@@ -13,22 +14,22 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-//========================================================================================================
-/// flag.h
-//========================================================================================================
-///
-/// File Description:
-///     This controls the flag arm/subsystem
-///
-//========================================================================================================
-using namespace std;
-#include <mechanisms/flag/flag.h>
-Flagarm::Flagarm
- (
-            string                                 controlFileName,
-            string                                 networkTableName,
-            DragonServo*                                servo
-    ):
-    Mech1Servo(MechanismTypes::MECHANISM_TYPE::FLAG,controlFileName,networkTableName,servo)
-    {
-    }
+#pragma once
+
+#include <string>
+
+#include <hw/DragonServo.h>
+#include <mechanisms/base/Mech1Servo.h>
+
+class FlagArm : public Mech1Servo 
+{
+    public :
+        FlagArm
+        (
+                std::string                                 controlFileName,
+                std::string                                 networkTableName,
+                DragonServo*                                servo
+        );
+        FlagArm() = delete;
+        virtual ~FlagArm() = default;
+};

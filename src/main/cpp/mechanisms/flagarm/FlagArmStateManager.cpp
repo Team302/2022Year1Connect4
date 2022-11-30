@@ -13,85 +13,70 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #include <map>
-#include <memory>
-#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/base/IState.h>
-#include <utils/Logger.h>
-#include <mechanisms/controllers/StateDataXmlParser.h>
-#include <mechanisms/flag/Flagstatemanager.h>
-#include <mechanisms/flag/Flag.h>
+#include <mechanisms/flagarm/FlagArmStateManager.h>
 
 // Third Party Includes
 
 using namespace std;
 
 
-Flagstatemanager* Flagstatemanager::m_instance = nullptr;
-Flagstatemanager* Flagstatemanager::GetInstance()
+FlagArmStateManager* FlagArmStateManager::m_instance = nullptr;
+FlagArmStateManager* FlagArmStateManager::GetInstance()
 {
-	if ( FlagStatemanager::m_instance == nullptr )
+	if ( FlagArmStateManager::m_instance == nullptr )
 	{
 	    auto mechFactory = MechanismFactory::GetMechanismFactory();
 	    auto flagarm = mechFactory->GetFlag();
 	    if (flagarm != nullptr)
         {
-		    FlagStatemanager::m_instance = new FlagStatemanager();
+		    FlagArmStateManager::m_instance = new FlagArmStateManager();
         }
 	}
-	return FlagStatemanager::m_instance;
+	return FlagArmStateManager::m_instance;
     
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-Flagstatemanager::Flagstatemanager() : StateMgr(),
-                                     m_Flag(MechanismFactory::GetMechanismFactory()->GetFlag()),
-                                     m_nt()
+FlagArmStateManager::FlagArmStateManager() : StateMgr(),
+                                             m_flagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
     map<string, StateStruc> stateMap;
-    stateMap[Flagstatemanager::Open] = m_Closedstate;
-    stateMap[Flagstatemanager::Open] = m_Openstate; 
+    stateMap[m_closedXmlString] = m_closedState;
+    stateMap[m_openXmlString] = m_openState; 
 
-    Init(m_Flagarm, stateMap);
-    if (m_Flagarm != nullptr)
-    {
-        auto m_nt = m_Flagarm->GetNetworkTableName();
-    }
+    Init(m_flagArm, stateMap);
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition
-void ExampleStateMgr::CheckForStateTransition()
+void FlagArmStateManager::CheckForStateTransition()
 {
 
-    if ( m_Flagarm != nullptr )
+    if ( m_flagArm != nullptr )
     {    
-        auto currentState = static_cast<FLAG_ARM>(GetCurrentState());
+        auto currentState = static_cast<FLAG_ARM_STATE>(GetCurrentState());
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::Open) : true;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::Closed) : false;
+        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_RELEASE) : true;
+        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_GRAB) : false;
 
         if (isForwardSelected)
         {
-            targetState = FLAG_ARM::Open;
+            targetState = FLAG_ARM_STATE::GRABBER_OPEN;
         }
         else
         {
-            targetState = FLAG_ARM::Closed;
+            targetState = FLAG_ARM_STATE::GRABBER_CLOSED;
         }
 
         if (targetState != currentState)
