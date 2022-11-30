@@ -13,24 +13,15 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #include <map>
-//#include <memory>
-//#include <vector>
 
 // FRC includes
-//#include <networktables/NetworkTableInstance.h>
-//#include <networktables/NetworkTable.h>
-//#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/base/IState.h>
-//#include <utils/Logger.h>
-#include <mechanisms/controllers/StateDataXmlParser.h>
 #include <mechanisms/flagarm/FlagArmStateManager.h>
 
 // Third Party Includes
@@ -57,39 +48,35 @@ FlagArmStateManager* FlagArmStateManager::GetInstance()
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 FlagArmStateManager::FlagArmStateManager() : StateMgr(),
-                                     m_flagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
+                                             m_flagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
     map<string, StateStruc> stateMap;
     stateMap[m_closedXmlString] = m_closedState;
     stateMap[m_openXmlString] = m_openState; 
 
     Init(m_flagArm, stateMap);
-    if (m_flagArm != nullptr)
-    {
-        auto m_nt = m_Flagarm->GetNetworkTableName();
-    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition
-void ExampleStateMgr::CheckForStateTransition()
+void FlagArmStateManager::CheckForStateTransition()
 {
 
-    if ( m_Flag != nullptr )
+    if ( m_flagArm != nullptr )
     {    
-        auto currentState = static_cast<FLAG_STATE>(GetCurrentState());
+        auto currentState = static_cast<FLAG_ARM_STATE>(GetCurrentState());
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_STATE::Open) : true;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_STATE::Closed) : false;
+        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_RELEASE) : true;
+        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_GRAB) : false;
 
         if (isForwardSelected)
         {
-            targetState = FLAG_ARM::Open;
+            targetState = FLAG_ARM_STATE::GRABBER_OPEN;
         }
         else
         {
-            targetState = FLAG_ARM::Closed;
+            targetState = FLAG_ARM_STATE::GRABBER_CLOSED;
         }
 
         if (targetState != currentState)
