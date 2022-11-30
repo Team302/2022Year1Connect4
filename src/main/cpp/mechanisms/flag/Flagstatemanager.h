@@ -68,6 +68,7 @@ class Flagstatemanager : public StateMgr
         static Flagstatemanager* m_instance;
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
-		static flagstatemanager*	m_instance;
-        const StateStruc m_open = {Flagstatemanager::Open, StateType::Flag_State, true};
-        const StateStruc m_closed = {Flagstatemanager::Closed, StateType::Flag_State, false};
+		static Flagstatemanager*	m_instance;
+        const StateStruc m_Openstate = {Flagstatemanager::Open, StateType::Flag_State, true};
+        const StateStruc m_Closedstate = {Flagstatemanager::Closed, StateType::Flag_State, false};
+};

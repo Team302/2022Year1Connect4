@@ -32,6 +32,7 @@
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
 #include <mechanisms/flag/Flagstatemanager.h>
+#include <mechanisms/flag/Flag.h>
 
 // Third Party Includes
 
@@ -61,8 +62,8 @@ Flagstatemanager::Flagstatemanager() : StateMgr(),
                                      m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap[Flagstatemanager::Open] = m_ClosedState;
-    stateMap[Flagstatemanager::Open] = m_OpenState; 
+    stateMap[Flagstatemanager::Open] = m_Closedstate;
+    stateMap[Flagstatemanager::Open] = m_Openstate; 
 
     Init(m_Flagarm, stateMap);
     if (m_Flagarm != nullptr)
@@ -75,14 +76,14 @@ Flagstatemanager::Flagstatemanager() : StateMgr(),
 void ExampleStateMgr::CheckForStateTransition()
 {
 
-    if ( m_Flag != nullptr )
+    if ( m_Flagarm != nullptr )
     {    
-        auto currentState = static_cast<FLAG_STATE>(GetCurrentState());
+        auto currentState = static_cast<FLAG_ARM>(GetCurrentState());
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_STATE::Open) : true;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_STATE::Closed) : false;
+        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::Open) : true;
+        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::Closed) : false;
 
         if (isForwardSelected)
         {
