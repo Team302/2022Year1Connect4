@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -14,40 +13,25 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once
-
-
 // C++ Includes
-#include <memory>
 #include <string>
 
+// FRC includes
+
 // Team 302 includes
-#include <mechanisms/base/Mech.h>
-#include <mechanisms/MechanismTypes.h>
+#include <hw/DragonServo.h>
+#include <mechanisms/base/Mech2Servos.h>
+#include <mechanisms/release/release.h>
 
-// forward declares
-class ControlData;
-class IDragonMotorController;
+using namespace std;
 
-class Intake : public Mech
-{
-	public:
-        /// @brief Create a generic mechanism wiht 2 independent motors 
-        /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
-        /// @param [in] std::string the name of the file that will set control parameters for this mechanism
-        /// @param [in] std::string the name of the network table for logging information
-        /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
-        /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-         Intake
-        (
-            std::string                                 controlFileName,
-            std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     primaryMotor,
-            std::shared_ptr<IDragonMotorController>     secondaryMotor
-        );
-	    Intake() = delete;
-	    ~Intake() = default;
-    private:
-    std::shared_ptr<IDragonMotorController> m_primaryMotor;
-    std::shared_ptr<IDragonMotorController> m_secondaryMotor;
-};
+release::release
+(
+    std::string                                 controlFileName,
+    std::string                                 networkTableName,
+    DragonServo*                                servo,
+    DragonServo*                                servo2
+) : Mech2Servos(MechanismTypes::MECHANISM_TYPE::RELEASE, controlFileName, networkTableName, servo, servo2)
+{}
+  
+

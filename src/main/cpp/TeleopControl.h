@@ -49,6 +49,18 @@ class TeleopControl
 		    // @ADDMECH add functions here for robot
             EXAMPLE_FORWARD,
             EXAMPLE_REVERSE,
+            INTAKE_ON,
+            INTAKE_EXPEL,
+            ARM_UP,
+            ARM_DOWN,
+            ARM_GOING_UP,
+            ARM_GOING_DOWN,
+            RELEASE_OPEN_OPEN,
+            RELEASE_OPEN_CLOSED,
+            RELEASE_CLOSED_OPEN,
+            RELEASE_CLOSED_CLOSED,
+            FLAG_GRAB,
+            FLAG_RELEASE,
 
             MAX_FUNCTIONS
         };

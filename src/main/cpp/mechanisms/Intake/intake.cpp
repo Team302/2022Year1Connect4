@@ -45,12 +45,11 @@ using namespace std;
 /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
 Intake::Intake
 (
-    MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,
     std::string                                 networkTableName,
     shared_ptr<IDragonMotorController>          primaryMotor,
     shared_ptr<IDragonMotorController>          secondaryMotor
-) : Mech(type, controlFileName, networkTableName),
+) : Mech(MechanismTypes::MECHANISM_TYPE::INTAKE, controlFileName, networkTableName),
     m_primaryMotor( primaryMotor),
     m_secondaryMotor( secondaryMotor)
     

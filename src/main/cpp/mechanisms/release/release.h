@@ -1,4 +1,3 @@
-
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -16,38 +15,22 @@
 
 #pragma once
 
+#include <mechanisms/base/Mech2Servos.h>
 
-// C++ Includes
-#include <memory>
-#include <string>
-
-// Team 302 includes
-#include <mechanisms/base/Mech.h>
-#include <mechanisms/MechanismTypes.h>
-
-// forward declares
-class ControlData;
-class IDragonMotorController;
-
-class Intake : public Mech
+class DragonServo;
+class release : public Mech2Servos
 {
-	public:
-        /// @brief Create a generic mechanism wiht 2 independent motors 
-        /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
-        /// @param [in] std::string the name of the file that will set control parameters for this mechanism
-        /// @param [in] std::string the name of the network table for logging information
-        /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
-        /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-         Intake
+    public:
+        /// @brief Create a generic mechanism wiht 1 servo 
+        /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
+        release
         (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     primaryMotor,
-            std::shared_ptr<IDragonMotorController>     secondaryMotor
+            DragonServo*                                servo,
+            DragonServo*                                servo2
         );
-	    Intake() = delete;
-	    ~Intake() = default;
-    private:
-    std::shared_ptr<IDragonMotorController> m_primaryMotor;
-    std::shared_ptr<IDragonMotorController> m_secondaryMotor;
+	    release() = delete;
+	    virtual ~release() = default;
+
 };
