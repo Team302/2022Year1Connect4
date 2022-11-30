@@ -49,8 +49,7 @@ ExampleStateMgr* ExampleStateMgr::GetInstance()
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 ExampleStateMgr::ExampleStateMgr() : StateMgr(),
-                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample()),
-                                     m_nt()
+                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample())
 {
     map<string, StateStruc> stateMap;
     stateMap[m_exampleOffXmlString] = m_offState;
@@ -58,10 +57,6 @@ ExampleStateMgr::ExampleStateMgr() : StateMgr(),
     stateMap[m_exampleReverseXmlString] = m_reverseState;  
 
     Init(m_example, stateMap);
-    if (m_example != nullptr)
-    {
-        auto m_nt = m_example->GetNetworkTableName();
-    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

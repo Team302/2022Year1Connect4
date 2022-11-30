@@ -58,10 +58,7 @@ class ExampleStateMgr : public StateMgr
         ~ExampleStateMgr() = default;
         
         Example*                                m_example;
-        std::string                             m_nt;
 
-
-        const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ExampleStateMgr*	m_instance;
         const StateStruc m_offState = {EXAMPLE_STATE::OFF, StateType::EXAMPLE_STATE, true};
         const StateStruc m_forwardState = {EXAMPLE_STATE::FORWARD, StateType::EXAMPLE_STATE, false};
