@@ -121,7 +121,7 @@ void MechanismFactory::CreateMechanism
 		{
 			auto motor1 = GetMotorController(motorControllers, MotorControllerUsage::INTAKE);
 			auto motor2 = GetMotorController(motorControllers, MotorControllerUsage::INTAKE2);
-			m_intake = new intake(controlFileName, networkTableName, motor1, motor2);
+			m_intake = new Intake(controlFileName, networkTableName, motor1, motor2);
 		}
 		break;
 

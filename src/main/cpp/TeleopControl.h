@@ -42,8 +42,6 @@ class TeleopControl
             HOLD_POSITION,
             FINDTARGET,        
             DRIVE_TO_SHOOTING_SPOT,
-            INTAKE_ON,
-            INTAKE_EXPEL,
             ARCADE_THROTTLE,
             ARCADE_STEER,            
 		    // @ADDMECH add functions here for robot
