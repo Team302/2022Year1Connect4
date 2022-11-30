@@ -19,16 +19,11 @@
 #include <string>
 
 // FRC includes
-#include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
 
 // Team 302 includes
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/example/Example.h>
 #include <mechanisms/StateStruc.h>
-
-
-
 
 // Third Party Includes
 
