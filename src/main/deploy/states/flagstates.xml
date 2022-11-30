@@ -7,11 +7,11 @@
     <controlData identifier="closedloopposdegrees"
 				 mode="POSITION_DEGREES"/>
 
-    <mechanismTarget stateIdentifier= "closed"
+    <mechanismTarget stateIdentifier= "Closed"
     controlDataIdentifier="closedloopposdegrees"
     value="0.0"/>
 
-        <mechanismTarget stateIdentifier= "open"
+        <mechanismTarget stateIdentifier= "Open"
     controlDataIdentifier="closedloopposdegrees"
     value="90.0"/>
 </stateData>
