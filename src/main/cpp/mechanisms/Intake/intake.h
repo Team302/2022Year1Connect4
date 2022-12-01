@@ -40,7 +40,6 @@ class intake : public Mech
         /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
          intake
         (
-            MechanismTypes::MECHANISM_TYPE              type,
             std::string                                 controlFileName,
             std::string                                 networkTableName,
             std::shared_ptr<IDragonMotorController>     primaryMotor,

@@ -20,49 +20,51 @@
 
 // FRC includes
 
+
 // Team 302 includes
 #include <mechanisms/base/StateMgr.h>
-#include <mechanisms/example/Example.h>
 #include <mechanisms/StateStruc.h>
 
-// Third Party Includes
 
-class ExampleStateMgr : public StateMgr
+
+
+// Third Party Includes
+class FlagArm;
+
+class FlagArmStateManager : public StateMgr
 {
     public:
         /// @enum the various states of the Intake
-        enum EXAMPLE_STATE
+        enum FLAG_ARM_STATE
         {
-            OFF,
-            FORWARD,
-            REVERSE
+            GRABBER_OPEN,
+            GRABBER_CLOSED
+            
         };
-        const std::string m_exampleOffXmlString = "EXAMPLE_OFF";
-        const std::string m_exampleForwardXmlString = "EXAMPLE_FORWARD";
-        const std::string m_exampleReverseXmlString = "EXAMPLE_REVERSE";
+        const std::string m_openXmlString = "FLAG_RELEASE";
+        const std::string m_closedXmlString = "FLAG_GRAB";
         
-        const std::map<const std::string, EXAMPLE_STATE> m_exampleXmlStringToStateEnumMap
-        {   {m_exampleOffXmlString, EXAMPLE_STATE::OFF},
-            {m_exampleForwardXmlString, EXAMPLE_STATE::FORWARD},
-            {m_exampleReverseXmlString, EXAMPLE_STATE::REVERSE}
+        const std::map<const std::string, FlagArmStateManager::FLAG_ARM_STATE> m_FlagXmlStringToStateEnumMap
+        {   {m_openXmlString, FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN},
+            {m_closedXmlString, FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED}
         };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
-		static ExampleStateMgr* GetInstance();
+		static FlagArmStateManager* GetInstance();
 
         /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;
     private:
 
-        ExampleStateMgr();
-        ~ExampleStateMgr() = default;
-        
-        Example*                                m_example;
+        FlagArmStateManager();
+        ~FlagArmStateManager() = default;
 
-		static ExampleStateMgr*	m_instance;
-        const StateStruc m_offState = {EXAMPLE_STATE::OFF, StateType::EXAMPLE_STATE, true};
-        const StateStruc m_forwardState = {EXAMPLE_STATE::FORWARD, StateType::EXAMPLE_STATE, false};
-        const StateStruc m_reverseState = {EXAMPLE_STATE::REVERSE, StateType::EXAMPLE_STATE, false};
+        FlagArm*                    m_flagArm;
+
+        static FlagArmStateManager* m_instance;
+
+        const StateStruc m_openState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN, StateType::FLAGARM_STATE, true};
+        const StateStruc m_closedState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED, StateType::FLAGARM_STATE, false};
 };

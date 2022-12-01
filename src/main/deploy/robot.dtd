@@ -149,7 +149,7 @@
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              (INTAKE | ARM | RELEASE | FLAG | EXAMPLE) "INTAKE"
+          type              (INTAKE | ARM | RELEASE | FLAGARM | EXAMPLE) "INTAKE"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >

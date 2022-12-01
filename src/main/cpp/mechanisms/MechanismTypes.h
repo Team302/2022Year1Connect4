@@ -39,7 +39,7 @@ class MechanismTypes
             INTAKE,
             ARM,
             RELEASE,
-            FLAG,
+            FLAGARM,
             MAX_MECHANISM_TYPES
         };
 

@@ -12,28 +12,23 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-#pragma once
 
-#include <mechanisms/base/Mech1MotorState.h>
 
-class ControlData;
-class Example;
+// C++ Includes
 
-class ExampleState : public Mech1MotorState
+// FRC includes
+
+// Team 302 includes
+#include <mechanisms/controllers/ControlData.h>
+#include <mechanisms/MechanismFactory.h>
+#include <mechanisms/flagarm/FlagArmStates.h>
+// Third Party Includes
+
+
+FlagArmState::FlagArmState
+(
+    double                          target
+) : Mech1ServoState( MechanismFactory::GetMechanismFactory()->GetFlag(), target),
+    m_FlagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
-    public:
-
-        ExampleState() = delete;
-        ExampleState
-        (
-            ControlData*                    control,
-            double                          target
-        );
-        ~ExampleState() = default;
-
-        bool AtTarget() const override;
-        Example* GetExample() const {return m_example;}
-
-    private:
-        Example*        m_example;
-};
+}

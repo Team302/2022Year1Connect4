@@ -17,72 +17,66 @@
 // FRC includes
 
 // Team 302 includes
+#include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/example/Example.h>
-#include <mechanisms/example/ExampleState.h>
-#include <mechanisms/example/ExampleStateMgr.h>
+#include <mechanisms/flagarm/FlagArmStateManager.h>
 
 // Third Party Includes
 
 using namespace std;
 
 
-ExampleStateMgr* ExampleStateMgr::m_instance = nullptr;
-ExampleStateMgr* ExampleStateMgr::GetInstance()
+FlagArmStateManager* FlagArmStateManager::m_instance = nullptr;
+FlagArmStateManager* FlagArmStateManager::GetInstance()
 {
-	if ( ExampleStateMgr::m_instance == nullptr )
+	if ( FlagArmStateManager::m_instance == nullptr )
 	{
 	    auto mechFactory = MechanismFactory::GetMechanismFactory();
-	    auto shooter = mechFactory->GetExample();
-	    if (shooter != nullptr)
+	    auto flagarm = mechFactory->GetFlag();
+	    if (flagarm != nullptr)
         {
-		    ExampleStateMgr::m_instance = new ExampleStateMgr();
+		    FlagArmStateManager::m_instance = new FlagArmStateManager();
         }
 	}
-	return ExampleStateMgr::m_instance;
+	return FlagArmStateManager::m_instance;
     
 }
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ExampleStateMgr::ExampleStateMgr() : StateMgr(),
-                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample())
+FlagArmStateManager::FlagArmStateManager() : StateMgr(),
+                                             m_flagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
     map<string, StateStruc> stateMap;
-    stateMap[m_exampleOffXmlString] = m_offState;
-    stateMap[m_exampleForwardXmlString] = m_forwardState;
-    stateMap[m_exampleReverseXmlString] = m_reverseState;  
+    stateMap[m_closedXmlString] = m_closedState;
+    stateMap[m_openXmlString] = m_openState; 
 
-    Init(m_example, stateMap);
+    Init(m_flagArm, stateMap);
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition
-void ExampleStateMgr::CheckForStateTransition()
+void FlagArmStateManager::CheckForStateTransition()
 {
 
-    if ( m_example != nullptr )
+    if ( m_flagArm != nullptr )
     {    
-        auto currentState = static_cast<EXAMPLE_STATE>(GetCurrentState());
+        auto currentState = static_cast<FLAG_ARM_STATE>(GetCurrentState());
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_FORWARD) : false;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_REVERSE) : false;
+        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_RELEASE) : true;
+        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_GRAB) : false;
 
         if (isForwardSelected)
         {
-            targetState = EXAMPLE_STATE::FORWARD;
-        }
-        else if (isReverseSelected)
-        {
-            targetState = EXAMPLE_STATE::REVERSE;
+            targetState = FLAG_ARM_STATE::GRABBER_OPEN;
         }
         else
         {
-            targetState = EXAMPLE_STATE::OFF;
+            targetState = FLAG_ARM_STATE::GRABBER_CLOSED;
         }
 
         if (targetState != currentState)
