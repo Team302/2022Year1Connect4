@@ -1,5 +1,5 @@
 //====================================================================================================================================================
-/// Copyright 2022 Lake Orion Robotics FIRST Team 302 
+/// Copyright 2022 Lake Orion Robotics FIRST Team 302
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 /// to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -37,40 +37,73 @@
 #include <utils/Logger.h>
 #include <mechanisms/controllers/StateDataXmlParser.h>
 
-
 // Third Party Includes
 
 using namespace std;
 
-ArmStateMgr* ArmStateMgr::m_instance = nullptr;
-ArmStateMgr* ArmStateMgr::GetInstance()
+ArmStateMgr *ArmStateMgr::m_instance = nullptr;
+ArmStateMgr *ArmStateMgr::GetInstance()
 {
-	if ( ArmStateMgr::m_instance == nullptr )
-	{
-	    auto mechFactory = MechanismFactory::GetMechanismFactory();
-	    auto arm = mechFactory->GetExample();
-	    if (arm != nullptr)
+    if (ArmStateMgr::m_instance == nullptr)
+    {
+        auto mechFactory = MechanismFactory::GetMechanismFactory();
+        auto arm = mechFactory->GetExample();
+        if (arm != nullptr)
         {
-		    ArmStateMgr::m_instance = new ArmStateMgr();
+            ArmStateMgr::m_instance = new ArmStateMgr();
         }
-	}
-	return ArmStateMgr::m_instance;
-    
+    }
+    return ArmStateMgr::m_instance;
 }
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 ArmStateMgr::ArmStateMgr() : StateMgr(),
-                                     m_arm(MechanismFactory::GetMechanismFactory()->GetExample()),
-                                     m_nt()
+                             m_arm(MechanismFactory::GetMechanismFactory()->GetArm()),
+                             m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap[m_armOffXmlString] = m_offState;
-    stateMap[m_armForwardXmlString] = m_forwardState;
-    stateMap[m_exampleReverseXmlString] = m_reverseState;  
+    stateMap[m_armOFFXmlString] = m_offState;
+    stateMap[m_armARM_UPXmlString] = m_upState;
+    stateMap[m_armARM_DOWNXmlString] = m_downState;
+    stateMap[m_armARM_MOVING_UPXmlString] = m_movingDownState;
+    stateMap[m_armARM_MOVING_DOWNXmlString] = m_movingUpState;
 
-    Init(m_example, stateMap);
-    if (m_example != nullptr)
+    Init(m_arm, stateMap);
+    if (m_arm != nullptr)
     {
-        auto m_nt = m_example->GetNetworkTableName();
+        auto m_nt = m_arm->GetNetworkTableName();
     }
-}   
+}
+
+/// @brief Check if driver inputs or sensors trigger a state transition
+void ArmStateMgr::CheckForStateTransition()
+{
+
+    if (m_arm != nullptr)
+    {
+        auto currentState = static_cast<ARM_STATE>(GetCurrentState());
+        auto targetState = currentState;
+
+        auto controller = TeleopControl::GetInstance();
+        auto isForwardSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_FORWARD) : false;
+        auto isReverseSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_REVERSE) : false;
+
+        if (isForwardSelected)
+        {
+            targetState = ARM_STATE::MOVING_UP;
+        }
+        else if (isReverseSelected)
+        {
+            targetState = ARM_STATE::MOVING_DOWN;
+        }
+        else
+        {
+            targetState = ARM_STATE::OFF;
+        }
+
+        if (targetState != currentState)
+        {
+            SetCurrentState(targetState, true);
+        }
+    }
+}

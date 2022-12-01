@@ -51,8 +51,8 @@ class ArmStateMgr : public StateMgr
         
         const std::map<const std::string, ARM_STATE> m_armXmlStringToStateEnumMap
         {   {m_armOFFXmlString, ARM_STATE::OFF},
-            {m_armARM_UPXmlString, ARM_STATE::UP},
-            {m_armARM_DOWNXmlString, ARM_STATE::DOWN},
+            {m_armARM_UPXmlString, ARM_STATE::OFF},
+            {m_armARM_DOWNXmlString, ARM_STATE::OFF},
             {m_armARM_MOVING_UPXmlString, ARM_STATE::MOVING_UP},
             {m_armARM_MOVING_DOWNXmlString, ARM_STATE::MOVING_DOWN}
         };

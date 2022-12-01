@@ -124,7 +124,7 @@ class MechanismFactory
 		
 		Example* 		m_example;
 		// @ADDMECH  Add your mechanism here
-
+		arm*                                m_arm;
 
 		
 
