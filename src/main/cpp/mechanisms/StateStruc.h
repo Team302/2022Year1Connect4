@@ -21,6 +21,7 @@ enum StateType
     // @ADDMECH Add your states
     INTAKE,
     EXAMPLE_STATE,
+    FLAGARM_STATE,
     MAX_STATE_TYPES
 };
 
