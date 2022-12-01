@@ -32,8 +32,3 @@ FlagArmState::FlagArmState
     m_FlagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
 }
-
-bool FlagArmState::AtTarget() const
-{
-    return true;
-}

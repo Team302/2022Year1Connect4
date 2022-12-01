@@ -30,9 +30,6 @@ class FlagArmState : public Mech1ServoState
         );
         ~FlagArmState() = default;
 
-        bool AtTarget() const override;
-        FlagArm* GetFlagArm() const {return m_FlagArm;}
-
     private:
         FlagArm*        m_FlagArm;
 };
