@@ -1,11 +1,7 @@
 #pragma once
 #include <string>
 #include <mechanisms/base/StateMgr.h>
-#include <mechanisms/example/Example.h>
 #include <mechanisms/StateStruc.h>
-#include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
-#include <mechanisms\Intake\Intake.h>
 
  
 class Intake;
