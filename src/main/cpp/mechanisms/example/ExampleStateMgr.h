@@ -49,10 +49,8 @@ class ExampleStateMgr : public StateMgr
 
         
 		/// @brief  Find or create the state manmanager
-		/// @return IntakeStateMgr* pointer to the state manager
 		static ExampleStateMgr* GetInstance();
 
-        /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;
     private:
 

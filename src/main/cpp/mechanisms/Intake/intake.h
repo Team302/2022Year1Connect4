@@ -22,14 +22,12 @@
 #include <string>
 
 // Team 302 includes
-#include <mechanisms/base/Mech.h>
-#include <mechanisms/MechanismTypes.h>
+#include <mechanisms/base/Mech1IndMotor.h>
 
 // forward declares
-class ControlData;
 class IDragonMotorController;
 
-class intake : public Mech
+class Intake : public Mech1IndMotor
 {
 	public:
         /// @brief Create a generic mechanism wiht 2 independent motors 
@@ -38,16 +36,13 @@ class intake : public Mech
         /// @param [in] std::string the name of the network table for logging information
         /// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
         /// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-         intake
+         Intake
         (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     primaryMotor,
-            std::shared_ptr<IDragonMotorController>     secondaryMotor
+            std::shared_ptr<IDragonMotorController>     motor
         );
-	    intake() = delete;
-	    ~intake() = default;
-    private:
-    std::shared_ptr<IDragonMotorController> m_primaryMotor;
-    std::shared_ptr<IDragonMotorController> m_secondaryMotor;
+	    Intake() = delete;
+	    ~Intake() = default;
+
 };
