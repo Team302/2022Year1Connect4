@@ -18,8 +18,7 @@
 // C++ Includes
 
 // FRC includes
-#include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
+
 
 // Team 302 includes
 #include <mechanisms\base\StateMgr.h>
