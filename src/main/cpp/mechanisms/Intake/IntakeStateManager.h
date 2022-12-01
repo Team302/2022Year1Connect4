@@ -35,18 +35,14 @@ class IntakeStateMgr : public StateMgr
         static IntakeStateMgr* GetInstance();
         void CheckForStateTransition() override;
 
-private:
-   IntakeStateMgr();
-   ~IntakeStateMgr() = default;
+    private:
+        IntakeStateMgr();
+        ~IntakeStateMgr() = default;
 
-   Intake*                                m_intake;
-        std::string                             m_nt;
+        Intake*                                m_intake;
 
-
-
-        const double m_CHANGE_STATE_TARGET = 120.0; 
         static IntakeStateMgr*	m_instance;
-        const StateStruc m_offState = {INTAKE_STATE::INTAKE_OFF, StateType::INTAKE, true};
-        const StateStruc m_onState = {INTAKE_STATE::INTAKE_ON, StateType::INTAKE, false};
-        const StateStruc m_expelState = {INTAKE_STATE::INTAKE_EXPEL, StateType::INTAKE, false};
+        const StateStruc m_offState = {INTAKE_STATE::INTAKE_OFF, StateType::INTAKE_STATE, true};
+        const StateStruc m_onState = {INTAKE_STATE::INTAKE_ON, StateType::INTAKE_STATE, false};
+        const StateStruc m_expelState = {INTAKE_STATE::INTAKE_EXPEL, StateType::INTAKE_STATE, false};
 };

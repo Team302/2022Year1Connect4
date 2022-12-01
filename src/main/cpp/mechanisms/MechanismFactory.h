@@ -45,7 +45,7 @@
 // @ADDMECH include for your mechanism 
 #include <mechanisms/ARM/arm.h>
 #include <mechanisms/flagarm/FlagArm.h>
-#include <mechanisms/Intake/intake.h>
+#include <mechanisms/intake/Intake.h>
 #include <mechanisms/release/release.h>
 
 // Third Party Includes

@@ -41,7 +41,7 @@
 #include <mechanisms/example/Example.h>
 #include <mechanisms/ARM/arm.h>
 #include <mechanisms/flagarm/FlagArm.h>
-#include <mechanisms/Intake/intake.h>
+#include <mechanisms/intake/Intake.h>
 #include <mechanisms/release/release.h>
 
 // Third Party Includes
@@ -119,9 +119,8 @@ void MechanismFactory::CreateMechanism
 
 		case MechanismTypes::MECHANISM_TYPE::INTAKE:
 		{
-			auto motor1 = GetMotorController(motorControllers, MotorControllerUsage::INTAKE);
-			auto motor2 = GetMotorController(motorControllers, MotorControllerUsage::INTAKE2);
-			m_intake = new Intake(controlFileName, networkTableName, motor1, motor2);
+			auto motor = GetMotorController(motorControllers, MotorControllerUsage::INTAKE);
+			m_intake = new Intake(controlFileName, networkTableName, motor);
 		}
 		break;
 

@@ -1,23 +1,14 @@
 #include <map>
-#include <memory>
-#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/base/IState.h>
-#include <utils/Logger.h>
-#include <mechanisms/controllers/StateDataXmlParser.h>
 #include <mechanisms\Intake\IntakeStateManager.h>
+
 // Third Party Includes
 
 using namespace std;
@@ -42,8 +33,7 @@ IntakeStateMgr* IntakeStateMgr::GetInstance()
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 IntakeStateMgr::IntakeStateMgr() : StateMgr(),
-                                     m_intake(MechanismFactory::GetMechanismFactory()->GetIntake()),
-                                     m_nt()
+                                   m_intake(MechanismFactory::GetMechanismFactory()->GetIntake())
 {
     map<string, StateStruc> stateMap;
     stateMap[m_intakeOffXmlString] = m_offState;
@@ -51,10 +41,6 @@ IntakeStateMgr::IntakeStateMgr() : StateMgr(),
     stateMap[m_intakeExpelXmlString] = m_expelState;  
 
     Init(m_intake, stateMap);
-    if (m_intake != nullptr)
-    {
-        auto m_nt = m_intake->GetNetworkTableName();
-    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

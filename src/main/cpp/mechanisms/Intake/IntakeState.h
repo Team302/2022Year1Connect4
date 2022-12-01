@@ -14,12 +14,12 @@
 //====================================================================================================================================================
 #pragma once
 
-#include <mechanisms/base/Mech2MotorState.h>
-#include <mechanisms/Intake/intake.h>
+#include <mechanisms/base/Mech1MotorState.h>
+#include <mechanisms/intake/Intake.h>
 
 class ControlData;
 
-class IntakeState : public Mech2MotorState
+class IntakeState : public Mech1MotorState
 {
     public:
 
@@ -31,7 +31,6 @@ class IntakeState : public Mech2MotorState
         );
         ~IntakeState() = default;
 
-        bool AtTarget() const override;
         Intake* GetIntake() const {return m_intake;}
 
     private:

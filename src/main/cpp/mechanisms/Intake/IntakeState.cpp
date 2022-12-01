@@ -19,11 +19,11 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/base/Mech2MotorState.h>
+#include <mechanisms/base/Mech1MotorState.h>
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/Intake/IntakeState.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/Intake/Intake.h>
+#include <mechanisms/intake/Intake.h>
 
 
 // Third Party Includes
@@ -33,12 +33,7 @@ IntakeState::IntakeState
 (
     ControlData*                    control, 
     double                          target
-) : Mech2MotorState( MechanismFactory::GetMechanismFactory()->GetIntake(), control, control, target, target),
+) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetIntake(), control, target),
     m_intake(MechanismFactory::GetMechanismFactory()->GetIntake())
 {
-}
-
-bool IntakeState::AtTarget() const
-{
-    return true;
 }
