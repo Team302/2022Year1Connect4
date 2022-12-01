@@ -19,11 +19,11 @@
 
 // FRC includes
 #include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
 
 // Team 302 includes
 #include <mechanisms\base\StateMgr.h>
 #include <mechanisms\StateStruc.h>
+#include <mechanisms\release\release.h>
 
 
 
@@ -60,8 +60,9 @@ class ReleaseStateMgr : public StateMgr
 		static ReleaseStateMgr* GetInstance();
 
         void CheckForStateTransition() override;
-        bool AtTarget() const;
-        bool IsShooting() const;
+        release*                                m_release;
+
+        
     private:
 
         ReleaseStateMgr();
@@ -74,6 +75,6 @@ class ReleaseStateMgr : public StateMgr
 
         const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, StateType::RELEASE, false};
         const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, StateType::RELEASE, false};
-        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE, false};
-        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE, true};
+        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE, true};
+        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE, false};
 };

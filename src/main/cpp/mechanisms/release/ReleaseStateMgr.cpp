@@ -73,29 +73,30 @@ ReleaseStateMgr* ReleaseStateMgr::GetInstance()
 
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
-ExampleStateMgr::ExampleStateMgr() : StateMgr(),
-                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample()),
+ReleaseStateMgr::ReleaseStateMgr() : StateMgr(),
+                                     m_release(MechanismFactory::GetMechanismFactory()->GetRelease()),
                                      m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap[m_exampleOffXmlString] = m_offState;
-    stateMap[m_exampleForwardXmlString] = m_forwardState;
-    stateMap[m_exampleReverseXmlString] = m_reverseState;  
+    stateMap[m_releaseOpenClosedXMLString] = m_openClosedState;
+    stateMap[m_releaseOpenOpenXMLString] = m_openOpenState;
+    stateMap[m_releaseClosedOpenXmlString] = m_closedOpenState;  
+    stateMap[m_releaseClosedClosedXmlString] = m_closedClosedState;
 
-    Init(m_example, stateMap);
-    if (m_example != nullptr)
+    Init(m_release, stateMap);
+    if (m_release != nullptr)
     {
-        auto m_nt = m_example->GetNetworkTableName();
+        auto m_nt = m_release->GetNetworkTableName();
     }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition
-void ExampleStateMgr::CheckForStateTransition()
+void ReleaseStateMgr::CheckForStateTransition()
 {
 
-    if ( m_example != nullptr )
+    if ( m_release != nullptr )
     {    
-        auto currentState = static_cast<EXAMPLE_STATE>(GetCurrentState());
+        auto currentState = static_cast<RELEASE_STATE>(GetCurrentState());
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
@@ -104,15 +105,15 @@ void ExampleStateMgr::CheckForStateTransition()
 
         if (isForwardSelected)
         {
-            targetState = EXAMPLE_STATE::FORWARD;
+            targetState = RELEASE_STATE::CLOSED_OPEN;
         }
         else if (isReverseSelected)
         {
-            targetState = EXAMPLE_STATE::REVERSE;
+            targetState = RELEASE_STATE::OPEN_CLOSED;
         }
         else
         {
-            targetState = EXAMPLE_STATE::OFF;
+            targetState = RELEASE_STATE::OPEN_OPEN;
         }
 
         if (targetState != currentState)
