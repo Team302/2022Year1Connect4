@@ -4,11 +4,11 @@
     <controlData identifier="closedloopposdegrees"
 				 mode="POSITION_DEGREES"/>
 
-    <mechanismTarget stateIdentifier= "Closed"
+    <mechanismTarget stateIdentifier= "FLAG_GRAB"
     controlDataIdentifier="closedloopposdegrees"
     value="0.0"/>
 
-        <mechanismTarget stateIdentifier= "Open"
+        <mechanismTarget stateIdentifier= "FLAG_RELEASE"
     controlDataIdentifier="closedloopposdegrees"
     value="90.0"/>
 </stateData>
