@@ -21,12 +21,10 @@
 // FRC includes
 
 // Team 302 includes
+#include <auton/drivePrimitives/SuperDrive.h>
 
 // Third Party Includes
 
-//Includes
-//Team302 includes
-#include <auton/drivePrimitives/SuperDrive.h>
 
 class PrimitiveParams;
 
@@ -36,7 +34,6 @@ public:
 	DriveTime();
 	virtual ~DriveTime() = default;
 	void Init(PrimitiveParams* params) override;
-	void Run() override;
 	bool IsDone() override;
 
 private:

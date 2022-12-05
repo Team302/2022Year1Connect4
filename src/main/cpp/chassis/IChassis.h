@@ -77,6 +77,8 @@ class IChassis
         virtual units::angle::degree_t GetYaw() const = 0;
         virtual void SetEncodersToZero() = 0;
 
+        virtual bool IsMoving() const = 0;
+
 	    IChassis() = default;
 	    virtual ~IChassis() = default;
 };

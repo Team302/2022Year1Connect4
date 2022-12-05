@@ -68,7 +68,6 @@ void FlagArmStateManager::CheckForStateTransition()
 
         auto controller = TeleopControl::GetInstance();
         auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_RELEASE) : true;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FLAG_GRAB) : false;
 
         if (isForwardSelected)
         {
