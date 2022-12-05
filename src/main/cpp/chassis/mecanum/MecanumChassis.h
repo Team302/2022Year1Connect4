@@ -76,6 +76,8 @@ class MecanumChassis : public IChassis , public IHolonomicChassis
         void SetTargetHeading(units::angle::degree_t targetYaw) override;
         void SetEncodersToZero() override;
 
+        bool IsMoving() const override;
+
     private:
         void ZeroEncoder(std::shared_ptr<IDragonMotorController> motor);
 

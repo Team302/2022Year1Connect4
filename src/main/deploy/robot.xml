@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
-       <pdp canId="1"
-            type="REV"/>
-       <pigeon canId="0"
-               usage="CENTER_OF_ROTATION"
-               type="pigeon1"
-               rotation="0.0"/>
+     <pdp canId="1"
+          type="REV"/>
+     <pigeon canId="0"
+             usage="CENTER_OF_ROTATION"
+             type="pigeon1"
+             rotation="0.0"/>
+     <roborio orientation="X_FORWARD_Y_LEFT"/>
 
  <!-- ====================================================
      Chassis

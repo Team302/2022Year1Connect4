@@ -43,36 +43,18 @@ using namespace frc;
 
 DriveToWall::DriveToWall() :
 	SuperDrive(),
-	m_minimumTime(0),
-	m_timeRemaining(0),
-	m_underSpeedCounts(0)
+	m_wasMoving(false)
 {
-}
-
-void DriveToWall::Init(PrimitiveParams* params) 
-{
-	SuperDrive::Init(params);
-	m_timeRemaining = params->GetTime();
-	m_underSpeedCounts = 0;
-	m_minimumTime = 0.3;
-}
-
-void DriveToWall::Run() 
-{
-	if (m_minimumTime <= 0) 
-	{
-		//if (abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentSpeed()) < SPEED_THRESHOLD) 
-		//{
-		//	m_underSpeedCounts++;
-		//}
-	}
-
-	m_minimumTime -= IPrimitive::LOOP_LENGTH;
-	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
 }
 
 bool DriveToWall::IsDone() 
 {
-	return (m_underSpeedCounts >= UNDER_SPEED_COUNT_THRESHOLD) && m_timeRemaining <= 0;
+	auto chassis = GetChassis();
+	if (chassis != nullptr && m_wasMoving)
+	{
+		return chassis->IsMoving();
+	}
+	m_wasMoving = chassis->IsMoving();
+	return false;
 }
 

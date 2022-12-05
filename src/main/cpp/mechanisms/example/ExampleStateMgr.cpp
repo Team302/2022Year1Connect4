@@ -35,12 +35,7 @@ ExampleStateMgr* ExampleStateMgr::GetInstance()
 {
 	if ( ExampleStateMgr::m_instance == nullptr )
 	{
-	    auto mechFactory = MechanismFactory::GetMechanismFactory();
-	    auto shooter = mechFactory->GetExample();
-	    if (shooter != nullptr)
-        {
-		    ExampleStateMgr::m_instance = new ExampleStateMgr();
-        }
+        ExampleStateMgr::m_instance = new ExampleStateMgr();
 	}
 	return ExampleStateMgr::m_instance;
     

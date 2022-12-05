@@ -19,12 +19,13 @@
 // C++ Includes
 
 // FRC includes
+#include <frc/geometry/Pose2d.h>
 
 // Team 302 includes
+#include <auton/drivePrimitives/SuperDrive.h>
 
 // Third Party Includes
 
-#include <auton/drivePrimitives/SuperDrive.h>
 
 class PrimitiveParams;
 
@@ -33,33 +34,12 @@ class DriveDistance : public SuperDrive
 public:
 	bool IsDone() override;
 	void Init(PrimitiveParams* params) override;
-	void Run() override;
 	DriveDistance();
 	virtual ~DriveDistance() = default;
 
-protected:
-    void SetDistance
-    (
-        double distance
-    );
+
 private:
-	void CalculateSlowDownDistance();
-	PrimitiveParams* m_params;
-
-	double m_targetDistance;
-	double m_initialDistance;
-	double m_timeRemaining;
-
-	double m_minSpeedCountTime;
-	int m_underSpeedCounts;
-	double m_startHeading;
-	double m_endHeading;
-	double m_minSpeed;
-	bool m_arcing;
-
-	const double SPEED_THRESHOLD = 1.5;
-	const double MIN_SPEED_COUNT_TIME = 0.5; //seconds before we start checking for wall collisions
-	const int UNDER_SPEED_COUNT_THRESHOLD = 4;
-	const double DECEL_TIME_MULTIPLIER = 0.85; //0.75
+	double 			m_targetDistance;
+	frc::Pose2d*	m_initialPose;
 };
 
