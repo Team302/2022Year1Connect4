@@ -13,45 +13,23 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+   
+#pragma once
 
-// C++ Includes
-#include <memory>
-#include <string>
+#include <frc/BuiltInAccelerometer.h>
 
-// FRC includes
-#include <frc/Timer.h>
-
-// Team 302 includes
-#include <auton/drivePrimitives/DriveTime.h>
-#include <auton/drivePrimitives/DriveStop.h>
-#include <auton/PrimitiveParams.h>
-#include <auton/drivePrimitives/IPrimitive.h>
-#include <mechanisms/controllers/ControlModes.h>
-
-// Third Party Includes
-
-
-using namespace std;
-using namespace frc;
-
-
-DriveTime::DriveTime() :
-		SuperDrive(),
-		m_timeRemaining(0.0)       //Value will changed in init
-
+class DragonRoboRioAccelXBackwardYRight : public frc::BuiltInAccelerometer
 {
-}
+	public:
+		DragonRoboRioAccelXBackwardYRight() = default;
+		virtual ~DragonRoboRioAccelXBackwardYRight() = default;
 
-void DriveTime::Init(PrimitiveParams* params) 
-{
-	SuperDrive::Init(params);
-	m_timeRemaining = params->GetTime();
-}
+		 /// @return The acceleration of the roboRIO along the robot X axis (forward) in g-forces
+		inline double GetX() override { return -1.0 * BuiltInAccelerometer::GetX();};
+
+		 /// @return The acceleration of the roboRIO along the robot Y axis (left) in g-forces
+		inline double GetY() override {return -1.0 * BuiltInAccelerometer::GetY();};
+};
 
 
 
-bool DriveTime::IsDone() 
-{
-	m_timeRemaining -= LOOP_LENGTH;						// Decrement time remaining
-	return ((m_timeRemaining <= (LOOP_LENGTH / 2.0)));	// Return true when time runs out
-}
