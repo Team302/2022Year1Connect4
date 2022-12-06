@@ -19,25 +19,19 @@
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/base/Mech1MotorState.h>
+#include <mechanisms/base/Mech2ServosState.h>
 #include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/example/ExampleState.h>
+#include <mechanisms/release/ReleaseState.h>
 #include <mechanisms/MechanismFactory.h>
 
 // Third Party Includes
 
 
-ExampleState::ExampleState
-(
-    ControlData*                    control, 
-    double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetExample(), control, target),
-    m_example(MechanismFactory::GetMechanismFactory()->GetExample())
+ReleaseState::ReleaseState
+( 
+    double                          target,
+    double                          target2
+) : Mech2ServosState( MechanismFactory::GetMechanismFactory()->GetRelease(), target, target2),
+    m_release(MechanismFactory::GetMechanismFactory()->GetRelease())
 {
-    
-}
-
-bool ExampleState::AtTarget() const
-{
-    return true;
 }

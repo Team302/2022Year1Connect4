@@ -12,32 +12,27 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+#pragma once
 
+#include <mechanisms/base/Mech2ServosState.h>
+#include <mechanisms/release/release.h>
 
-// C++ Includes
+class ControlData;
 
-// FRC includes
-
-// Team 302 includes
-#include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/example/ExampleState.h>
-#include <mechanisms/MechanismFactory.h>
-
-// Third Party Includes
-
-
-ExampleState::ExampleState
-(
-    ControlData*                    control, 
-    double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetExample(), control, target),
-    m_example(MechanismFactory::GetMechanismFactory()->GetExample())
+class ReleaseState : public Mech2ServosState
 {
+    public:
+
+        ReleaseState() = delete;
+        ReleaseState
+        (
+            double                          target,
+            double                          target2
+        );
+        ~ReleaseState() = default;
+
+        release* GetRelease() const {return m_release;}
     
-}
-
-bool ExampleState::AtTarget() const
-{
-    return true;
-}
+    private:
+        release*        m_release;
+};

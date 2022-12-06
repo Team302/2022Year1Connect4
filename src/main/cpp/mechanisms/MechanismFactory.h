@@ -41,6 +41,12 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/example/Example.h>
+
+#include <mechanisms/ARM\arm.h>
+#include <mechanisms/release/release.h>
+#include <mechanisms/release/ReleaseStateMgr.h>
+
+
 #include <mechanisms\Intake\IntakeStateManager.h>
 // @ADDMECH include for your mechanism 
 #include <mechanisms/ARM/arm.h>
@@ -82,6 +88,7 @@ class MechanismFactory
 		);
 		
 		inline Example* GetExample() const {return m_example;};
+		
 		// @ADDMECH  Add inline Get method for your mechanism
 		inline Intake* GetIntake() const {return m_intake;};
 		inline arm* GetArm() const {return m_arm;};

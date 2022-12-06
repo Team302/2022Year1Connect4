@@ -19,8 +19,10 @@
 enum StateType
 {
     // @ADDMECH Add your states
-    INTAKE_STATE,
     EXAMPLE_STATE,
+    RELEASE,
+    INTAKE_STATE,
+    ARM_STATE,
     FLAGARM_STATE,
     MAX_STATE_TYPES
 };
