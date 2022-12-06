@@ -22,10 +22,10 @@
 #include <frc/Timer.h>
 
 // Team 302 includes
+#include <auton/drivePrimitives/DriveTime.h>
 #include <auton/drivePrimitives/DriveStop.h>
 #include <auton/PrimitiveParams.h>
 #include <auton/drivePrimitives/IPrimitive.h>
-#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/controllers/ControlModes.h>
 
 // Third Party Includes
@@ -34,12 +34,6 @@
 using namespace std;
 using namespace frc;
 
-//Includes
-//Team302 includes
-#include <auton/drivePrimitives/DriveTime.h>
-#include <auton/PrimitiveFactory.h>
-#include <auton/PrimitiveParams.h>
-#include <mechanisms/MechanismFactory.h>
 
 DriveTime::DriveTime() :
 		SuperDrive(),
@@ -51,14 +45,9 @@ DriveTime::DriveTime() :
 void DriveTime::Init(PrimitiveParams* params) 
 {
 	SuperDrive::Init(params);
-	//Get timeRemaining from m_params
 	m_timeRemaining = params->GetTime();
 }
 
-void DriveTime::Run() 
-{
-	SuperDrive::Run();
-}
 
 
 bool DriveTime::IsDone() 

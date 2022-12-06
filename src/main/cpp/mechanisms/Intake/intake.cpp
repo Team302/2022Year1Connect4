@@ -20,50 +20,27 @@
 #include <string>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/base/Mech.h>
 #include <mechanisms/base/Mech1IndMotor.h>
-#include <mechanisms/base/Mech2IndMotors.h>
-#include <mechanisms/controllers/ControlData.h>
 #include <hw/interfaces/IDragonMotorController.h>
-#include <utils/Logger.h>
-#include <mechanisms/Intake/intake.h>
+#include <mechanisms/intake/Intake.h>
+
 // Third Party Includes
-#include <units/time.h>
 
 using namespace std;
 
-/// @brief Create a generic mechanism wiht 2 independent motors 
-/// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
-/// @param [in] std::string the name of the file that will set control parameters for this mechanism
+/// @brief Create an intake 
+/// @param [in] std::string the name of the file that will set control parameters for intake
 /// @param [in] std::string the name of the network table for logging information
-/// @param [in] std::shared_ptr<IDragonMotorController> primary motor used by this mechanism
-/// @param [in] std::shared_ptr<IDragonMotorController> secondary motor used by this mechanism
-intake::intake
+/// @param [in] std::shared_ptr<IDragonMotorController> motor used by intake
+Intake::Intake
 (
-    MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,
     std::string                                 networkTableName,
-    shared_ptr<IDragonMotorController>          primaryMotor,
-    shared_ptr<IDragonMotorController>          secondaryMotor
-) : Mech(type, controlFileName, networkTableName),
-    m_primaryMotor( primaryMotor),
-    m_secondaryMotor( secondaryMotor)
-    
+    shared_ptr<IDragonMotorController>          motor
+):Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::INTAKE, controlFileName, networkTableName, motor)   
 {
-    if ( primaryMotor.get() == nullptr )
-    {
-        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create primary control" ) );
-    }    
-    
-    if ( secondaryMotor.get() == nullptr )
-    {
-        Logger::GetLogger()->LogData( LOGGER_LEVEL::ERROR_ONCE, networkTableName, string( "Mech2IndMotors constructor" ), string( "failed to create secondary control" ) );
-    }
 }
 
 

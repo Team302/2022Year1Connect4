@@ -39,6 +39,10 @@
 #include <utils/Logger.h>
 // @ADDMECH include for your mechanism 
 #include <mechanisms/example/Example.h>
+#include <mechanisms/ARM/arm.h>
+#include <mechanisms/flagarm/FlagArm.h>
+#include <mechanisms/intake/Intake.h>
+#include <mechanisms/release/release.h>
 
 // Third Party Includes
 #include <ctre/phoenix/sensors/CANCoder.h>
@@ -99,7 +103,34 @@ void MechanismFactory::CreateMechanism
 		}
 		break;
 		// @ADDMECH  Add case for Mechanism
+		case MechanismTypes::MECHANISM_TYPE::ARM:
+		{
+			auto motor = GetMotorController(motorControllers, MotorControllerUsage::ARM);
+			m_arm = new arm(controlFileName, networkTableName, motor);
+		}
+		break;
 
+		case MechanismTypes::MECHANISM_TYPE::FLAGARM:
+		{
+			auto servo = GetServo(servos, ServoUsage::SERVO_USAGE::FLAG_SERVO);
+			m_flag = new FlagArm(controlFileName, networkTableName, servo);
+		}
+		break;
+
+		case MechanismTypes::MECHANISM_TYPE::INTAKE:
+		{
+			auto motor = GetMotorController(motorControllers, MotorControllerUsage::INTAKE);
+			m_intake = new Intake(controlFileName, networkTableName, motor);
+		}
+		break;
+
+		case MechanismTypes::MECHANISM_TYPE::RELEASE:
+		{
+			auto servo1 = GetServo(servos, ServoUsage::SERVO_USAGE::RELEASE_SERVO);
+			auto servo2 = GetServo(servos, ServoUsage::SERVO_USAGE::RELEASE_SERVO2);
+			m_release = new release(controlFileName, networkTableName, servo1, servo2);
+		}
+		break;
 
 		default:
 		{
@@ -125,19 +156,19 @@ Mech* MechanismFactory::GetMechanism
 
 		// @ADDMECH  Add case for Mechanism
 		case MechanismTypes::MECHANISM_TYPE::ARM:
-		    return nullptr;
+		    return m_arm;
 			break;
 
-		case MechanismTypes::MECHANISM_TYPE::FLAG:
-			return nullptr;
+		case MechanismTypes::MECHANISM_TYPE::FLAGARM:
+			return m_flag;
 			break;
 
 		case MechanismTypes::MECHANISM_TYPE::INTAKE:
-			return nullptr;
+			return m_intake;
 			break;
 		
 		case MechanismTypes::MECHANISM_TYPE::RELEASE:
-			return nullptr;
+			return m_release;
 			break;
 
 		default:

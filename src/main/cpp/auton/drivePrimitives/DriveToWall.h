@@ -21,30 +21,23 @@
 // FRC includes
 
 // Team 302 includes
+#include <auton/drivePrimitives/SuperDrive.h>
 
 // Third Party Includes
 
 
 
-#include <auton/drivePrimitives/SuperDrive.h>
 
 class PrimitiveParams;
 
 class DriveToWall : public SuperDrive 
 {
-public:
-	bool IsDone() override;
-	void Init(PrimitiveParams* params) override;
-	void Run() override;
-	DriveToWall();
-	virtual ~DriveToWall() = default;
+	public:
+		bool IsDone() override;
+		DriveToWall();
+		virtual ~DriveToWall() = default;
 
-private:
-	float m_minimumTime;
-	float m_timeRemaining;
-	int m_underSpeedCounts;
-	const float SPEED_THRESHOLD = 3;
-	const int UNDER_SPEED_COUNT_THRESHOLD = 2;
-
+	private:
+		bool	m_wasMoving;
 };
 

@@ -19,16 +19,11 @@
 #include <string>
 
 // FRC includes
-#include <networktables/NetworkTable.h>
-#include <frc/Timer.h>
 
 // Team 302 includes
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/example/Example.h>
 #include <mechanisms/StateStruc.h>
-
-
-
 
 // Third Party Includes
 
@@ -54,10 +49,8 @@ class ExampleStateMgr : public StateMgr
 
         
 		/// @brief  Find or create the state manmanager
-		/// @return IntakeStateMgr* pointer to the state manager
 		static ExampleStateMgr* GetInstance();
 
-        /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;
     private:
 
@@ -65,10 +58,7 @@ class ExampleStateMgr : public StateMgr
         ~ExampleStateMgr() = default;
         
         Example*                                m_example;
-        std::string                             m_nt;
 
-
-        const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ExampleStateMgr*	m_instance;
         const StateStruc m_offState = {EXAMPLE_STATE::OFF, StateType::EXAMPLE_STATE, true};
         const StateStruc m_forwardState = {EXAMPLE_STATE::FORWARD, StateType::EXAMPLE_STATE, false};

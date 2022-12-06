@@ -17,22 +17,13 @@
 // C++ Includes
 #include <cmath>
 #include <memory>
-#include <string>
 
 // FRC includes
-#include <frc/Timer.h>
 
 // Team 302 includes
 #include <auton/PrimitiveParams.h>
-#include <auton/drivePrimitives/DriveStop.h>
 #include <auton/drivePrimitives/DriveDistance.h>
-#include <auton/drivePrimitives/IPrimitive.h>
-#include <chassis/ChassisFactory.h>
 #include <chassis/IChassis.h>
-#include <mechanisms/controllers/ControlModes.h>
-#include <hw/DragonPigeon.h>
-#include <hw/factories/PigeonFactory.h>
-#include <mechanisms/MechanismFactory.h>
 
 // Third Party Includes
 
@@ -44,103 +35,44 @@ using namespace frc;
 
 DriveDistance::DriveDistance() :
 	SuperDrive(),
-	m_params(nullptr),
-	m_targetDistance(0),
-	m_initialDistance(0),
-	m_timeRemaining(0),
-	m_minSpeedCountTime(0), //will be changed in init
-	m_underSpeedCounts(0),
-	m_startHeading(0),
-	m_endHeading(0),
-	m_minSpeed(0),
-	m_arcing(false)
+	m_targetDistance(0.0)
 {
 }
 
 void DriveDistance::Init(PrimitiveParams* params) 
 {
 	SuperDrive::Init(params);
-	
-	m_arcing = abs(params->GetHeading()) > 0.1;
-	//m_startHeading =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetTargetHeading();
-	m_endHeading = m_startHeading + params->GetHeading();
-
-	m_minSpeedCountTime = MIN_SPEED_COUNT_TIME;
-	m_underSpeedCounts = 0;
-	m_params = params;
-	//Get parameters from params
 	m_targetDistance = params->GetDistance();
-	//m_initialDistance =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition();
-}
 
-void DriveDistance::Run() 
-{
-	SuperDrive::Run();
-
-	if (m_arcing) 
+	delete m_initialPose;
+	auto chassis = GetChassis();
+	if (chassis.get() != nullptr)
 	{
-		//Calculate progress from 0 to 1
-		//float progress = abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition() - m_initialDistance);
-		//progress /= abs(m_targetDistance); //progress = progress / targetDistance
-
-		//float newTargetHeading = 0;
-		//Linear interpolation between start heading and end heading based on progress
-		//newTargetHeading += (1.0 - progress) * m_startHeading;// newTargetheading = newTargetHeading + (1.0 - progress) * m_startHeading
-		//newTargetHeading += (progress) * m_endHeading;
-		//ChassisFactory::GetChassisFactory()->GetIChassis()->SetTargetHeading(newTargetHeading);
+		m_initialPose = new Pose2d(chassis.get()->GetPose());
 	}
-
-
-	CalculateSlowDownDistance();
-
-	if (m_minSpeedCountTime <= 0) 
+	else
 	{
-		//if (abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentSpeed()) < SPEED_THRESHOLD) 
-		//{
-		//	m_underSpeedCounts++;
-		//}
+		m_initialPose = new Pose2d();
 	}
-	m_minSpeedCountTime -= IPrimitive::LOOP_LENGTH;
 }
 
 bool DriveDistance::IsDone() 
 {
-	//float progress =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition() - m_initialDistance;
-	//bool reachedTarget = abs(progress) > abs(m_targetDistance);
-	m_timeRemaining -= IPrimitive::LOOP_LENGTH;
-
-	//bool notMoving = m_underSpeedCounts >= UNDER_SPEED_COUNT_THRESHOLD;
-	//bool done = reachedTarget;
-	bool done = false;
-	if (done) 
+	auto chassis = GetChassis();
+	if (chassis.get() != nullptr)
 	{
-		 //ChassisFactory::GetChassisFactory()->GetIChassis()->SetTargetHeading(m_endHeading);
+		auto pose = chassis.get()->GetPose();
+	    auto currX = pose.X().to<double>();
+    	auto currY = pose.Y().to<double>();
+
+		auto initialX = m_initialPose->X().to<double>();
+		auto initialY = m_initialPose->Y().to<double>();
+
+    	auto deltaX = abs(currX - initialX);
+    	auto deltaY = abs(currY - initialY);
+		return deltaX < 0.01 && deltaY < 0.01;
 	}
-	return done;
+	return false;
 }
 
-void DriveDistance::CalculateSlowDownDistance() 
-{
-
-	//float currentVel =  ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentSpeed();
-	//float decelTime = currentVel / SuperDrive::INCHES_PER_SECOND_SECOND;
-	//float decelDist = abs(((currentVel - m_minSpeed)) * decelTime * DECEL_TIME_MULTIPLIER);
-	//float currentDistance = abs( ChassisFactory::GetChassisFactory()->GetIChassis()->GetCurrentPosition() - m_initialDistance);
-	//float distanceRemaining = abs(m_targetDistance - currentDistance);
-
-	/**
-	if (distanceRemaining <= decelDist)
-	{
-		SuperDrive::SlowDown();
-	}
-	**/
-}
-
-void DriveDistance::SetDistance
-(
-    double distance
-)
-{
-    m_targetDistance = distance;
-}
 

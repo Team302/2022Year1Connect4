@@ -1,4 +1,24 @@
-<!ELEMENT robot (pdp?, pcm?, pigeon*, limelight?, chassis?, mechanism*, camera* )>
+<!ELEMENT robot (pdp?, pcm?, pigeon*, limelight?, chassis?, mechanism*, camera*, roborio* )>
+
+<!ELEMENT roborio EMPTY>
+<!ATTLIST roborio
+          orientation ( X_FORWARD_Y_LEFT |
+                        X_LEFT_Y_BACKWARD |
+                        X_BACKWARD_Y_RIGHT |
+                        X_RIGHT_Y_FORWARD |
+                        X_FORWARD_Y_RIGHT |
+                        X_LEFT_Y_FORWARD |
+                        X_BACKWARD_Y_LEFT |
+                        X_RIGHT_Y_BACKWARD |
+                        X_UP_Y_LEFT |
+                        X_LEFT_Y_DOWN |
+                        X_DOWN_Y_RIGHT |
+                        X_RIGHT_Y_UP |
+                        X_UP_Y_RIGHT |
+                        X_LEFT_Y_UP |
+                        X_DOWN_Y_LEFT |
+                        X_RIGHT_Y_DOWN) "X_FORWARD_Y_LEFT"
+>
 
 <!-- ========================================================================================================================================== -->
 <!--	PDP (power distribution panel) 		 																									-->
@@ -149,7 +169,7 @@
 <!-- ========================================================================================================================================== -->
 <!ELEMENT mechanism (motor*, solenoid*, servo*, analogInput*, digitalInput*, cancoder*, colorsensor?)>
 <!ATTLIST mechanism
-          type              (INTAKE | ARM | RELEASE | FLAG | EXAMPLE) "INTAKE"
+          type              (INTAKE | ARM | RELEASE | FLAGARM | EXAMPLE) "INTAKE"
           networkTable      CDATA #IMPLIED
           controlFile       CDATA #IMPLIED
 >

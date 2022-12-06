@@ -59,6 +59,7 @@ void Robot::RobotPeriodic()
 //    {
 //        m_chassis->UpdateOdometry();
 //   }
+
     Logger::GetLogger()->PeriodicLog();
 }
 

@@ -13,30 +13,17 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #include <map>
-#include <memory>
-#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/controllers/MechanismTargetData.h>
 #include <TeleopControl.h>
-#include <hw/DragonLimelight.h>
-#include <hw/factories/LimelightFactory.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
-#include <mechanisms/base/IState.h>
 #include <mechanisms/example/Example.h>
 #include <mechanisms/example/ExampleState.h>
 #include <mechanisms/example/ExampleStateMgr.h>
-#include <utils/Logger.h>
-#include <mechanisms/controllers/StateDataXmlParser.h>
-
 
 // Third Party Includes
 
@@ -48,12 +35,7 @@ ExampleStateMgr* ExampleStateMgr::GetInstance()
 {
 	if ( ExampleStateMgr::m_instance == nullptr )
 	{
-	    auto mechFactory = MechanismFactory::GetMechanismFactory();
-	    auto shooter = mechFactory->GetExample();
-	    if (shooter != nullptr)
-        {
-		    ExampleStateMgr::m_instance = new ExampleStateMgr();
-        }
+        ExampleStateMgr::m_instance = new ExampleStateMgr();
 	}
 	return ExampleStateMgr::m_instance;
     
@@ -62,8 +44,7 @@ ExampleStateMgr* ExampleStateMgr::GetInstance()
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 ExampleStateMgr::ExampleStateMgr() : StateMgr(),
-                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample()),
-                                     m_nt()
+                                     m_example(MechanismFactory::GetMechanismFactory()->GetExample())
 {
     map<string, StateStruc> stateMap;
     stateMap[m_exampleOffXmlString] = m_offState;
@@ -71,10 +52,6 @@ ExampleStateMgr::ExampleStateMgr() : StateMgr(),
     stateMap[m_exampleReverseXmlString] = m_reverseState;  
 
     Init(m_example, stateMap);
-    if (m_example != nullptr)
-    {
-        auto m_nt = m_example->GetNetworkTableName();
-    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

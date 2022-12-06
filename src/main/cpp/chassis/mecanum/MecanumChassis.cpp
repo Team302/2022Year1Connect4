@@ -17,6 +17,7 @@
 #include <cmath>
 #include <string>
 
+#include <frc/BuiltInAccelerometer.h>
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/kinematics/MecanumDriveKinematics.h>
 #include <frc/kinematics/MecanumDriveOdometry.h>
@@ -28,12 +29,12 @@
 #include <units/angle.h>
 
 #include <chassis/holonomic/FieldDriveUtils.h>
-#include <hw/factories/PigeonFactory.h>
+#include <chassis/mecanum/MecanumChassis.h>
 #include <hw/DragonPigeon.h>
+#include <hw/factories/DragonRoboRioAccelerometerFactory.h>
+#include <hw/factories/PigeonFactory.h>
 #include <utils/ConversionUtils.h>
 #include <utils/Logger.h>
-
-#include <chassis/mecanum/MecanumChassis.h>
 
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 
@@ -168,5 +169,15 @@ void MecanumChassis::ZeroEncoder(shared_ptr<IDragonMotorController> controller)
         auto talon = dynamic_cast<WPI_TalonSRX*>(motor.get());
         talon->SetSelectedSensorPosition(0,0);
     }
+}
+
+bool MecanumChassis::IsMoving() const
+{
+    auto accel = DragonRoboRioAccelerometerFactory::GetInstance()->GetAccelerometer();
+    if (accel != nullptr)
+    {
+        return (abs(accel->GetX()) > 0.02 || abs(accel->GetY()) > 0.02);
+    }
+    return true;
 }
 

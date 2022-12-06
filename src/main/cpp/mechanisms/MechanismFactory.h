@@ -41,9 +41,18 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/example/Example.h>
-#include <mechanisms\ARM\arm.h>
 
+#include <mechanisms/ARM\arm.h>
+#include <mechanisms/release/release.h>
+#include <mechanisms/release/ReleaseStateMgr.h>
+
+
+#include <mechanisms\Intake\IntakeStateManager.h>
 // @ADDMECH include for your mechanism 
+#include <mechanisms/ARM/arm.h>
+#include <mechanisms/flagarm/FlagArm.h>
+#include <mechanisms/intake/Intake.h>
+#include <mechanisms/release/release.h>
 
 // Third Party Includes
 
@@ -80,8 +89,13 @@ class MechanismFactory
 		
 		inline Example* GetExample() const {return m_example;};
 		inline arm* GetArm() const {return m_arm;};
+		inline release* GetRelease() const {return m_release;};
 		
 		// @ADDMECH  Add inline Get method for your mechanism
+		inline Intake* GetIntake() const {return m_intake;};
+		inline arm* GetArm() const {return m_arm;};
+		inline release* GetRelease() const {return m_release;};
+		inline FlagArm* GetFlag() const {return m_flag;};
 
 		Mech* GetMechanism
 		(
@@ -123,8 +137,14 @@ class MechanismFactory
 		static MechanismFactory*	m_mechanismFactory;
 		
 		Example* 		m_example;
+		release*		m_release;
 		// @ADDMECH  Add your mechanism here
 		arm*                                m_arm;
+		Intake*			m_intake;
+		arm*			m_arm;
+		release*        m_release;
+		FlagArm*		m_flag;
+
 
 		
 
