@@ -110,7 +110,7 @@
 <mechanism type="INTAKE" 
                networkTable="IntakeNT" 
                controlFile="intake.xml"> 
-       <motor usage="INTAKE_SPIN" 
+       <motor usage="INTAKE" 
               canId="1" 
               pdpID="1" 
               type="TALONSRX" 
@@ -131,7 +131,7 @@
 <mechanism type= "ARM"
                networkTable="ArmNT"
                controlFile="arm.xml">
-          <motor usage="ARM_ROTATE"
+          <motor usage="ARM"
           canId="1"
           pdpID="1"
           type="TALONSRX"
@@ -167,7 +167,7 @@
 <mechanism type= "FLAGARM"
                networkTable="FlagArmNT"
                controlFile="flagarmstates.xml">
-          <servo usage="FLAGARM_OPEN/CLOSE"
+          <servo usage="FLAG_SERVO"
           minAngle="0.0"
           maxAngle="90.0"
 
