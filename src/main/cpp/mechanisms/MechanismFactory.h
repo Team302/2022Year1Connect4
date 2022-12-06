@@ -88,8 +88,6 @@ class MechanismFactory
 		);
 		
 		inline Example* GetExample() const {return m_example;};
-		inline arm* GetArm() const {return m_arm;};
-		inline release* GetRelease() const {return m_release;};
 		
 		// @ADDMECH  Add inline Get method for your mechanism
 		inline Intake* GetIntake() const {return m_intake;};
@@ -137,9 +135,7 @@ class MechanismFactory
 		static MechanismFactory*	m_mechanismFactory;
 		
 		Example* 		m_example;
-		release*		m_release;
 		// @ADDMECH  Add your mechanism here
-		arm*                                m_arm;
 		Intake*			m_intake;
 		arm*			m_arm;
 		release*        m_release;
