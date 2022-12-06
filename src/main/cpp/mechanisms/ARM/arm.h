@@ -34,7 +34,9 @@ class arm : public Mech1IndMotor
         (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
-            std::shared_ptr<IDragonMotorController>     motorController
+            std::shared_ptr<IDragonMotorController>     motorController,
+            std::shared_ptr<DragonDigitalInput>     limitUp,
+            std::shared_ptr<DragonDigitalInput>     limitDown
         );
 	    arm() = delete;
 	    ~arm() override = default;

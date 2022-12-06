@@ -106,6 +106,8 @@ void MechanismFactory::CreateMechanism
 		case MechanismTypes::MECHANISM_TYPE::ARM:
 		{
 			auto motor = GetMotorController(motorControllers, MotorControllerUsage::ARM);
+			auto limitUp = GetDigitalInput(digitalInputs, DigitalInputUsage::ARM_UP);
+			auto limitDown = GetDigitalInput(digitalInputs, DigitalInputUsage::ARM_DOWN);
 			m_arm = new arm(controlFileName, networkTableName, motor);
 		}
 		break;

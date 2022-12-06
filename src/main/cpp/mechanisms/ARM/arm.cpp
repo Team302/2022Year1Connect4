@@ -28,7 +28,10 @@ arm::arm
 (
 std::string                                 controlFileName,
 std::string                                 networkTableName,  
-std::shared_ptr<IDragonMotorController>     motorController
+std::shared_ptr<IDragonMotorController>     motorController,
+std::string                                 limitUp,
+std::string                                 limitDown
+
 
 ):Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::ARM,controlFileName,networkTableName,motorController)
 {
