@@ -107,20 +107,71 @@
 <!-- ====================================================
      Intake
      ====================================================  -->
-
+<mechanism type="INTAKE" 
+               networkTable="IntakeNT" 
+               controlFile="intake.xml"> 
+       <motor usage="INTAKE" 
+              canId="1" 
+              pdpID="1" 
+              type="TALONSRX" 
+              inverted="false" 
+              sensorInverted="false" 
+              feedbackDevice="NONE" 
+              countsPerRev="0" 
+              gearRatio="1.0" 
+              brakeMode="false" 
+              peakCurrentDuration="50" 
+              continuousCurrentLimit="50" 
+              peakCurrentLimit="50" 
+              currentLimiting="true"/>
 
 <!-- ====================================================
      Arm
      ====================================================  -->
+<mechanism type= "ARM"
+               networkTable="ArmNT"
+               controlFile="arm.xml">
+          <motor usage="ARM"
+          canId="1"
+          pdpID="1"
+          type="TALONSRX"
+          inverted="false"
+          sensorInverted="false"
+          feedbackDevice="NONE" 
+          countsPerRev="0" 
+          gearRatio="1.0" 
+          brakeMode="false" 
+          peakCurrentDuration="50" 
+          continuousCurrentLimit="50" 
+          peakCurrentLimit="50" 
+          currentLimiting="true"
+
+          />
 
 
 <!-- ====================================================
      Ball Release
      ====================================================  -->
-
-
+<mechanism type= "BALL_RELEASE"
+               networkTable="BallReleaseNT"
+               controlFile="release.xml">
+          <servo usage="RELEASE_SERVO"
+          minAngle="0.0"
+          maxAngle="90.0"/>
+          <servo usage="RELEASE_SERVO2"
+          minAngle="0.0"
+          maxAngle="90.0"/>
 <!-- ====================================================
-     Flag Placer
+     Flag Arm
      ====================================================  -->
+<mechanism type= "FLAGARM"
+               networkTable="FlagArmNT"
+               controlFile="flagarmstates.xml">
+          <servo usage="FLAG_SERVO"
+          minAngle="0.0"
+          maxAngle="90.0"
 
+          
+          
+/>
 </robot>
