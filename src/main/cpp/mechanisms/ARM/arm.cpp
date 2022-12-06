@@ -18,7 +18,7 @@
 #include <string>
 
 //team 302 includes
-#include <mechanisms/ARM/arm.h>
+#include <mechanisms/ARM/Arm.h>
 #include <mechanisms/base/Mech1IndMotor.h>
 #include <hw/interfaces/IDragonMotorController.h>
 

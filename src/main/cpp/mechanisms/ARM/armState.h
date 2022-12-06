@@ -15,7 +15,7 @@
 #pragma once
 
 #include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/ARM/arm.h>
+#include <mechanisms/ARM/Arm.h>
 
 class ControlData;
 
