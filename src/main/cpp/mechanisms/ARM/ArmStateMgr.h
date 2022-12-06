@@ -67,7 +67,7 @@ class ArmStateMgr : public StateMgr
        ArmStateMgr();
         ~ArmStateMgr() = default;
         
-        arm*                                m_arm;
+        Arm*                                m_arm;
         std::string                             m_nt;
 
 

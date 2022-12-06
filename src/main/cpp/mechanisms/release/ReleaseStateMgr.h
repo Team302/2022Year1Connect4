@@ -60,7 +60,7 @@ class ReleaseStateMgr : public StateMgr
 		static ReleaseStateMgr* GetInstance();
 
         void CheckForStateTransition() override;
-        release*                                m_release;
+        Release*                                m_release;
 
         
     private:

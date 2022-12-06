@@ -24,7 +24,7 @@
 
 using namespace std;
 
-arm::arm
+Arm::Arm
 (
 std::string                                 controlFileName,
 std::string                                 networkTableName,  

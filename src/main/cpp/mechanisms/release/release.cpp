@@ -25,7 +25,7 @@
 
 using namespace std;
 
-release::release
+Release::Release
 (
     std::string                                 controlFileName,
     std::string                                 networkTableName,
