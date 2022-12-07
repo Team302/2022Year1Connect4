@@ -3,11 +3,12 @@
 // FRC includes
 
 // Team 302 includes
-#include <TeleopControl.h>
-#include <mechanisms/MechanismFactory.h>
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/base/StateMgr.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms\Intake\IntakeStateManager.h>
+#include <TeleopControl.h>
 
 // Third Party Includes
 
@@ -41,6 +42,10 @@ IntakeStateMgr::IntakeStateMgr() : StateMgr(),
     stateMap[m_intakeExpelXmlString] = m_expelState;  
 
     Init(m_intake, stateMap);
+    if (m_intake != nullptr)
+    {
+        m_intake->AddStateMgr(this);
+    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition
@@ -75,4 +80,15 @@ void IntakeStateMgr::CheckForStateTransition()
         }
         
     }
+}
+
+/// @brief  Get the current Parameter parm value for the state of this mechanism
+/// @param PrimitiveParams* currentParams current set of primitive parameters
+/// @returns int state id - -1 indicates that there is not a state to set
+int IntakeStateMgr::GetCurrentStateParam
+(
+    PrimitiveParams*    currentParams
+) 
+{
+    return currentParams != nullptr ? currentParams->GetIntakeState() : StateMgr::GetCurrentStateParam(currentParams);
 }

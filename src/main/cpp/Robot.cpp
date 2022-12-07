@@ -14,12 +14,12 @@
 #include <chassis/holonomic/HolonomicDrive.h>
 #include <chassis/IHolonomicChassis.h>
 #include <chassis/mecanum/MecanumChassis.h>
+#include <mechanisms/StateMgrHelper.h>
+#include <RobotXmlParser.h>
 #include <TeleopControl.h>
 #include <utils/Logger.h>
 #include <utils/LoggerData.h>
 #include <utils/LoggerEnums.h>
-#include <RobotXmlParser.h>
-#include <mechanisms/StateMgrHelper.h>
 
 using namespace std;
 
@@ -41,8 +41,10 @@ void Robot::RobotInit()
     {
          m_holonomic = m_chassis->GetType() != IChassis::CHASSIS_TYPE::DIFFERENTIAL ? new HolonomicDrive() : nullptr;
     }        
+    
+    StateMgrHelper::InitStateMgrs();
 
-//    m_cyclePrims = new CyclePrimitives();
+    m_cyclePrims = new CyclePrimitives();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
 
 /**
@@ -77,10 +79,10 @@ void Robot::RobotPeriodic()
 void Robot::AutonomousInit() 
 {
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("arrived"));   
-//    if (m_cyclePrims != nullptr)
-//    {
-//        m_cyclePrims->Init();
-//    }
+    if (m_cyclePrims != nullptr)
+    {
+        m_cyclePrims->Init();
+    }
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("AutonomousInit"), string("end"));
 }
 
@@ -99,7 +101,7 @@ void Robot::TeleopInit()
     {
         m_holonomic->Init();
     }
-//    StateMgrHelper::RunCurrentMechanismStates();
+    StateMgrHelper::RunCurrentMechanismStates();
 
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopInit"), string("end"));
 }
@@ -114,7 +116,8 @@ void Robot::TeleopPeriodic()
         m_holonomic->Run();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopPeriodic"), string("after holonomic call"));   
     }
-//    StateMgrHelper::RunCurrentMechanismStates();
+    StateMgrHelper::RunCurrentMechanismStates();
+
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopPeriodic"), string("end"));
 
 }

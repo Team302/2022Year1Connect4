@@ -51,6 +51,14 @@ class ExampleStateMgr : public StateMgr
 		/// @brief  Find or create the state manmanager
 		static ExampleStateMgr* GetInstance();
 
+        /// @brief  Get the current Parameter parm value for the state of this mechanism
+        /// @param PrimitiveParams* currentParams current set of primitive parameters
+        /// @returns int state id - -1 indicates that there is not a state to set
+        int GetCurrentStateParam
+        (
+            PrimitiveParams*    currentParams
+        ) override;
+
         void CheckForStateTransition() override;
     private:
 

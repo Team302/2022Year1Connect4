@@ -25,10 +25,9 @@
 #include <mechanisms\StateStruc.h>
 #include <mechanisms\ARM\arm.h>
 
-
-
-
 // Third Party Includes
+
+class PrimitiveParams;
 
 class ArmStateMgr : public StateMgr
 {
@@ -42,7 +41,7 @@ class ArmStateMgr : public StateMgr
            MOVING_UP,
            MOVING_DOWN
         };
-        const std::string m_armOFFXmlString = "OFF";
+        const std::string m_armOFFXmlString = "ARM_OFF";
         const std::string m_armARM_UPXmlString = "ARM_UP";
         const std::string m_armARM_DOWNXmlString = "ARM_DOWN";
         const std::string  m_armARM_MOVING_UPXmlString = "ARM_MOVING_UP";
@@ -60,6 +59,14 @@ class ArmStateMgr : public StateMgr
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ArmStateMgr* GetInstance();
+
+        /// @brief  Get the current Parameter parm value for the state of this mechanism
+        /// @param PrimitiveParams* currentParams current set of primitive parameters
+        /// @returns int state id - -1 indicates that there is not a state to set
+        int GetCurrentStateParam
+        (
+            PrimitiveParams*    currentParams
+        ) override;
 
         void CheckForStateTransition() override;
         private:

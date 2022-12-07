@@ -43,7 +43,7 @@ Mech2ServosState::Mech2ServosState
 {
     if ( mechanism == nullptr )
     {
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mechanism->GetNetworkTableName(), ("Mech2ServosState::Mech2ServosState"), string("no mechanism"));
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, string("Mech2Servos"), ("Mech2ServosState::Mech2ServosState"), string("no mechanism"));
     }    
 }
 

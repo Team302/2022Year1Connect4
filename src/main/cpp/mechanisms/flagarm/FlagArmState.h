@@ -25,7 +25,6 @@ class FlagArmState : public Mech1ServoState
         FlagArmState() = delete;
         FlagArmState
         (
-
             double                          target
         );
         ~FlagArmState() = default;

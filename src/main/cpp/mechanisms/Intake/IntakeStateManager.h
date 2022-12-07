@@ -5,6 +5,7 @@
 
  
 class Intake;
+class PrimitiveParams;
 
 class IntakeStateMgr : public StateMgr
 {
@@ -30,6 +31,14 @@ class IntakeStateMgr : public StateMgr
         };
         static IntakeStateMgr* GetInstance();
         void CheckForStateTransition() override;
+
+        /// @brief  Get the current Parameter parm value for the state of this mechanism
+        /// @param PrimitiveParams* currentParams current set of primitive parameters
+        /// @returns int state id - -1 indicates that there is not a state to set
+        int GetCurrentStateParam
+        (
+            PrimitiveParams*    currentParams
+        ) override;
 
     private:
         IntakeStateMgr();

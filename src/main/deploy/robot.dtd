@@ -213,7 +213,7 @@
                                       DIFFERENTIAL_LEFT_MAIN  | DIFFERENTIAL_LEFT_FOLLOWER  |
                                       DIFFERENTIAL_RIGHT_MAIN | DIFFERENTIAL_RIGHT_FOLLOWER |
                                       MECANUM_LEFT_FRONT | MECANUM_LEFT_BACK | MECANUM_RIGHT_FRONT | MECANUM_RIGHT_BACK |
-                                      INTAKE | INTAKE_TRANSFER | 
+                                      EXAMPLE | INTAKE | INTAKE_TRANSFER | 
                                       ARM  ) "ARM"
           canId             		(  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 
                               		  10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 
