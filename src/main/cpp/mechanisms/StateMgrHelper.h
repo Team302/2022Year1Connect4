@@ -20,10 +20,17 @@
 
 class Mech;
 class MechanismTargetData;
+class PrimitiveParams;
+
 class StateMgrHelper 
 {
     public:
         static void RunCurrentMechanismStates();
+        static void SetMechanismStateFromParam
+        (
+            PrimitiveParams*        params
+        );
+
         static IState* CreateState
         (
             Mech*                       mech,

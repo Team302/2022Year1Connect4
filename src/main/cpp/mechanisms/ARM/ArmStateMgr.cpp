@@ -22,6 +22,7 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/ARM/arm.h>
@@ -97,4 +98,15 @@ void ArmStateMgr::CheckForStateTransition()
             SetCurrentState(targetState, true);
         }
     }
+}
+
+/// @brief  Get the current Parameter parm value for the state of this mechanism
+/// @param PrimitiveParams* currentParams current set of primitive parameters
+/// @returns int state id - -1 indicates that there is not a state to set
+int ArmStateMgr::GetCurrentStateParam
+(
+    PrimitiveParams*    currentParams
+) 
+{
+    return currentParams != nullptr ? currentParams->GetArmState() : StateMgr::GetCurrentStateParam(currentParams);
 }

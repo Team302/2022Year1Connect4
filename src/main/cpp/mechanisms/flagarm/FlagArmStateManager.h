@@ -30,6 +30,7 @@
 
 // Third Party Includes
 class FlagArm;
+class PrimitiveParams;
 
 class FlagArmStateManager : public StateMgr
 {
@@ -53,6 +54,14 @@ class FlagArmStateManager : public StateMgr
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
 		static FlagArmStateManager* GetInstance();
+
+        /// @brief  Get the current Parameter parm value for the state of this mechanism
+        /// @param PrimitiveParams* currentParams current set of primitive parameters
+        /// @returns int state id - -1 indicates that there is not a state to set
+        int GetCurrentStateParam
+        (
+            PrimitiveParams*    currentParams
+        ) override;
 
         /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;

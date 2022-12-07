@@ -25,10 +25,9 @@
 #include <mechanisms\StateStruc.h>
 #include <mechanisms\release\release.h>
 
-
-
-
 // Third Party Includes
+
+class PrimitiveParams;
 
 class ReleaseStateMgr : public StateMgr
 {
@@ -59,6 +58,13 @@ class ReleaseStateMgr : public StateMgr
 		/// @return IntakeStateMgr* pointer to the state manager
 		static ReleaseStateMgr* GetInstance();
 
+        /// @brief  Get the current Parameter parm value for the state of this mechanism
+        /// @param PrimitiveParams* currentParams current set of primitive parameters
+        /// @returns int state id - -1 indicates that there is not a state to set
+        int GetCurrentStateParam
+        (
+            PrimitiveParams*    currentParams
+        ) override;
         void CheckForStateTransition() override;
         release*                                m_release;
 
@@ -73,8 +79,8 @@ class ReleaseStateMgr : public StateMgr
 
 		static ReleaseStateMgr*	m_instance;
 
-        const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, StateType::RELEASE, false};
-        const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, StateType::RELEASE, false};
-        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE, true};
-        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE, false};
+        const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, StateType::RELEASE_STATE, false};
+        const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, StateType::RELEASE_STATE, false};
+        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE_STATE, true};
+        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE_STATE, false};
 };

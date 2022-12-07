@@ -8,7 +8,7 @@
                pathname="fiveBallRight4.wpilib.json" 
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                shooter="SHOOT_HIGHGOAL_FAR"
                headingOption="TOWARD_GOAL"/>
@@ -23,12 +23,12 @@
                leftIntake="INTAKE_ON"
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                leftIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="2.0"
                leftIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
@@ -38,7 +38,7 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-45"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="1.5"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
@@ -48,7 +48,7 @@
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/>        
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/>

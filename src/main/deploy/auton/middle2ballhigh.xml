@@ -8,7 +8,7 @@
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/>
@@ -16,7 +16,7 @@
                pathname="MiddleHigh2.wpilib.json" 
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/> 

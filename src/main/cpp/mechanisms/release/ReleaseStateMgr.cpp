@@ -14,27 +14,18 @@
 //====================================================================================================================================================
 
 #include <map>
-#include <memory>
-#include <vector>
 
 // FRC includes
-#include <networktables/NetworkTableInstance.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
-#include <mechanisms/controllers/MechanismTargetData.h>
-#include <TeleopControl.h>
-
-#include <mechanisms/MechanismFactory.h>
-#include <mechanisms/MechanismTypes.h>
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/base/StateMgr.h>
-#include <mechanisms/StateStruc.h>
-#include <mechanisms/base/IState.h>
+#include <mechanisms/MechanismFactory.h>
 #include <mechanisms/release/Release.h>
 #include <mechanisms/release/ReleaseState.h>
 #include <mechanisms/release/ReleaseStateMgr.h>
-#include <mechanisms/controllers/StateDataXmlParser.h>
+#include <mechanisms/StateStruc.h>
+#include <TeleopControl.h>
 
 
 // Third Party Includes
@@ -111,5 +102,15 @@ void ReleaseStateMgr::CheckForStateTransition()
     }
 }
 
+/// @brief  Get the current Parameter parm value for the state of this mechanism
+/// @param PrimitiveParams* currentParams current set of primitive parameters
+/// @returns int state id - -1 indicates that there is not a state to set
+int ReleaseStateMgr::GetCurrentStateParam
+(
+    PrimitiveParams*    currentParams
+) 
+{
+    return currentParams != nullptr ? currentParams->GetReleaseState() : StateMgr::GetCurrentStateParam(currentParams);
+}
 
 

@@ -8,7 +8,7 @@
                time="0.60"
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.55"
                shooter="SHOOT_HIGHGOAL_FAR"
                headingOption="TOWARD_GOAL"/>
@@ -24,16 +24,16 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="45"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                leftIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.75"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/>
@@ -43,7 +43,7 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-45"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                rightIntake="INTAKE_ON"/>  
     <primitive id="DRIVE_PATH"
@@ -52,7 +52,7 @@
                rightIntake="INTAKE_ON"
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>         
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/>

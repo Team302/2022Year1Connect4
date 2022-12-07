@@ -10,7 +10,7 @@
                headingOption="SPECIFIED_ANGLE"
                heading="-90"
                shooter="PREPARETOSHOOT"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="1.0"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
@@ -21,7 +21,7 @@
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/> 

@@ -24,6 +24,7 @@
 #include <networktables/NetworkTableEntry.h>
 
 // Team 302 includes
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/base/IState.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/base/StateMgr.h>
@@ -169,6 +170,16 @@ void StateMgr::SetCurrentState
     }
 }
 
+/// @brief  Get the current Parameter parm value for the state of this mechanism
+/// @param PrimitiveParams* currentParams current set of primitive parameters
+/// @returns int state id - -1 indicates that there is not a state to set
+int StateMgr::GetCurrentStateParam
+(
+    PrimitiveParams*    currentParams
+)
+{
+    return -1;
+}
 
 
 

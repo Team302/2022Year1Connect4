@@ -3,7 +3,7 @@
 <auton>
     <primitive id="RESET_POSITION"
 			   pathname="fiveBallRight4.wpilib.json"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="3.5"
                leftIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"/>
@@ -12,7 +12,7 @@
                pathname="fiveBallRight4.wpilib.json" 
                shooter="PREPARETOSHOOT"
                headingOption="TOWARD_GOAL"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="1.5"
                shooter="SHOOT_HIGHGOAL_FAR"
                headingOption="TOWARD_GOAL"/>
@@ -22,7 +22,7 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="10.0"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="1.0"
                rightIntake="INTAKE_ON" 
                headingOption="SPECIFIED_ANGLE"
@@ -33,7 +33,7 @@
                rightIntake="INTAKE_ON"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                shooter="SHOOT_HIGHGOAL_FAR"
                headingOption="TOWARD_GOAL"/>

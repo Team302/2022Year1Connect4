@@ -3,11 +3,11 @@
 <auton>
     <primitive id="RESET_POSITION"
 			   pathname="OutOfWay1.wpilib.json"/>
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                headingOption="TOWARD_GOAL"
                shooter="PREPARETOSHOOT"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="2.0"
                headingOption="TOWARD_GOAL"
                shooter="SHOOT_HIGHGOAL_FAR"/> 
@@ -16,7 +16,7 @@
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
                heading="-15"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                rightIntake="INTAKE_ON"
                headingOption="SPECIFIED_ANGLE"
@@ -28,11 +28,11 @@
                headingOption="SPECIFIED_ANGLE"
                heading="-90"/ --> 
                
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="0.5"
                headingOption="SPECIFIED_ANGLE"
                heading="-145"/> 
-    <primitive id="DO_NOTHING"
+    <primitive id="STOP_DRIVING"
                time="10.0"
                headingOption="SPECIFIED_ANGLE"
                heading="-145"

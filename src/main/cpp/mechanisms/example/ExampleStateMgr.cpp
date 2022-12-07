@@ -18,6 +18,7 @@
 
 // Team 302 includes
 #include <TeleopControl.h>
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/MechanismFactory.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/StateStruc.h>
@@ -86,4 +87,15 @@ void ExampleStateMgr::CheckForStateTransition()
         }
         
     }
+}
+
+/// @brief  Get the current Parameter parm value for the state of this mechanism
+/// @param PrimitiveParams* currentParams current set of primitive parameters
+/// @returns int state id - -1 indicates that there is not a state to set
+int ExampleStateMgr::GetCurrentStateParam
+(
+    PrimitiveParams*    currentParams
+) 
+{
+    return currentParams != nullptr ? currentParams->GetArmState() : StateMgr::GetCurrentStateParam(currentParams);
 }
