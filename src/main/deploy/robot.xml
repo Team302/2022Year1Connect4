@@ -113,7 +113,7 @@
                  canId="6" 
                  pdpID="6" 
                  type="TALONSRX" 
-                 inverted="false" 
+                 inverted="true" 
                  sensorInverted="false" 
                  feedbackDevice="NONE" 
                  countsPerRev="0" 
@@ -135,7 +135,7 @@
                  canId="10"
                  pdpID="10"
                  type="TALONSRX"
-                 inverted="false"
+                 inverted="true"
                  sensorInverted="false"
                  feedbackDevice="NONE" 
                  countsPerRev="0" 
@@ -150,7 +150,7 @@
 <!-- ====================================================
      Ball Release
      ====================================================  -->
-     <mechanism type= "BALL_RELEASE"
+     <mechanism type= "RELEASE"
                 networkTable="BallReleaseNT"
                 controlFile="release.xml">
           <servo usage="RELEASE_SERVO"

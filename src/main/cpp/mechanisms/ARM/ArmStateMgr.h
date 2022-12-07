@@ -41,7 +41,7 @@ class ArmStateMgr : public StateMgr
            MOVING_UP,
            MOVING_DOWN
         };
-        const std::string m_armOFFXmlString = "OFF";
+        const std::string m_armOFFXmlString = "ARM_OFF";
         const std::string m_armARM_UPXmlString = "ARM_UP";
         const std::string m_armARM_DOWNXmlString = "ARM_DOWN";
         const std::string  m_armARM_MOVING_UPXmlString = "ARM_MOVING_UP";

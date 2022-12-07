@@ -47,7 +47,7 @@ class IntakeStateMgr : public StateMgr
         Intake*                                m_intake;
 
         static IntakeStateMgr*	m_instance;
-        const StateStruc m_offState = {INTAKE_STATE::INTAKE_OFF, StateType::INTAKE_STATE, false};
-        const StateStruc m_onState = {INTAKE_STATE::INTAKE_ON, StateType::INTAKE_STATE, true};
+        const StateStruc m_offState = {INTAKE_STATE::INTAKE_OFF, StateType::INTAKE_STATE, true};
+        const StateStruc m_onState = {INTAKE_STATE::INTAKE_ON, StateType::INTAKE_STATE, false};
         const StateStruc m_expelState = {INTAKE_STATE::INTAKE_EXPEL, StateType::INTAKE_STATE, false};
 };

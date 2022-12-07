@@ -11,4 +11,4 @@
     <mechanismTarget stateIdentifier= "FLAG_RELEASE"
                      controlDataIdentifier="closedloopposdegrees"
                      value="90.0"/>
-</stateData>
+</statedata>
