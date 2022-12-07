@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE robot SYSTEM "robot.dtd">
 <robot>
-     <pdp canId="1"
-          type="REV"/>
+     <pdp canId="0"
+          type="CTRE"/>
      <pigeon canId="0"
              usage="CENTER_OF_ROTATION"
              type="pigeon1"
@@ -17,22 +17,22 @@
               wheelDiameter="4.0"
               wheelBase="21.0"  
               track="21.0"
-              maxVelocity="162.0"
-              maxAngularVelocity="360"
-              maxAcceleration="81"
-              maxAngularAcceleration="24"
+              maxVelocity="1.0"
+              maxAngularVelocity="1"
+              maxAcceleration="1"
+              maxAngularAcceleration="1"
               networkTable="ChassisNT"
               controlFile="chassis.xml">
 			 
             <motor  usage="MECANUM_LEFT_FRONT"
-                    canId="1"
-                    pdpID="1"
+                    canId="7"
+                    pdpID="7"
                     type="TALONSRX"
-                    inverted="false"
+                    inverted="true"
                     sensorInverted="false"
-                    feedbackDevice="INTERNAL"
-                    countsPerRev="2048"
-                    gearRatio="8.55"
+                    feedbackDevice="NONE"
+                    countsPerRev="1"
+                    gearRatio="1"
                     brakeMode="true"
                     follow="-1"
                     peakCurrentDuration="25.0"
@@ -44,13 +44,13 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="MECANUM_LEFT_BACK"
-                    canId="3"
-                    pdpID="3"
+                    canId="5"
+                    pdpID="5"
                     type="TALONSRX"
-                    inverted="false"
+                    inverted="true"
                     sensorInverted="false"
-                    feedbackDevice="INTERNAL"
-                    countsPerRev="2048"
+                    feedbackDevice="NONE"
+                    countsPerRev="0"
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
@@ -64,14 +64,14 @@
                     reverselimitswitchopen="true"/>        
   			 
             <motor  usage="MECANUM_RIGHT_FRONT"
-                    canId="0"
-                    pdpID="0"
+                    canId="8"
+                    pdpID="8"
                     type="TALONSRX"
                     inverted="true"
                     sensorInverted="false"
-                    feedbackDevice="INTERNAL"
-                    countsPerRev="2048"
-                    gearRatio="8.55"
+                    feedbackDevice="NONE"
+                    countsPerRev="1"
+                    gearRatio="1"
                     brakeMode="true"
                     follow="-1"
                     peakCurrentDuration="25.0"
@@ -83,13 +83,13 @@
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>                  
              <motor  usage="MECANUM_RIGHT_BACK"
-                    canId="2"
-                    pdpID="2"
+                    canId="9"
+                    pdpID="9"
                     type="TALONSRX"
                     inverted="true"
                     sensorInverted="false"
-                    feedbackDevice="INTERNAL"
-                    countsPerRev="2048"
+                    feedbackDevice="NONE"
+                    countsPerRev="1"
                     gearRatio="1.0"
                     brakeMode="true"
                     follow="-1"
@@ -101,77 +101,94 @@
                     forwardlimitswitchopen="true"
                     reverselimitswitch="false"
                     reverselimitswitchopen="true"/>        
-
        </chassis>  
 
 <!-- ====================================================
      Intake
      ====================================================  -->
-<mechanism type="INTAKE" 
+     <mechanism type="INTAKE" 
                networkTable="IntakeNT" 
                controlFile="intake.xml"> 
-       <motor usage="INTAKE" 
-              canId="1" 
-              pdpID="1" 
-              type="TALONSRX" 
-              inverted="false" 
-              sensorInverted="false" 
-              feedbackDevice="NONE" 
-              countsPerRev="0" 
-              gearRatio="1.0" 
-              brakeMode="false" 
-              peakCurrentDuration="50" 
-              continuousCurrentLimit="50" 
-              peakCurrentLimit="50" 
-              currentLimiting="true"/>
+          <motor usage="INTAKE" 
+                 canId="6" 
+                 pdpID="6" 
+                 type="TALONSRX" 
+                 inverted="true" 
+                 sensorInverted="false" 
+                 feedbackDevice="NONE" 
+                 countsPerRev="0" 
+                 gearRatio="1.0" 
+                 brakeMode="false" 
+                 peakCurrentDuration="50" 
+                 continuousCurrentLimit="50" 
+                 peakCurrentLimit="50" 
+                 currentLimiting="true"/>
+     </mechanism>
 
 <!-- ====================================================
      Arm
      ====================================================  -->
-<mechanism type= "ARM"
+     <mechanism type= "ARM"
                networkTable="ArmNT"
                controlFile="arm.xml">
           <motor usage="ARM"
-          canId="1"
-          pdpID="1"
-          type="TALONSRX"
-          inverted="false"
-          sensorInverted="false"
-          feedbackDevice="NONE" 
-          countsPerRev="0" 
-          gearRatio="1.0" 
-          brakeMode="false" 
-          peakCurrentDuration="50" 
-          continuousCurrentLimit="50" 
-          peakCurrentLimit="50" 
-          currentLimiting="true"
-
-          />
-
+                 canId="10"
+                 pdpID="10"
+                 type="TALONSRX"
+                 inverted="true"
+                 sensorInverted="false"
+                 feedbackDevice="NONE" 
+                 countsPerRev="0" 
+                 gearRatio="1.0" 
+                 brakeMode="false" 
+                 peakCurrentDuration="50" 
+                 continuousCurrentLimit="50" 
+                 peakCurrentLimit="50" 
+                 currentLimiting="true"/>
+     </mechanism>
 
 <!-- ====================================================
      Ball Release
      ====================================================  -->
-<mechanism type= "BALL_RELEASE"
-               networkTable="BallReleaseNT"
-               controlFile="release.xml">
+     <mechanism type= "RELEASE"
+                networkTable="BallReleaseNT"
+                controlFile="release.xml">
           <servo usage="RELEASE_SERVO"
-          minAngle="0.0"
-          maxAngle="90.0"/>
+                 minAngle="0.0"
+                 maxAngle="90.0"/>
           <servo usage="RELEASE_SERVO2"
-          minAngle="0.0"
-          maxAngle="90.0"/>
+                 minAngle="0.0"
+                 maxAngle="90.0"/>
+     </mechanism>
+
 <!-- ====================================================
      Flag Arm
      ====================================================  -->
-<mechanism type= "FLAGARM"
-               networkTable="FlagArmNT"
-               controlFile="flagarmstates.xml">
+     <mechanism type= "FLAGARM"
+                networkTable="FlagArmNT"
+                controlFile="flagarmstates.xml">
           <servo usage="FLAG_SERVO"
-          minAngle="0.0"
-          maxAngle="90.0"
+                 minAngle="0.0"
+                 maxAngle="90.0"/>
+     </mechanism>
 
-          
-          
-/>
+     <mechanism type="EXAMPLE" 
+               networkTable="ExampleNT" 
+               controlFile="example.xml"> 
+          <motor usage="EXAMPLE" 
+                 canId="11" 
+                 pdpID="11" 
+                 type="TALONSRX" 
+                 inverted="false" 
+                 sensorInverted="false" 
+                 feedbackDevice="NONE" 
+                 countsPerRev="0" 
+                 gearRatio="1.0" 
+                 brakeMode="false" 
+                 peakCurrentDuration="50" 
+                 continuousCurrentLimit="50" 
+                 peakCurrentLimit="50" 
+                 currentLimiting="true"/>
+     </mechanism>
+
 </robot>
