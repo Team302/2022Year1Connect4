@@ -144,7 +144,7 @@ void StateMgr::SetCurrentState
     bool            run
 )
 {
-    if (m_mech != nullptr )
+    if (m_mech != nullptr  && stateID < m_stateVector.size())
     {
         auto state = m_stateVector[stateID];
         if ( state != nullptr && state != m_currentState)

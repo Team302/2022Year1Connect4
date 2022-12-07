@@ -56,6 +56,10 @@ FlagArmStateManager::FlagArmStateManager() : StateMgr(),
     stateMap[m_openXmlString] = m_openState; 
 
     Init(m_flagArm, stateMap);
+    if (m_flagArm != nullptr)
+    {
+        m_flagArm->AddStateMgr(this);
+    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

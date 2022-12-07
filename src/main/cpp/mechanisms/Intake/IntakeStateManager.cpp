@@ -42,6 +42,10 @@ IntakeStateMgr::IntakeStateMgr() : StateMgr(),
     stateMap[m_intakeExpelXmlString] = m_expelState;  
 
     Init(m_intake, stateMap);
+    if (m_intake != nullptr)
+    {
+        m_intake->AddStateMgr(this);
+    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

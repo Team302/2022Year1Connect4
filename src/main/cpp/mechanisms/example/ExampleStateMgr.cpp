@@ -53,6 +53,10 @@ ExampleStateMgr::ExampleStateMgr() : StateMgr(),
     stateMap[m_exampleReverseXmlString] = m_reverseState;  
 
     Init(m_example, stateMap);
+    if (m_example != nullptr)
+    {
+        m_example->AddStateMgr(this);
+    }
 }   
 
 /// @brief Check if driver inputs or sensors trigger a state transition

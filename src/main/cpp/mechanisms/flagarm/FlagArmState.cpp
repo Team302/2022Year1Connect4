@@ -21,7 +21,7 @@
 // Team 302 includes
 #include <mechanisms/controllers/ControlData.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/flagarm/FlagArmStates.h>
+#include <mechanisms/flagarm/FlagArmState.h>
 // Third Party Includes
 
 

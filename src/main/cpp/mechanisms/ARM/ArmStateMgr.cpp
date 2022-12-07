@@ -64,6 +64,7 @@ ArmStateMgr::ArmStateMgr() : StateMgr(),
     if (m_arm != nullptr)
     {
         auto m_nt = m_arm->GetNetworkTableName();
+        m_arm->AddStateMgr(this);
     }
 }
 

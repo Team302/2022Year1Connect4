@@ -41,7 +41,8 @@ Mech::Mech
     string                          networkTableName
 ) : m_type( type ),
     m_controlFile( controlFileName ),
-    m_ntName( networkTableName )
+    m_ntName( networkTableName ),
+    m_stateMgr(nullptr)
 {
     if ( controlFileName.empty() )
     {

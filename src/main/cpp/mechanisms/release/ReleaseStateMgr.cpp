@@ -65,6 +65,7 @@ ReleaseStateMgr::ReleaseStateMgr() : StateMgr(),
     if (m_release != nullptr)
     {
         auto m_nt = m_release->GetNetworkTableName();
+        m_release->AddStateMgr(this);
     }
 }   
 

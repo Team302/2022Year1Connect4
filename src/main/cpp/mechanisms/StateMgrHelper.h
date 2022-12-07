@@ -25,6 +25,7 @@ class PrimitiveParams;
 class StateMgrHelper 
 {
     public:
+        static void InitStateMgrs();
         static void RunCurrentMechanismStates();
         static void SetMechanismStateFromParam
         (
