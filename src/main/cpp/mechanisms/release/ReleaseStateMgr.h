@@ -66,7 +66,7 @@ class ReleaseStateMgr : public StateMgr
             PrimitiveParams*    currentParams
         ) override;
         void CheckForStateTransition() override;
-        release*                                m_release;
+        Release*                                m_release;
 
         
     private:

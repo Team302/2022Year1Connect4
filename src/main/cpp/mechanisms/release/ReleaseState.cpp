@@ -21,7 +21,7 @@
 // Team 302 includes
 #include <mechanisms/base/Mech2ServosState.h>
 #include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/release/ReleaseState.h>
+#include <mechanisms/Release/ReleaseState.h>
 #include <mechanisms/MechanismFactory.h>
 
 // Third Party Includes

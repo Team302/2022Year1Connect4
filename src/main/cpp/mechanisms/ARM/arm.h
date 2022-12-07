@@ -22,7 +22,7 @@
 // Team 302 includes
 #include <mechanisms/base/Mech1IndMotor.h>
 
-class arm : public Mech1IndMotor
+class Arm : public Mech1IndMotor
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 independent motor 
@@ -30,14 +30,14 @@ class arm : public Mech1IndMotor
         /// @param [in] std::string the name of the file that will set control parameters for this mechanism
         /// @param [in] std::string the name of the network table for logging information
         /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
-        arm
+        Arm
         (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
             std::shared_ptr<IDragonMotorController>     motorController
         );
-	    arm() = delete;
-	    ~arm() override = default;
+	    Arm() = delete;
+	    ~Arm() override = default;
 
        
 

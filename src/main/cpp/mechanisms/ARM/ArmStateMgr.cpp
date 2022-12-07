@@ -25,7 +25,7 @@
 #include <auton/PrimitiveParams.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
 #include <mechanisms/MechanismFactory.h>
-#include <mechanisms/ARM/arm.h>
+#include <mechanisms/ARM/Arm.h>
 #include <mechanisms/ARM/ArmStateMgr.h>
 #include <TeleopControl.h>
 

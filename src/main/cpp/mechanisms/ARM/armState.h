@@ -15,7 +15,7 @@
 #pragma once
 
 #include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/ARM/arm.h>
+#include <mechanisms/ARM/Arm.h>
 
 class ControlData;
 
@@ -34,9 +34,9 @@ class ArmState : public Mech1MotorState
       
 
         bool AtTarget() const override;
-        arm* GetArm() const {return m_arm;}
+        Arm* GetArm() const {return m_arm;}
 
-        arm*        m_arm;
+        Arm*        m_arm;
 
     private:
         

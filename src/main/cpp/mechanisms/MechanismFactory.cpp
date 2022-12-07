@@ -106,7 +106,7 @@ void MechanismFactory::CreateMechanism
 		case MechanismTypes::MECHANISM_TYPE::ARM:
 		{
 			auto motor = GetMotorController(motorControllers, MotorControllerUsage::ARM);
-			m_arm = new arm(controlFileName, networkTableName, motor);
+			m_arm = new Arm(controlFileName, networkTableName, motor);
 		}
 		break;
 
@@ -128,7 +128,7 @@ void MechanismFactory::CreateMechanism
 		{
 			auto servo1 = GetServo(servos, ServoUsage::SERVO_USAGE::RELEASE_SERVO);
 			auto servo2 = GetServo(servos, ServoUsage::SERVO_USAGE::RELEASE_SERVO2);
-			m_release = new release(controlFileName, networkTableName, servo1, servo2);
+			m_release = new Release(controlFileName, networkTableName, servo1, servo2);
 		}
 		break;
 

@@ -31,8 +31,8 @@ class ReleaseState : public Mech2ServosState
         );
         ~ReleaseState() = default;
 
-        release* GetRelease() const {return m_release;}
+        Release* GetRelease() const {return m_release;}
     
     private:
-        release*        m_release;
+        Release*        m_release;
 };
