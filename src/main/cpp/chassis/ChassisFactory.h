@@ -82,6 +82,7 @@ class ChassisFactory
 				units::radians_per_second_t 								maxAngularSpeed,
 				units::acceleration::meters_per_second_squared_t 			maxAcceleration,
 				units::angular_acceleration::radians_per_second_squared_t 	maxAngularAcceleration,
+				shared_ptr<DragonDigitalInput>     							bumperSwitch,
 				const IDragonMotorControllerMap&    						motors 		        // <I> - Motor motorControllers
 			);
 

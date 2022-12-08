@@ -17,6 +17,7 @@
 
 #pragma once
 #include <string>
+#include <memory>
 
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
@@ -24,6 +25,7 @@
 #include <chassis/IChassis.h>
 #include <chassis/IHolonomicChassis.h>
 #include <hw/interfaces/IDragonMotorController.h>
+#include <hw/DragonDigitalInput.h>
 
 namespace frc
 {
@@ -50,6 +52,7 @@ class MecanumChassis : public IChassis , public IHolonomicChassis
                             units::velocity::meters_per_second_t            maxSpeed,
                             units::angular_velocity::degrees_per_second_t   maxAngSpeed,
                             units::length::inch_t                           wheelDiameter,
+                            std::shared_ptr<DragonDigitalInput>             bumperSwitch,
                             std::string                                     networktablename);
 
         IChassis::CHASSIS_TYPE GetType() const override;
@@ -77,7 +80,8 @@ class MecanumChassis : public IChassis , public IHolonomicChassis
         void SetEncodersToZero() override;
 
         bool IsMoving() const override;
-
+        bool IsbumperSwitch() const;
+        
     private:
         void ZeroEncoder(std::shared_ptr<IDragonMotorController> motor);
 
@@ -94,5 +98,5 @@ class MecanumChassis : public IChassis , public IHolonomicChassis
         units::length::inch_t                           m_track;
 
         std::string                                     m_ntName;
-
+        std::shared_ptr<DragonDigitalInput>             m_bumperSwitch;
 };

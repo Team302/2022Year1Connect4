@@ -75,6 +75,7 @@ IChassis* ChassisFactory::CreateChassis
     units::radians_per_second_t 								maxAngularSpeed,
     units::acceleration::meters_per_second_squared_t 			maxAcceleration,
     units::angular_acceleration::radians_per_second_squared_t 	maxAngularAcceleration,
+    shared_ptr<DragonDigitalInput>                              bumperSwitch,
  	const IDragonMotorControllerMap&                            motors
 )
 {
@@ -101,6 +102,7 @@ IChassis* ChassisFactory::CreateChassis
                                               maxVelocity,
                                               maxAngularSpeed,
                                               wheelDiameter,
+                                              bumperSwitch,
                                               networkTableName);
             m_chassis = chassis;
             m_holonomicChassis = chassis;

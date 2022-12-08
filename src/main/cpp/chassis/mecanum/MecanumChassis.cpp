@@ -16,6 +16,7 @@
 
 #include <cmath>
 #include <string>
+#include <memory>
 
 #include <frc/BuiltInAccelerometer.h>
 #include <frc/kinematics/ChassisSpeeds.h>
@@ -53,7 +54,9 @@ MecanumChassis::MecanumChassis
     units::velocity::meters_per_second_t           maxSpeed,
     units::angular_velocity::degrees_per_second_t  maxAngSpeed,
     units::length::inch_t                          wheelDiameter,
+    shared_ptr<DragonDigitalInput>                 bumperSwitch,
     string                                         networktablename
+    
 ) : m_leftFrontMotor(leftFrontMotor),
     m_leftBackMotor(leftBackMotor),
     m_rightFrontMotor(rightFrontMotor),
@@ -64,7 +67,8 @@ MecanumChassis::MecanumChassis
     m_wheelDiameter(wheelDiameter),
     m_wheelBase(wheelBase),
     m_track(trackWidth),
-    m_ntName(networktablename)
+    m_ntName(networktablename),
+    m_bumperSwitch(bumperSwitch)
 {
 }
 
