@@ -133,12 +133,12 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		
+
+		// @ADDMECH  Add your mechanism here		
 		Example* 		m_example;
-		// @ADDMECH  Add your mechanism here
+		release*		m_release;
 		Intake*			m_intake;
 		arm*			m_arm;
-		release*        m_release;
 		FlagArm*		m_flag;
 
 

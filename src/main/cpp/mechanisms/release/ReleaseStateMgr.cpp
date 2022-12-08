@@ -79,18 +79,16 @@ void ReleaseStateMgr::CheckForStateTransition()
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isForwardSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_FORWARD) : false;
-        auto isReverseSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_REVERSE) : false;
+        auto isOpenClosedSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_CLOSED) : false;
+        auto isOpenOpenSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_OPEN) : false;
 
-        if (isForwardSelected)
-        {
-            targetState = RELEASE_STATE::CLOSED_OPEN;
-        }
-        else if (isReverseSelected)
+        isOpenClosedSelected = true;
+
+        if (isOpenClosedSelected)
         {
             targetState = RELEASE_STATE::OPEN_CLOSED;
         }
-        else
+        else if (isOpenOpenSelected)
         {
             targetState = RELEASE_STATE::OPEN_OPEN;
         }
