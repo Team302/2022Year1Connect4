@@ -60,7 +60,7 @@ void IntakeStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         auto isOnSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_ON) : false;
         auto isExpelSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_EXPEL) : false;
-
+        isOnSelected=true;
         if (isOnSelected)
         {
             targetState = INTAKE_STATE::INTAKE_ON;
