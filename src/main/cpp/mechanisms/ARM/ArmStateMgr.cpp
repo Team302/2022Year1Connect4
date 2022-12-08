@@ -80,7 +80,7 @@ void ArmStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         auto isForwardSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_FORWARD) : false;
         auto isReverseSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::EXAMPLE_REVERSE) : false;
-
+        isForwardSelected=true;
         if (isForwardSelected)
         {
             targetState = ARM_STATE::MOVING_UP;
