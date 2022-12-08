@@ -29,7 +29,7 @@
        enum PRIMITIVE_IDENTIFIER
          {
              UNKNOWN_PRIMITIVE = -1,
-             DO_NOTHING,
+             STOP_DRIVING,
              HOLD_POSITION,
              DRIVE_DISTANCE,
              DRIVE_TIME,

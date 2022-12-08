@@ -14,22 +14,30 @@
 //====================================================================================================================================================
 #pragma once
 
-#include <mechanisms/base/Mech1ServoState.h>
-#include <mechanisms/flagarm/FlagArm.h>
-class FlagArm;
+#include <mechanisms/base/Mech1MotorState.h>
+#include <mechanisms/ARM/arm.h>
 
-class FlagArmState : public Mech1ServoState
+class ControlData;
+
+class ArmState : public Mech1MotorState
 {
     public:
 
-        FlagArmState() = delete;
-        FlagArmState
+        ArmState() = delete;
+        
+        ArmState
         (
-
+            ControlData*                    control,
             double                          target
         );
-        ~FlagArmState() = default;
+        ~ArmState() = default;
+      
+
+        bool AtTarget() const override;
+        arm* GetArm() const {return m_arm;}
+
+        arm*        m_arm;
 
     private:
-        FlagArm*        m_FlagArm;
+        
 };

@@ -3,7 +3,7 @@
 <statedata>
     <controlData identifier="openloop" 
 	             mode="PERCENT_OUTPUT"/>
-    <mechanismTarget stateIdentifier="OFF"
+    <mechanismTarget stateIdentifier="ARM_OFF"
                  controlDataIdentifier="openloop"
                  value="0.0"/>
     <mechanismTarget stateIdentifier="ARM_DOWN"
@@ -14,8 +14,8 @@
                  value="0.0"/>
     <mechanismTarget stateIdentifier="ARM_MOVING_UP"
                  controlDataIdentifier="openloop"
-                 value="1.0"/>
+                 value="0.2"/>
     <mechanismTarget stateIdentifier="ARM_MOVING_DOWN"
                  controlDataIdentifier="openloop"
-                 value="-1.0"/>              
+                 value="-0.1"/>              
 </statedata>

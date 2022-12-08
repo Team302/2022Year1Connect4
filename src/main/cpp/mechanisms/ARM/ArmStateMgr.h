@@ -16,44 +16,49 @@
 #pragma once
 
 // C++ Includes
-#include <string>
 
 // FRC includes
 
 
 // Team 302 includes
-#include <mechanisms/base/StateMgr.h>
-#include <mechanisms/StateStruc.h>
-
-
-
+#include <mechanisms\base\StateMgr.h>
+#include <mechanisms\StateStruc.h>
+#include <mechanisms\ARM\arm.h>
 
 // Third Party Includes
-class FlagArm;
+
 class PrimitiveParams;
 
-class FlagArmStateManager : public StateMgr
+class ArmStateMgr : public StateMgr
 {
     public:
         /// @enum the various states of the Intake
-        enum FLAG_ARM_STATE
+        enum ARM_STATE
         {
-            GRABBER_OPEN,
-            GRABBER_CLOSED
-            
+           OFF,
+           UP,
+           DOWN,
+           MOVING_UP,
+           MOVING_DOWN
         };
-        const std::string m_openXmlString = "FLAG_RELEASE";
-        const std::string m_closedXmlString = "FLAG_GRAB";
+        const std::string m_armOFFXmlString = "ARM_OFF";
+        const std::string m_armARM_UPXmlString = "ARM_UP";
+        const std::string m_armARM_DOWNXmlString = "ARM_DOWN";
+        const std::string  m_armARM_MOVING_UPXmlString = "ARM_MOVING_UP";
+        const std::string m_armARM_MOVING_DOWNXmlString = "ARM_MOVING_DOWN";
         
-        const std::map<const std::string, FlagArmStateManager::FLAG_ARM_STATE> m_FlagXmlStringToStateEnumMap
-        {   {m_openXmlString, FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN},
-            {m_closedXmlString, FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED}
+        const std::map<const std::string, ARM_STATE> m_armXmlStringToStateEnumMap
+        {   {m_armOFFXmlString, ARM_STATE::OFF},
+            {m_armARM_UPXmlString, ARM_STATE::OFF},
+            {m_armARM_DOWNXmlString, ARM_STATE::OFF},
+            {m_armARM_MOVING_UPXmlString, ARM_STATE::MOVING_UP},
+            {m_armARM_MOVING_DOWNXmlString, ARM_STATE::MOVING_DOWN}
         };
 
         
 		/// @brief  Find or create the state manmanager
 		/// @return IntakeStateMgr* pointer to the state manager
-		static FlagArmStateManager* GetInstance();
+		static ArmStateMgr* GetInstance();
 
         /// @brief  Get the current Parameter parm value for the state of this mechanism
         /// @param PrimitiveParams* currentParams current set of primitive parameters
@@ -63,17 +68,21 @@ class FlagArmStateManager : public StateMgr
             PrimitiveParams*    currentParams
         ) override;
 
-        /// @brief Check if driver inputs or sensors trigger a state transition
         void CheckForStateTransition() override;
-    private:
+        private:
 
-        FlagArmStateManager();
-        ~FlagArmStateManager() = default;
+       ArmStateMgr();
+        ~ArmStateMgr() = default;
+        
+        arm*                                m_arm;
+        std::string                             m_nt;
 
-        FlagArm*                    m_flagArm;
 
-        static FlagArmStateManager* m_instance;
-
-        const StateStruc m_openState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN, StateType::FLAGARM_STATE, true};
-        const StateStruc m_closedState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED, StateType::FLAGARM_STATE, false};
+        const double m_CHANGE_STATE_TARGET = 120.0; 
+		static ArmStateMgr*	m_instance;
+        const StateStruc m_offState = {ARM_STATE::OFF, StateType::ARM_STATE, true};
+        const StateStruc m_upState = {ARM_STATE::UP, StateType::ARM_STATE, false};
+        const StateStruc m_downState = {ARM_STATE::DOWN, StateType::ARM_STATE, false};
+        const StateStruc m_movingDownState = {ARM_STATE::MOVING_DOWN, StateType::ARM_STATE, false};
+        const StateStruc m_movingUpState = {ARM_STATE::MOVING_UP, StateType::ARM_STATE, false};
 };

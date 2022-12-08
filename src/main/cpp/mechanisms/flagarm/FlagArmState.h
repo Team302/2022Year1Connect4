@@ -12,23 +12,23 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
+#pragma once
 
+#include <mechanisms/base/Mech1ServoState.h>
+#include <mechanisms/flagarm/FlagArm.h>
+class FlagArm;
 
-// C++ Includes
-
-// FRC includes
-
-// Team 302 includes
-#include <mechanisms/controllers/ControlData.h>
-#include <mechanisms/MechanismFactory.h>
-#include <mechanisms/flagarm/FlagArmStates.h>
-// Third Party Includes
-
-
-FlagArmState::FlagArmState
-(
-    double                          target
-) : Mech1ServoState( MechanismFactory::GetMechanismFactory()->GetFlag(), target),
-    m_FlagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
+class FlagArmState : public Mech1ServoState
 {
-}
+    public:
+
+        FlagArmState() = delete;
+        FlagArmState
+        (
+            double                          target
+        );
+        ~FlagArmState() = default;
+
+    private:
+        FlagArm*        m_FlagArm;
+};

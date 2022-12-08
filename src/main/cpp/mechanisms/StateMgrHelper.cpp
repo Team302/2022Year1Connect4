@@ -15,6 +15,7 @@
 //====================================================================================================================================================
 #include <string>
 
+#include <auton/PrimitiveParams.h>
 #include <mechanisms/base/IState.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/base/StateMgr.h>
@@ -24,13 +25,31 @@
 #include <mechanisms/StateMgrHelper.h>
 #include <mechanisms/StateStruc.h>
 #include <mechanisms/example/ExampleState.h>
+#include <mechanisms/example/ExampleStateMgr.h>
 #include <utils/Logger.h>
+#include <mechanisms/ARM/armState.h>
+#include <mechanisms/ARM/ArmStateMgr.h>
+#include <mechanisms/flagarm/FlagArmState.h>
+#include <mechanisms/flagarm/FlagArmStateManager.h>
+#include <mechanisms/intake/IntakeState.h>
+#include <mechanisms/intake/IntakeStateManager.h>
+#include <mechanisms/release/ReleaseState.h>
+#include <mechanisms/release/ReleaseStateMgr.h>
 
 using namespace std;
 
+void StateMgrHelper::InitStateMgrs()
+{
+    ExampleStateMgr::GetInstance();
+    IntakeStateMgr::GetInstance();
+    ArmStateMgr::GetInstance();
+    ReleaseStateMgr::GetInstance();
+    FlagArmStateManager::GetInstance();
+}
+
 void StateMgrHelper::RunCurrentMechanismStates() 
 {
-    for (auto i=MechanismTypes::MECHANISM_TYPE::UNKNOWN_MECHANISM+1; i<MechanismTypes::MECHANISM_TYPE::MAX_MECHANISM_TYPES; ++i)
+    for (auto i=MechanismTypes::MECHANISM_TYPE::EXAMPLE+1; i<MechanismTypes::MECHANISM_TYPE::MAX_MECHANISM_TYPES; ++i)
     {
         auto mech = MechanismFactory::GetMechanismFactory()->GetMechanism(static_cast<MechanismTypes::MECHANISM_TYPE>(i));
         auto stateMgr = mech != nullptr ? mech->GetStateMgr() : nullptr;
@@ -39,6 +58,30 @@ void StateMgrHelper::RunCurrentMechanismStates()
             stateMgr->RunCurrentState();
         }
     }   
+}
+
+void StateMgrHelper::SetMechanismStateFromParam
+(
+    PrimitiveParams*        params
+) 
+{
+
+    if (params != nullptr)
+    {
+        for (auto i=MechanismTypes::MECHANISM_TYPE::EXAMPLE+1; i<MechanismTypes::MECHANISM_TYPE::MAX_MECHANISM_TYPES; ++i)
+        {
+            auto mech = MechanismFactory::GetMechanismFactory()->GetMechanism(static_cast<MechanismTypes::MECHANISM_TYPE>(i));
+            auto stateMgr = mech != nullptr ? mech->GetStateMgr() : nullptr;
+            if (stateMgr != nullptr)
+            {
+                auto stateID = stateMgr->GetCurrentStateParam(params);
+                if (stateID > -1)
+                {
+                    stateMgr->SetCurrentState(stateID, true);
+                }
+            }
+        }   
+    }
 }
 
 IState* StateMgrHelper::CreateState
@@ -63,7 +106,23 @@ IState* StateMgrHelper::CreateState
             thisState = new ExampleState(controlData, target);
             break;
 
-        // @ADDMECH Add case(s) tto create your state(s) 
+        case StateType::ARM_STATE:
+            thisState = new IntakeState(controlData, target);
+            break;
+
+        case StateType::FLAGARM_STATE:
+            thisState = new FlagArmState(target);
+            break;
+
+        case StateType::INTAKE_STATE:
+            thisState = new IntakeState(controlData, target);
+            break;
+        
+        case StateType::RELEASE_STATE:
+            thisState = new ReleaseState(target, secondaryTarget);
+            break;
+
+        // @ADDMECH Add case(s) to create your state(s) 
         //case StateType::SHOOTER:
         //    thisState = new ShooterState(controlData, 
         //                                    controlData2, 

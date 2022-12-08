@@ -41,8 +41,11 @@
 #include <mechanisms/MechanismTypes.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/example/Example.h>
+
+#include <mechanisms/ARM\arm.h>
 #include <mechanisms/release/release.h>
 #include <mechanisms/release/ReleaseStateMgr.h>
+
 
 #include <mechanisms\Intake\IntakeStateManager.h>
 // @ADDMECH include for your mechanism 

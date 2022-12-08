@@ -64,7 +64,7 @@ IPrimitive* PrimitiveFactory::GetIPrimitive(PrimitiveParams* primitivePasser)
 	IPrimitive* primitive = nullptr;
 	switch (primitivePasser->GetID())				//Decides which primitive to get or make
 	{
-		case DO_NOTHING:
+		case STOP_DRIVING:
 			if (m_DriveStop == nullptr)
 			{
 				m_DriveStop = new DriveStop();
