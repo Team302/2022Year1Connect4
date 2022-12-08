@@ -116,16 +116,24 @@ void TeleopControl::Initialize()
 		m_controllerIndex[ HOLONOMIC_DRIVE_ROTATE]			= ctrlNo;
 		m_axisIDs[HOLONOMIC_DRIVE_ROTATE]					= IDragonGamePad::RIGHT_JOYSTICK_X;
 
-		m_controllerIndex[FINDTARGET] 					= ctrlNo;  
-		m_buttonIDs[FINDTARGET]	 						= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[INTAKE_EXPEL] 					= ctrlNo;  
+		m_buttonIDs[INTAKE_EXPEL]	 						= IDragonGamePad::LEFT_BUMPER;	
+		m_controllerIndex[INTAKE_ON]						= ctrlNo;
+		m_buttonIDs[INTAKE_ON]								= IDragonGamePad::RIGHT_BUMPER;
 
-		m_controllerIndex[ DRIVE_TO_SHOOTING_SPOT ]		= ctrlNo;
-		m_buttonIDs[ DRIVE_TO_SHOOTING_SPOT ]			= IDragonGamePad::A_BUTTON;
-		m_controllerIndex[ REZERO_PIGEON ]				= ctrlNo;
-		m_buttonIDs[ REZERO_PIGEON ]					= IDragonGamePad::B_BUTTON;
-		m_controllerIndex[HOLD_POSITION]				= ctrlNo;
-		m_buttonIDs[HOLD_POSITION]						= IDragonGamePad::X_BUTTON;
+		m_controllerIndex[ REZERO_PIGEON ]					= ctrlNo;
+		m_buttonIDs[ REZERO_PIGEON ]						= IDragonGamePad::Y_BUTTON;
+		m_controllerIndex[ RELEASE_OPEN_OPEN ]				= ctrlNo;
+		m_buttonIDs[ RELEASE_OPEN_OPEN ]					= IDragonGamePad::B_BUTTON;
+		m_controllerIndex[RELEASE_OPEN_CLOSED]				= ctrlNo;
+		m_buttonIDs[RELEASE_OPEN_CLOSED]					= IDragonGamePad::X_BUTTON;
 
+		m_controllerIndex[ARM_GOING_UP]						= ctrlNo;
+		m_buttonIDs[ARM_GOING_UP]							= IDragonGamePad::POV_0;
+		m_controllerIndex[ARM_GOING_DOWN]					= ctrlNo;
+		m_buttonIDs[ARM_GOING_DOWN]							= IDragonGamePad::POV_180;
+
+	
     }
     else
     {

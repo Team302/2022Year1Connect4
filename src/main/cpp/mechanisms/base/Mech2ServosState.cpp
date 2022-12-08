@@ -57,7 +57,7 @@ void Mech2ServosState::Run()
     if (m_mechanism != nullptr)
     {
         m_mechanism->SetAngle(m_target);
-        m_mechanism->SetAngle(m_target2);
+        m_mechanism->SetAngle2(m_target2);
         auto ntName = m_mechanism->GetNetworkTableName();
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Target"), GetTarget());
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Target2"), GetTarget2());
