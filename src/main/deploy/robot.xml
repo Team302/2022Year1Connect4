@@ -154,11 +154,15 @@
                 networkTable="BallReleaseNT"
                 controlFile="release.xml">
           <servo usage="RELEASE_SERVO"
+                 pwmId="0"
                  minAngle="0.0"
-                 maxAngle="90.0"/>
+                 maxAngle="180.0"
+                 pwmId="0"/>
           <servo usage="RELEASE_SERVO2"
+                 pwmId="1"
                  minAngle="0.0"
-                 maxAngle="90.0"/>
+                 maxAngle="180.0"
+                 pwmId="1"/>
      </mechanism>
 
 <!-- ====================================================
