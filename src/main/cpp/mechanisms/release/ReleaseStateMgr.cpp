@@ -82,8 +82,6 @@ void ReleaseStateMgr::CheckForStateTransition()
         auto isOpenClosedSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_CLOSED) : false;
         auto isOpenOpenSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_OPEN) : false;
 
-        isOpenClosedSelected = true;
-
         if (isOpenClosedSelected)
         {
             targetState = RELEASE_STATE::OPEN_CLOSED;

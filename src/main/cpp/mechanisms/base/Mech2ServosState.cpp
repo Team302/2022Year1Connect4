@@ -16,11 +16,12 @@
 
 // C++ Includes
 #include <memory>
+#include <string>
 
 // FRC includes
 
 // Team 302 includes
-#include <mechanisms/base/IState.h>
+#include <State.h>
 #include <mechanisms/base/Mech2ServosState.h>
 #include <mechanisms/base/Mech2Servos.h>
 #include <utils/Logger.h>
@@ -34,9 +35,11 @@ using namespace std;
 Mech2ServosState::Mech2ServosState
 (
     Mech2Servos*                    mechanism,
+    string                          stateName,
+    int                             stateId,
     double                          target,
     double                          target2
-) : IState(),
+) : State(stateName, stateId),
     m_mechanism(mechanism),
     m_target(target),
     m_target2(target2)
@@ -58,9 +61,6 @@ void Mech2ServosState::Run()
     {
         m_mechanism->SetAngle(m_target);
         m_mechanism->SetAngle2(m_target2);
-        auto ntName = m_mechanism->GetNetworkTableName();
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Target"), GetTarget());
-        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, string("Target2"), GetTarget2());
     }
 }
 
@@ -73,3 +73,17 @@ bool Mech2ServosState::AtTarget() const
     return true;
 }
 
+void Mech2ServosState::LogInformation() const
+{
+    if (m_mechanism != nullptr)
+    {
+        auto ntName = m_mechanism->GetNetworkTableName();
+        auto statename = GetStateName();
+        auto idStatename = string("Mech2ServoState") + to_string(GetStateId()) + string(" - ") + statename;
+        auto idStatenameTarget = idStatename + string(" - Target");
+        auto idStatenameTarget2 = idStatename + string(" - Target2");
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, idStatename, GetStateName());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, idStatenameTarget, GetTarget());
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, ntName, idStatenameTarget2, GetTarget2());
+    }
+}

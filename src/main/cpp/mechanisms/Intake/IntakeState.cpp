@@ -15,6 +15,7 @@
 
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 
@@ -29,11 +30,15 @@
 // Third Party Includes
 
 
+using namespace std;
+
 IntakeState::IntakeState
 (
+    string                          stateName,
+    int                             stateId,
     ControlData*                    control, 
     double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetIntake(), control, target),
+) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetIntake(), stateName, stateId, control, target),
     m_intake(MechanismFactory::GetMechanismFactory()->GetIntake())
 {
 }

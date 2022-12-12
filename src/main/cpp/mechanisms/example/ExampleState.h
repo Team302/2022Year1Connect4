@@ -13,6 +13,7 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #pragma once
+#include <string>
 
 #include <mechanisms/base/Mech1MotorState.h>
 
@@ -26,6 +27,8 @@ class ExampleState : public Mech1MotorState
         ExampleState() = delete;
         ExampleState
         (
+            std::string                     stateName,
+            int                             stateId,
             ControlData*                    control,
             double                          target
         );

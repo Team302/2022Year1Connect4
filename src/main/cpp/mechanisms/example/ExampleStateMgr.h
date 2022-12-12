@@ -68,7 +68,7 @@ class ExampleStateMgr : public StateMgr
         Example*                                m_example;
 
 		static ExampleStateMgr*	m_instance;
-        const StateStruc m_offState = {EXAMPLE_STATE::OFF, StateType::EXAMPLE_STATE, true};
-        const StateStruc m_forwardState = {EXAMPLE_STATE::FORWARD, StateType::EXAMPLE_STATE, false};
-        const StateStruc m_reverseState = {EXAMPLE_STATE::REVERSE, StateType::EXAMPLE_STATE, false};
+        const StateStruc m_offState = {EXAMPLE_STATE::OFF, m_exampleOffXmlString, StateType::EXAMPLE_STATE, true};
+        const StateStruc m_forwardState = {EXAMPLE_STATE::FORWARD, m_exampleForwardXmlString, StateType::EXAMPLE_STATE, false};
+        const StateStruc m_reverseState = {EXAMPLE_STATE::REVERSE, m_exampleReverseXmlString, StateType::EXAMPLE_STATE, false};
 };

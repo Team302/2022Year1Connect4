@@ -15,6 +15,7 @@
 
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 
@@ -26,12 +27,15 @@
 
 // Third Party Includes
 
+using namespace std;
 
 ExampleState::ExampleState
 (
+    string                          stateName,
+    int                             stateId,
     ControlData*                    control, 
     double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetExample(), control, target),
+) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetExample(), stateName, stateId, control, target),
     m_example(MechanismFactory::GetMechanismFactory()->GetExample())
 {
     

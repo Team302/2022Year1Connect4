@@ -140,11 +140,16 @@
                  feedbackDevice="NONE" 
                  countsPerRev="0" 
                  gearRatio="1.0" 
-                 brakeMode="false" 
+                 brakeMode="true" 
                  peakCurrentDuration="50" 
                  continuousCurrentLimit="50" 
                  peakCurrentLimit="50" 
-                 currentLimiting="true"/>
+                 currentLimiting="true"              
+                 forwardlimitswitch="true" 
+                 forwardlimitswitchopen="true" 
+                 reverselimitswitch="true" 
+                 reverselimitswitchopen="true"/> 
+
      </mechanism>
 
 <!-- ====================================================
@@ -156,18 +161,19 @@
           <servo usage="RELEASE_SERVO"
                  pwmId="0"
                  minAngle="0.0"
-                 maxAngle="180.0"
+                 maxAngle="360.0"
                  pwmId="0"/>
           <servo usage="RELEASE_SERVO2"
                  pwmId="1"
                  minAngle="0.0"
-                 maxAngle="180.0"
+                 maxAngle="360.0"
                  pwmId="1"/>
      </mechanism>
 
 <!-- ====================================================
      Flag Arm
      ====================================================  -->
+     <!--
      <mechanism type= "FLAGARM"
                 networkTable="FlagArmNT"
                 controlFile="flagarmstates.xml">
@@ -194,5 +200,6 @@
                  peakCurrentLimit="50" 
                  currentLimiting="true"/>
      </mechanism>
+     -->
 
 </robot>

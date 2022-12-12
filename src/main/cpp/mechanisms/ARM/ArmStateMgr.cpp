@@ -28,6 +28,7 @@
 #include <mechanisms/ARM/arm.h>
 #include <mechanisms/ARM/ArmStateMgr.h>
 #include <TeleopControl.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -39,7 +40,7 @@ ArmStateMgr *ArmStateMgr::GetInstance()
     if (ArmStateMgr::m_instance == nullptr)
     {
         auto mechFactory = MechanismFactory::GetMechanismFactory();
-        auto arm = mechFactory->GetExample();
+        auto arm = mechFactory->GetArm();
         if (arm != nullptr)
         {
             ArmStateMgr::m_instance = new ArmStateMgr();
@@ -54,11 +55,11 @@ ArmStateMgr::ArmStateMgr() : StateMgr(),
                              m_nt()
 {
     map<string, StateStruc> stateMap;
-    stateMap[m_armOFFXmlString] = m_offState;
-    stateMap[m_armARM_UPXmlString] = m_upState;
-    stateMap[m_armARM_DOWNXmlString] = m_downState;
-    stateMap[m_armARM_MOVING_UPXmlString] = m_movingDownState;
-    stateMap[m_armARM_MOVING_DOWNXmlString] = m_movingUpState;
+    stateMap[m_armOffXmlString] = m_offState;
+    stateMap[m_armUpXmlString] = m_upState;
+    stateMap[m_armDownXmlString] = m_downState;
+    stateMap[m_armMovingDownXmlString] = m_movingDownState;
+    stateMap[m_armMovingUpXmlString] = m_movingUpState;
 
     Init(m_arm, stateMap);
     if (m_arm != nullptr)
@@ -80,7 +81,35 @@ void ArmStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         auto isMoveArmUp = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ARM_GOING_UP) : false;
         auto isMoveArmDown = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ARM_GOING_DOWN) : false;
+    
+        auto ntName = m_arm->GetNetworkTableName();
 
+        if (currentState == ARM_STATE::DOWN && isMoveArmUp)
+        {
+            targetState = ARM_STATE::MOVING_UP;
+        }
+        else if (!m_arm->IsDown() && isMoveArmDown)
+        {
+            targetState = ARM_STATE::MOVING_DOWN;
+        }        
+        else if (!m_arm->IsUp() && isMoveArmUp)
+        {
+            targetState = ARM_STATE::MOVING_UP;
+        }
+        else if (m_arm->IsDown())
+        {
+            targetState = ARM_STATE::DOWN;
+        }        
+        else if (m_arm->IsUp())
+        {
+            targetState = ARM_STATE::UP;
+        }
+        else
+        {
+            targetState = ARM_STATE::OFF;
+        }
+
+        /**
         if (isMoveArmUp)
         {
             targetState = ARM_STATE::MOVING_UP;
@@ -93,6 +122,7 @@ void ArmStateMgr::CheckForStateTransition()
         {
             targetState = ARM_STATE::OFF;
         }
+        **/
 
         if (targetState != currentState)
         {

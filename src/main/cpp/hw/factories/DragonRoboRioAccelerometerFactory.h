@@ -40,7 +40,7 @@ class DragonRoboRioAccelerometerFactory
 
 		/// @brief      Get the Builtin Accelerometer
 		/// @returns 	frc::BuiltInAccelerometer* 
-        inline frc::BuiltInAccelerometer* GetAccelerometer() {return m_accel;};
+        inline frc::BuiltInAccelerometer* GetAccelerometer() {return m_accel;}
 
 	private:
 		DragonRoboRioAccelerometerFactory();

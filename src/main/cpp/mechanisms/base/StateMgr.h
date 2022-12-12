@@ -21,8 +21,9 @@
 #include <vector>
 
 // Team 302 includes
-#include <mechanisms/base/IState.h>
+#include <State.h>
 #include <mechanisms/StateStruc.h>
+#include <LoggableItem.h>
 
 // forward declare 
 class Mech;
@@ -30,7 +31,7 @@ class PrimitiveParams;
 
 // Third Party Includes
 
-class StateMgr 
+class StateMgr : public LoggableItem
 {
     public:
 
@@ -67,7 +68,9 @@ class StateMgr
         /// @brief  return the current state
         /// @return int - the current state
         inline int GetCurrentState() const { return m_currentStateID; };
-        inline IState* GetCurrentStatePtr() const { return m_stateVector[m_currentStateID]; };
+        inline State* GetCurrentStatePtr() const { return m_stateVector[m_currentStateID]; };
+
+        void LogInformation() const override;
 
     protected:
         virtual void CheckForStateTransition();
@@ -75,8 +78,8 @@ class StateMgr
     private:
 
         Mech*                   m_mech;
-        IState*                 m_currentState;
-        std::vector<IState*>    m_stateVector;
+        State*                  m_currentState;
+        std::vector<State*>     m_stateVector;
         int                     m_currentStateID;
 
 };

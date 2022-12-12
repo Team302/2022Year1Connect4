@@ -12,27 +12,18 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-#pragma once
 
-#include <string>
+// FRC includes
 
-#include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/ARM/arm.h>
+// Team 302 includes
+#include <LoggableItem.h>
+#include <LoggableItemMgr.h>
 
-class ControlData;
+// Third Party Includes
 
-class ArmState : public Mech1MotorState
+
+/// @brief    initialize the state manager, parse the configuration file and create the states.
+LoggableItem::LoggableItem()
 {
-    public:
-
-        ArmState() = delete;
-        
-        ArmState
-        (
-            std::string                     stateName,
-            int                             stateId,
-            ControlData*                    control,
-            double                          target
-        );
-        ~ArmState() = default;
-};
+    LoggableItemMgr::GetInstance()->RegisterLoggableItem(this);
+}   

@@ -1,3 +1,4 @@
+
 //====================================================================================================================================================
 // Copyright 2022 Lake Orion Robotics FIRST Team 302 
 //
@@ -13,49 +14,22 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-#pragma once 
+#pragma once
 
-// C++ Includes
-#include <memory>
-#include <string>
-
-// Team 302 includes
-#include <mechanisms/base/Mech.h>
-#include <mechanisms/MechanismTypes.h>
-#include <hw/DragonSolenoid.h>
-
-class Mech1Solenoid : public Mech
+///  @brief	    Interface for loggable items that can be mixed in with other interfaces
+class LoggableItem
 {
-    public:
-        /// @brief Create a generic mechanism wiht 1 solenoid 
-        /// @param [in] std::shared_ptr<DragonSolenoid> solenoid used by this mechanism
-         Mech1Solenoid
-        (
-            MechanismTypes::MECHANISM_TYPE              type,
-            std::string                                 controlFileName,
-            std::string                                 networkTableName,
-            std::shared_ptr<DragonSolenoid>             solenoid
-        );
-
-        Mech1Solenoid() = delete;
-        virtual ~Mech1Solenoid() = default;
-
-        /// @brief      Activate/deactivate pneumatic solenoid
-        /// @param [in] bool - true == extend, false == retract
-        /// @return     void 
-        void ActivateSolenoid
-        (
-            bool     activate
-        );
-
-        /// @brief      Check if the pneumatic solenoid is activated
-        /// @return     bool - true == extended, false == retracted
-        bool IsSolenoidActivated() const;
+	public:
+        
+	    LoggableItem();
+	    virtual ~LoggableItem() = default;
 
         /// @brief log data to the network table if it is activated and time period has past
-        void LogInformation() const override;
+        virtual void LogInformation() const = 0;
 
-    private:
-        std::shared_ptr<DragonSolenoid>             m_solenoid;
+
 
 };
+
+
+
