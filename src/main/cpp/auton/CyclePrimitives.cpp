@@ -47,7 +47,8 @@
 using namespace frc;
 using namespace std;
 
-CyclePrimitives::CyclePrimitives() : m_primParams(), 
+CyclePrimitives::CyclePrimitives() : State(string("CyclePrimitives"), 0),
+									 m_primParams(), 
 									 m_currentPrimSlot(0), 
 								     m_currentPrim(nullptr), 
 									 m_primFactory(

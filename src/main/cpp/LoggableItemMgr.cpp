@@ -12,27 +12,45 @@
 /// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-#pragma once
+#include <vector>
 
-#include <string>
+// FRC includes
 
-#include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/ARM/arm.h>
+// Team 302 includes
+#include <LoggableItemMgr.h>
+#include <LoggableItem.h>
 
-class ControlData;
+// Third Party Includes
 
-class ArmState : public Mech1MotorState
+using namespace std;
+
+
+LoggableItemMgr* LoggableItemMgr::m_instance = nullptr;
+LoggableItemMgr* LoggableItemMgr::GetInstance()
 {
-    public:
+	if ( LoggableItemMgr::m_instance == nullptr )
+	{
+        LoggableItemMgr::m_instance = new LoggableItemMgr();
+	}
+	return LoggableItemMgr::m_instance;
+}
 
-        ArmState() = delete;
-        
-        ArmState
-        (
-            std::string                     stateName,
-            int                             stateId,
-            ControlData*                    control,
-            double                          target
-        );
-        ~ArmState() = default;
-};
+
+/// @brief    initialize the state manager, parse the configuration file and create the states.
+LoggableItemMgr::LoggableItemMgr() : m_loggableItems()
+{
+}   
+void LoggableItemMgr::RegisterLoggableItem
+(
+    LoggableItem*       item
+)
+{
+    m_loggableItems.emplace_back(item);
+}
+void LoggableItemMgr::LogData() const
+{
+    for (auto item : m_loggableItems)
+    {
+        item->LogInformation();
+    }
+}

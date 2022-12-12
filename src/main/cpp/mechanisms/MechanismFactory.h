@@ -87,13 +87,13 @@ class MechanismFactory
 			DragonCanCoder* 										canCoder
 		);
 		
-		inline Example* GetExample() const {return m_example;};
+		inline Example* GetExample() const {return m_example;}
 		
 		// @ADDMECH  Add inline Get method for your mechanism
-		inline Intake* GetIntake() const {return m_intake;};
-		inline arm* GetArm() const {return m_arm;};
-		inline release* GetRelease() const {return m_release;};
-		inline FlagArm* GetFlag() const {return m_flag;};
+		inline Intake* GetIntake() const {return m_intake;}
+		inline arm* GetArm() const {return m_arm;}
+		inline release* GetRelease() const {return m_release;}
+		inline FlagArm* GetFlag() const {return m_flag;}
 
 		Mech* GetMechanism
 		(

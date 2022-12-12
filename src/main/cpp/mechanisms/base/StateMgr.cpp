@@ -25,7 +25,7 @@
 
 // Team 302 includes
 #include <auton/PrimitiveParams.h>
-#include <mechanisms/base/IState.h>
+#include <State.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
@@ -38,8 +38,6 @@
 // Third Party Includes
 
 using namespace std;
-
-
 
 /// @brief    initialize the state manager, parse the configuration file and create the states.
 StateMgr::StateMgr() : m_mech(nullptr),
@@ -55,8 +53,6 @@ void StateMgr::Init
 ) 
 {
     m_mech = mech;
-
-
     if (mech != nullptr)
     {
         // Parse the configuration file 
@@ -70,11 +66,13 @@ void StateMgr::Init
         else
         {
             // initialize the xml string to state map
-            m_stateVector.resize(stateMap.size());
+            m_stateVector.resize(stateMap.size(), nullptr);
             // create the states passing the configuration data
+            auto stateId=0;
             for ( auto td: targetData )
             {
                 auto stateString = td->GetStateString();
+                Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, mech->GetNetworkTableName(), string("State")+to_string(stateId), stateString);
                 auto stateStringToStrucItr = stateMap.find( stateString );
                 if ( stateStringToStrucItr != stateMap.end() )
                 {
@@ -96,7 +94,8 @@ void StateMgr::Init
             	    }
             	    else
             	    {
-                	    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), string("multiple mechanism state info for state"));
+                        auto msg = string("multiple mechanism state info for state");
+                	    Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR_ONCE, mech->GetNetworkTableName(), string("StateMgr::StateMgr"), msg);
             	    }
         	    }
         	    else
@@ -181,5 +180,23 @@ int StateMgr::GetCurrentStateParam
     return -1;
 }
 
-
+void StateMgr::LogInformation() const
+{
+    if (m_mech != nullptr)
+    {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_mech->GetNetworkTableName(), string("current state id"), m_currentStateID);
+        if (m_currentState != nullptr)
+        {
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_mech->GetNetworkTableName(), string("current state"), m_currentState->GetStateName());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_mech->GetNetworkTableName(), string("current state id"), m_currentState->GetStateId());
+        }
+        auto index = 0;
+        for (auto state : m_stateVector)
+        {
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_mech->GetNetworkTableName(), string("StateMgr: ") + to_string(index) + string(" - ") + string("state name"), state->GetStateName());
+            Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_mech->GetNetworkTableName(), string("StateMgr: ") + to_string(index) + string(" - ") + string("state id"), state->GetStateId());
+            index++;
+        }
+    }
+}
 

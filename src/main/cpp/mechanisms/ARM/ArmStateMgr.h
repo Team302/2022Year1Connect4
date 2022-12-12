@@ -41,18 +41,18 @@ class ArmStateMgr : public StateMgr
            MOVING_UP,
            MOVING_DOWN
         };
-        const std::string m_armOFFXmlString = "ARM_OFF";
-        const std::string m_armARM_UPXmlString = "ARM_UP";
-        const std::string m_armARM_DOWNXmlString = "ARM_DOWN";
-        const std::string  m_armARM_MOVING_UPXmlString = "ARM_MOVING_UP";
-        const std::string m_armARM_MOVING_DOWNXmlString = "ARM_MOVING_DOWN";
+        const std::string m_armOffXmlString = "ARM_OFF";
+        const std::string m_armUpXmlString = "ARM_UP";
+        const std::string m_armDownXmlString = "ARM_DOWN";
+        const std::string  m_armMovingUpXmlString = "ARM_MOVING_UP";
+        const std::string m_armMovingDownXmlString = "ARM_MOVING_DOWN";
         
         const std::map<const std::string, ARM_STATE> m_armXmlStringToStateEnumMap
-        {   {m_armOFFXmlString, ARM_STATE::OFF},
-            {m_armARM_UPXmlString, ARM_STATE::OFF},
-            {m_armARM_DOWNXmlString, ARM_STATE::OFF},
-            {m_armARM_MOVING_UPXmlString, ARM_STATE::MOVING_UP},
-            {m_armARM_MOVING_DOWNXmlString, ARM_STATE::MOVING_DOWN}
+        {   {m_armOffXmlString, ARM_STATE::OFF},
+            {m_armUpXmlString, ARM_STATE::UP},
+            {m_armDownXmlString, ARM_STATE::DOWN},
+            {m_armMovingUpXmlString, ARM_STATE::MOVING_UP},
+            {m_armMovingDownXmlString, ARM_STATE::MOVING_DOWN}
         };
 
         
@@ -80,9 +80,9 @@ class ArmStateMgr : public StateMgr
 
         const double m_CHANGE_STATE_TARGET = 120.0; 
 		static ArmStateMgr*	m_instance;
-        const StateStruc m_offState = {ARM_STATE::OFF, StateType::ARM_STATE, true};
-        const StateStruc m_upState = {ARM_STATE::UP, StateType::ARM_STATE, false};
-        const StateStruc m_downState = {ARM_STATE::DOWN, StateType::ARM_STATE, false};
-        const StateStruc m_movingDownState = {ARM_STATE::MOVING_DOWN, StateType::ARM_STATE, false};
-        const StateStruc m_movingUpState = {ARM_STATE::MOVING_UP, StateType::ARM_STATE, false};
+        const StateStruc m_offState = {ARM_STATE::OFF, m_armOffXmlString, StateType::ARM_STATE, true};
+        const StateStruc m_upState = {ARM_STATE::UP, m_armUpXmlString, StateType::ARM_STATE, false};
+        const StateStruc m_downState = {ARM_STATE::DOWN, m_armDownXmlString, StateType::ARM_STATE, false};
+        const StateStruc m_movingDownState = {ARM_STATE::MOVING_DOWN, m_armMovingDownXmlString, StateType::ARM_STATE, false};
+        const StateStruc m_movingUpState = {ARM_STATE::MOVING_UP, m_armMovingUpXmlString, StateType::ARM_STATE, false};
 };

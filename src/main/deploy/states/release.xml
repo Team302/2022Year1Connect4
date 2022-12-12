@@ -5,7 +5,6 @@
 	             mode="POSITION_DEGREES"/>
 
 	<mechanismTarget stateIdentifier="RELEASE_OPEN_OPEN"
-
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
 					 value="0.0"
@@ -15,8 +14,8 @@
 	<mechanismTarget stateIdentifier="RELEASE_OPEN_CLOSED"
 	                 controlDataIdentifier="openloop"
                      controlDataIdentifier2="openloop"
-					 value="90.0"
-                     secondValue="180.0"/>
+					 value="0.0"
+                     secondValue="45.0"/>
 
 	<mechanismTarget stateIdentifier="RELEASE_CLOSED_OPEN"
 	                 controlDataIdentifier="openloop"

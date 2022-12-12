@@ -15,6 +15,7 @@
 
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 
@@ -25,10 +26,14 @@
 // Third Party Includes
 
 
+using namespace std;
+
 FlagArmState::FlagArmState
 (
+    string                          stateName,
+    int                             stateId,
     double                          target
-) : Mech1ServoState( MechanismFactory::GetMechanismFactory()->GetFlag(), target),
+) : Mech1ServoState( MechanismFactory::GetMechanismFactory()->GetFlag(), stateName, stateId, target),
     m_FlagArm(MechanismFactory::GetMechanismFactory()->GetFlag())
 {
 }

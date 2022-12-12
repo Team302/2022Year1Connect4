@@ -25,10 +25,10 @@ class DragonRoboRioAccelXRightYForward : public frc::BuiltInAccelerometer
 		virtual ~DragonRoboRioAccelXRightYForward() = default;
 
 		 /// @return The acceleration of the roboRIO along the robot X axis (forward) in g-forces
-		inline double GetX() override { return BuiltInAccelerometer::GetY();};
+		inline double GetX() override { return BuiltInAccelerometer::GetY();}
 
 		 /// @return The acceleration of the roboRIO along the robot Y axis (left) in g-forces
-		inline double GetY() override {return -1.0 * BuiltInAccelerometer::GetX();};
+		inline double GetY() override {return -1.0 * BuiltInAccelerometer::GetX();}
 };
 
 

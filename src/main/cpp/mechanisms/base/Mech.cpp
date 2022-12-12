@@ -39,7 +39,8 @@ Mech::Mech
     MechanismTypes::MECHANISM_TYPE  type,
     string                          controlFileName,
     string                          networkTableName
-) : m_type( type ),
+) : LoggableItem(),
+    m_type( type ),
     m_controlFile( controlFileName ),
     m_ntName( networkTableName ),
     m_stateMgr(nullptr)
@@ -81,7 +82,7 @@ string Mech::GetNetworkTableName() const
 
 
 /// @brief log data to the network table if it is activated and time period has past
-void Mech::LogHardwareInformation()
+void Mech::LogInformation() const
 {
     // NO-OP - subclasses override when necessary
 }

@@ -29,7 +29,7 @@
 #include <hw/DragonPigeon.h>
 #include <gamepad/IDragonGamePad.h>
 #include <TeleopControl.h>
-#include <mechanisms/base/IState.h>
+#include <State.h>
 #include <chassis/ChassisFactory.h>
 #include <hw/factories/PigeonFactory.h>
 #include <utils/Logger.h>
@@ -38,7 +38,7 @@ using namespace std;
 using namespace frc;
 
 /// @brief initialize the object and validate the necessary items are not nullptrs
-HolonomicDrive::HolonomicDrive() : IState(),
+HolonomicDrive::HolonomicDrive() : State(string("Holonmic Drive"), 0),
                                  m_chassis(ChassisFactory::GetChassisFactory()->GetMecanumChassis()),
                                  m_holonomicChassis(ChassisFactory::GetChassisFactory()->GetHolonomicChassis()),
                                  m_controller(TeleopControl::GetInstance())

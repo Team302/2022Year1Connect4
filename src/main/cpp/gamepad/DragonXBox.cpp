@@ -195,7 +195,6 @@ double DragonXBox::GetAxisValue
     AXIS_IDENTIFIER    axis// <I> - axis identifier to read
 ) const
 {
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("DragonXBox::GetAxisValue"), string("top of Xbox GetAxisValue"), string("xxx"));
     if (m_axis[axis] != nullptr)
     {
         return m_axis[axis]->GetAxisValue();

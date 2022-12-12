@@ -6,10 +6,10 @@
     <mechanismTarget stateIdentifier="ARM_OFF"
                  controlDataIdentifier="openloop"
                  value="0.0"/>
-    <mechanismTarget stateIdentifier="ARM_DOWN"
+    <mechanismTarget stateIdentifier="ARM_UP"
                  controlDataIdentifier="openloop"
                  value="0.0"/>
-    <mechanismTarget stateIdentifier="ARM_UP"
+    <mechanismTarget stateIdentifier="ARM_DOWN"
                  controlDataIdentifier="openloop"
                  value="0.0"/>
     <mechanismTarget stateIdentifier="ARM_MOVING_UP"
