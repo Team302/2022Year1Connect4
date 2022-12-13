@@ -73,7 +73,7 @@ void IntakeStateMgr::CheckForStateTransition()
         auto targetState = currentState;
 
         auto controller = TeleopControl::GetInstance();
-        auto isOnSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_ON) : false;
+        auto isOnSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_ON) || controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ARM_GOING_UP) : false;
         auto isExpelSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_EXPEL) : false;
 
         Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, m_intake->GetNetworkTableName(), string( "Is On Selected" ), isOnSelected);
