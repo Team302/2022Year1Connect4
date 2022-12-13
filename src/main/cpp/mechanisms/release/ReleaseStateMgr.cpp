@@ -81,6 +81,10 @@ void ReleaseStateMgr::CheckForStateTransition()
         auto controller = TeleopControl::GetInstance();
         auto isOpenClosedSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_CLOSED) : false;
         auto isOpenOpenSelected   = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::RELEASE_OPEN_OPEN) : false;
+        auto isClosedOpenSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::INTAKE_ON) || controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ARM_GOING_DOWN) : false;
+        auto isClosedClosedSelected = controller != nullptr ? controller->IsButtonPressed(TeleopControl::FUNCTION_IDENTIFIER::ARM_GOING_UP) : false;
+
+
 
         if (isOpenClosedSelected)
         {
@@ -91,6 +95,14 @@ void ReleaseStateMgr::CheckForStateTransition()
             targetState = RELEASE_STATE::OPEN_OPEN;
         }
 
+        else if (isClosedClosedSelected)
+        {
+            targetState = RELEASE_STATE::CLOSED_CLOSED;
+        }
+        else if (isClosedOpenSelected)
+        {
+            targetState = RELEASE_STATE::CLOSED_OPEN;
+        }
         if (targetState != currentState)
         {
             SetCurrentState(targetState, true);
