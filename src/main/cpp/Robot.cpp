@@ -30,12 +30,12 @@ void Robot::RobotInit()
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
     
+    m_controller = TeleopControl::GetInstance();
+
     // Read the XML file to build the robot 
     auto XmlParser = new RobotXmlParser();
     XmlParser->ParseXML();
 
-    // Get local copies of the teleop controller and the chassis
-    m_controller = TeleopControl::GetInstance();
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetMecanumChassis();
     m_holonomic = nullptr;

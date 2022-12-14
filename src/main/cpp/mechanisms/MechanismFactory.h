@@ -135,13 +135,9 @@ class MechanismFactory
 		static MechanismFactory*	m_mechanismFactory;
 
 		// @ADDMECH  Add your mechanism here		
-		Example* 		m_example;
-		release*		m_release;
-		Intake*			m_intake;
 		arm*			m_arm;
+		Example* 		m_example;
 		FlagArm*		m_flag;
-
-
-		
-
+		Intake*			m_intake;
+		release*		m_release;
 };

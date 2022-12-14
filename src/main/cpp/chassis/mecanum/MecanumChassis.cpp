@@ -18,6 +18,7 @@
 #include <string>
 
 #include <frc/BuiltInAccelerometer.h>
+#include <frc/drive/MecanumDrive.h>
 #include <frc/kinematics/ChassisSpeeds.h>
 #include <frc/kinematics/MecanumDriveKinematics.h>
 #include <frc/kinematics/MecanumDriveOdometry.h>
@@ -54,7 +55,11 @@ MecanumChassis::MecanumChassis
     units::angular_velocity::degrees_per_second_t  maxAngSpeed,
     units::length::inch_t                          wheelDiameter,
     string                                         networktablename
-) : m_leftFrontMotor(leftFrontMotor),
+) : m_drive(new MecanumDrive(*(leftFrontMotor.get()->GetSpeedController().get()), 
+                             *(leftBackMotor.get()->GetSpeedController().get()), 
+                             *(rightFrontMotor.get()->GetSpeedController().get()), 
+                             *(rightBackMotor.get()->GetSpeedController().get()))),
+    m_leftFrontMotor(leftFrontMotor),
     m_leftBackMotor(leftBackMotor),
     m_rightFrontMotor(rightFrontMotor),
     m_rightBackMotor(rightBackMotor),
@@ -66,6 +71,10 @@ MecanumChassis::MecanumChassis
     m_track(trackWidth),
     m_ntName(networktablename)
 {
+    if (m_pigeon != nullptr)
+    {
+        m_pigeon->ReZeroPigeon(0.0);
+    }
 }
 
 IChassis::CHASSIS_TYPE MecanumChassis::GetType() const
@@ -80,27 +89,51 @@ void MecanumChassis::Drive
     IHolonomicChassis::HEADING_OPTION      headingOption
 ) 
 {
-
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Vx"), chassisSpeeds.vx.value());
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Vy"), chassisSpeeds.vy.value());
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("Run Omega"), chassisSpeeds.omega.value());
-
     auto speeds = mode == IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? FieldDriveUtils::ConvertFieldOrientedToRobot(chassisSpeeds, m_pigeon) : chassisSpeeds;
     auto forward = speeds.vx / m_maxSpeed;
     auto strafe  = speeds.vy / m_maxSpeed;
     auto rot     = speeds.omega / m_maxAngSpeed;
 
-    auto saturatedPower = fmax((abs(forward.value()) + abs(strafe.value()) + abs(rot.value())), 1.0);
+    auto frontLeftPower  = forward.value() + rot.value() + strafe.value();
+    auto frontRightPower = forward.value() - rot.value() - strafe.value();
+    auto backLeftPower = forward.value() + rot.value() - strafe.value();
+    auto backRightPower = forward.value() - rot.value() + strafe.value();
 
-    auto frontLeftPower  = (forward.value() + strafe.value() + rot.value()) / saturatedPower;
-    auto backLeftPower   = (forward.value() - strafe.value() + rot.value()) / saturatedPower;
-    auto frontRightPower = (forward.value() - strafe.value() - rot.value()) / saturatedPower;
-    auto backRightPower  = (forward.value() + strafe.value() - rot.value()) / saturatedPower;
+    auto maxVal = abs(frontLeftPower);
+    maxVal = CheckMaxVal(frontRightPower, maxVal);
+    maxVal = CheckMaxVal(backLeftPower, maxVal);
+    maxVal = CheckMaxVal(backRightPower, maxVal);
+
+    if (maxVal > 1.0)
+    {
+        frontLeftPower /= maxVal;
+        frontRightPower /= maxVal;
+        backLeftPower /= maxVal;
+        backRightPower /= maxVal;
+    }
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("front left"), frontLeftPower);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("back left"), backLeftPower);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("front right"), frontRightPower);
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("back right"), backRightPower);
 
     m_leftFrontMotor.get()->Set(frontLeftPower);
     m_leftBackMotor.get()->Set(backLeftPower);
     m_rightFrontMotor.get()->Set(frontRightPower);
     m_rightBackMotor.get()->Set(backRightPower);
+}
+
+double MecanumChassis::CheckMaxVal
+(
+    double valueToCheck,
+    double currentMax
+)
+{
+    auto temp = abs(valueToCheck);
+    if (temp > currentMax)
+    {
+        return temp;
+    }
+    return currentMax;
 }
 
 //Moves the robot
