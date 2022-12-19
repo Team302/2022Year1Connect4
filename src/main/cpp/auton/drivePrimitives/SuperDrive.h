@@ -44,12 +44,12 @@ class SuperDrive : public IPrimitive
 protected: 
 		SuperDrive();
 		virtual ~SuperDrive() = default;
-		std::shared_ptr<IChassis> GetChassis() const {return m_chassis;}
+		IChassis* GetChassis() const {return m_chassis;}
 		DragonPigeon* GetPigeon() const {return m_pigeon;}
 		double GetCurrentTime() const {return m_currentTime;}
 
 	private:
-        std::shared_ptr<IChassis> 	m_chassis;
+        IChassis*				 	m_chassis;
 		DragonPigeon*				m_pigeon;
 		frc::ChassisSpeeds*			m_chassisSpeeds;
    		std::unique_ptr<frc::Timer> m_timer;

@@ -4,8 +4,8 @@
 <primitive id="DRIVE_TO_WALL"
             time="5.0"
             headingOption="MAINTAIN"
-            drivespeed="-0.75"
-            arm="ARM_UP"
+            drivespeed="-400.0"
+            arm="ARM_MOVING_UP"
             />
 <primitive id="STOP_DRIVING"
             release="RELEASE_OPEN_OPEN"

@@ -27,8 +27,12 @@
 #include <auton/drivePrimitives/SuperDrive.h>
 #include <auton/PrimitiveParams.h>
 #include <chassis/ChassisFactory.h>
+#include <chassis/IChassis.h>
+#include <chassis/IHolonomicChassis.h>
+#include <chassis/mecanum/MecanumChassis.h>
 #include <hw/DragonPigeon.h>
 #include <hw/factories/PigeonFactory.h>
+#include <utils/Logger.h>
 
 // Third Party Includes
 
@@ -47,22 +51,42 @@ SuperDrive::SuperDrive() : m_chassis( ChassisFactory::GetChassisFactory()->GetIC
 
 void SuperDrive::Init(PrimitiveParams* params) 
 {
-	m_targetSpeed = params->GetDriveSpeed() / 12.0; // convert from inches per second to feet per second
-	m_currentTime = 0.0;
-	m_pigeon = PigeonFactory::GetFactory()->GetPigeon(DragonPigeon::PIGEON_USAGE::CENTER_OF_ROBOT);
-	m_startHeading = m_pigeon != nullptr ? m_pigeon->GetYaw() : 0.0;
+	if (m_chassis != nullptr)
+	{
+		//m_targetSpeed = params->GetDriveSpeed() / 12.0; // convert from inches per second to feet per second
+		m_targetSpeed = params->GetDriveSpeed() * m_chassis->GetMaxSpeed().value();
+		m_currentTime = 0.0;
+	}
 }
 
 void SuperDrive::Run() 
 {
-	auto currentHeading = m_pigeon != nullptr ? m_pigeon->GetYaw() : 0.0;
-	auto delta = currentHeading - m_startHeading;
+	if (m_chassis != nullptr)
+	{
+		ChassisSpeeds speeds;
+		speeds.vx = units::velocity::feet_per_second_t(m_targetSpeed);
+		speeds.vy = units::velocity::feet_per_second_t(0.0);
+		speeds.omega = units::angular_velocity::degrees_per_second_t(0.0);
 
-	ChassisSpeeds speeds;
-	speeds.vx = units::velocity::feet_per_second_t(m_targetSpeed);
-	speeds.vy = units::velocity::feet_per_second_t(0.0);
-	speeds.omega = units::angular_velocity::degrees_per_second_t(delta * 0.1);
-	m_currentTime += IPrimitive::LOOP_LENGTH;
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SuperDrive"), string("chassisSpeeds.vx"), speeds.vx.value());
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SuperDrive"), string("chassisSpeeds.vy"), speeds.vy.value());
+		Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("SuperDrive"), string("chassisSpeeds.omega"), speeds.omega.value());
+		
+		auto mecChassis = ChassisFactory::GetChassisFactory()->GetMecanumChassis();
+		if (mecChassis != nullptr)
+		{
+			IHolonomicChassis::CHASSIS_DRIVE_MODE mode = IHolonomicChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED;
+        	IHolonomicChassis::HEADING_OPTION headingOpt = IHolonomicChassis::HEADING_OPTION::MAINTAIN;
+
+			mecChassis->Drive(speeds, mode, headingOpt);
+		}
+		else
+		{
+			m_chassis->Drive(speeds);
+		}
+
+		m_currentTime += IPrimitive::LOOP_LENGTH;
+	}
 }
 
 bool SuperDrive::IsDone() 

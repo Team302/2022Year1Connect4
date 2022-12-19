@@ -128,10 +128,15 @@ void TeleopControl::Initialize()
 		m_controllerIndex[RELEASE_OPEN_CLOSED]				= ctrlNo;
 		m_buttonIDs[RELEASE_OPEN_CLOSED]					= IDragonGamePad::X_BUTTON;
 
+		//m_controllerIndex[ARM_GOING_UP]						= ctrlNo;
+		//m_buttonIDs[ARM_GOING_UP]							= IDragonGamePad::POV_0;
+		//m_controllerIndex[ARM_GOING_DOWN]					= ctrlNo;
+		//m_buttonIDs[ARM_GOING_DOWN]							= IDragonGamePad::POV_180;
+
 		m_controllerIndex[ARM_GOING_UP]						= ctrlNo;
-		m_buttonIDs[ARM_GOING_UP]							= IDragonGamePad::POV_0;
+		m_buttonIDs[ARM_GOING_UP]							= IDragonGamePad::BUTTON_IDENTIFIER::RIGHT_TRIGGER_PRESSED;
 		m_controllerIndex[ARM_GOING_DOWN]					= ctrlNo;
-		m_buttonIDs[ARM_GOING_DOWN]							= IDragonGamePad::POV_180;
+		m_buttonIDs[ARM_GOING_DOWN]							= IDragonGamePad::BUTTON_IDENTIFIER::LEFT_TRIGGER_PRESSED;
 
 	
     }

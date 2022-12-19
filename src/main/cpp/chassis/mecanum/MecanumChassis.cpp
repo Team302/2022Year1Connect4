@@ -89,10 +89,18 @@ void MecanumChassis::Drive
     IHolonomicChassis::HEADING_OPTION      headingOption
 ) 
 {
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("chassisSpeeds.vx"), chassisSpeeds.vx.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("chassisSpeeds.vy"), chassisSpeeds.vy.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("chassisSpeeds.omega"), chassisSpeeds.omega.value());
+
     auto speeds = mode == IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED ? FieldDriveUtils::ConvertFieldOrientedToRobot(chassisSpeeds, m_pigeon) : chassisSpeeds;
     auto forward = speeds.vx / m_maxSpeed;
     auto strafe  = speeds.vy / m_maxSpeed;
     auto rot     = speeds.omega / m_maxAngSpeed;
+
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("forward"), forward.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("strafe"), strafe.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("rot"), rot.value());
 
     auto frontLeftPower  = forward.value() + rot.value() + strafe.value();
     auto frontRightPower = forward.value() - rot.value() - strafe.value();
@@ -139,6 +147,10 @@ double MecanumChassis::CheckMaxVal
 //Moves the robot
 void MecanumChassis::Drive(frc::ChassisSpeeds chassisSpeeds)
 {
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("@chassisSpeeds.vx"), chassisSpeeds.vx.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("@chassisSpeeds.vy"), chassisSpeeds.vy.value());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("MecanumChassis"), string("@chassisSpeeds.omega"), chassisSpeeds.omega.value());
+
     Drive(chassisSpeeds, IHolonomicChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED, IHolonomicChassis::HEADING_OPTION::MAINTAIN);
 }
 

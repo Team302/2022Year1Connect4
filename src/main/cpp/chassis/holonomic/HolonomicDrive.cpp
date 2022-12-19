@@ -63,15 +63,15 @@ void HolonomicDrive::Init()
     {
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD, IDragonGamePad::AXIS_PROFILE::CUBED);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD, 1.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD, 0.7);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE, IDragonGamePad::AXIS_PROFILE::CUBED);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE, 1.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_STRAFE, 0.7);
 
         controller->SetAxisProfile(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, IDragonGamePad::AXIS_PROFILE::CUBED);
         controller->SetDeadBand(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, IDragonGamePad::AXIS_DEADBAND::APPLY_STANDARD_DEADBAND);
-        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, 1.0);
+        controller->SetAxisScaleFactor(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_ROTATE, 0.7);
     }
 }
 
@@ -82,7 +82,8 @@ void HolonomicDrive::Run()
     auto controller = GetController();
     if (controller != nullptr && m_holonomicChassis != nullptr && m_chassis != nullptr)
     {
-        IHolonomicChassis::CHASSIS_DRIVE_MODE mode = IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
+        //IHolonomicChassis::CHASSIS_DRIVE_MODE mode = IHolonomicChassis::CHASSIS_DRIVE_MODE::FIELD_ORIENTED;
+        IHolonomicChassis::CHASSIS_DRIVE_MODE mode = IHolonomicChassis::CHASSIS_DRIVE_MODE::ROBOT_ORIENTED;
         IHolonomicChassis::HEADING_OPTION headingOpt = IHolonomicChassis::HEADING_OPTION::MAINTAIN;
 
         auto forward = controller->GetAxisValue(TeleopControl::FUNCTION_IDENTIFIER::HOLONOMIC_DRIVE_FORWARD);
