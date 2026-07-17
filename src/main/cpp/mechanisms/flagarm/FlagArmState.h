@@ -13,6 +13,7 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #pragma once
+#include <string>
 
 #include <mechanisms/base/Mech1ServoState.h>
 #include <mechanisms/flagarm/FlagArm.h>
@@ -25,6 +26,8 @@ class FlagArmState : public Mech1ServoState
         FlagArmState() = delete;
         FlagArmState
         (
+            std::string                     stateName,
+            int                             stateId,
             double                          target
         );
         ~FlagArmState() = default;

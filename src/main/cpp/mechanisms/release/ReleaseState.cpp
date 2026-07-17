@@ -15,6 +15,7 @@
 
 
 // C++ Includes
+#include <string>
 
 // FRC includes
 
@@ -27,11 +28,15 @@
 // Third Party Includes
 
 
+using namespace std;
+
 ReleaseState::ReleaseState
 ( 
+    string                          stateName,
+    int                             stateId, 
     double                          target,
     double                          target2
-) : Mech2ServosState( MechanismFactory::GetMechanismFactory()->GetRelease(), target, target2),
+) : Mech2ServosState( MechanismFactory::GetMechanismFactory()->GetRelease(), stateName, stateId, target, target2),
     m_release(MechanismFactory::GetMechanismFactory()->GetRelease())
 {
 }

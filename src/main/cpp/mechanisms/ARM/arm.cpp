@@ -30,7 +30,25 @@ std::string                                 controlFileName,
 std::string                                 networkTableName,  
 std::shared_ptr<IDragonMotorController>     motorController
 
-):Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::ARM,controlFileName,networkTableName,motorController)
+):Mech1IndMotor(MechanismTypes::MECHANISM_TYPE::ARM, controlFileName, networkTableName, motorController)
 {
-    
 }
+
+bool arm::IsUp() const
+{
+    auto motor = GetMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsForwardLimitSwitchClosed();
+    }
+    return false;
+}
+bool arm::IsDown() const
+{
+    auto motor = GetMotor();
+    if (motor.get() != nullptr)
+    {
+        return motor.get()->IsReverseLimitSwitchClosed();
+    }
+    return false;
+}       

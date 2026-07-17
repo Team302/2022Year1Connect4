@@ -87,7 +87,7 @@ class MechanismFactory
 			DragonCanCoder* 										canCoder
 		);
 		
-		inline Example* GetExample() const {return m_example;};
+		inline Example* GetExample() const {return m_example;}
 		
 		// @ADDMECH  Add inline Get method for your mechanism
 		inline Intake* GetIntake() const {return m_intake;};
@@ -133,15 +133,10 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-		
 		Example* 		m_example;
 		// @ADDMECH  Add your mechanism here
 		Intake*			m_intake;
 		Arm*			m_arm;
 		Release*        m_release;
 		FlagArm*		m_flag;
-
-
-		
-
 };

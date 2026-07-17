@@ -13,6 +13,7 @@
 /// OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 #pragma once
+#include <string>
 
 #include <mechanisms/base/Mech2ServosState.h>
 #include <mechanisms/release/release.h>
@@ -26,6 +27,8 @@ class ReleaseState : public Mech2ServosState
         ReleaseState() = delete;
         ReleaseState
         (
+            std::string                     stateName,
+            int                             stateId,
             double                          target,
             double                          target2
         );

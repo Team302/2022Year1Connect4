@@ -36,7 +36,11 @@ ExampleStateMgr* ExampleStateMgr::GetInstance()
 {
 	if ( ExampleStateMgr::m_instance == nullptr )
 	{
-        ExampleStateMgr::m_instance = new ExampleStateMgr();
+        auto example = MechanismFactory::GetMechanismFactory()->GetExample();
+        if (example != nullptr)
+        {
+            ExampleStateMgr::m_instance = new ExampleStateMgr();
+        }
 	}
 	return ExampleStateMgr::m_instance;
     
@@ -101,5 +105,6 @@ int ExampleStateMgr::GetCurrentStateParam
     PrimitiveParams*    currentParams
 ) 
 {
-    return currentParams != nullptr ? currentParams->GetArmState() : StateMgr::GetCurrentStateParam(currentParams);
+    // normally get the state from primitive params
+    return StateMgr::GetCurrentStateParam(currentParams);
 }

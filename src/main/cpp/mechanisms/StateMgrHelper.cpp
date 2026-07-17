@@ -16,7 +16,7 @@
 #include <string>
 
 #include <auton/PrimitiveParams.h>
-#include <mechanisms/base/IState.h>
+#include <State.h>
 #include <mechanisms/base/Mech.h>
 #include <mechanisms/base/StateMgr.h>
 #include <mechanisms/controllers/MechanismTargetData.h>
@@ -40,7 +40,7 @@ using namespace std;
 
 void StateMgrHelper::InitStateMgrs()
 {
-    ExampleStateMgr::GetInstance();
+    //ExampleStateMgr::GetInstance();
     IntakeStateMgr::GetInstance();
     ArmStateMgr::GetInstance();
     ReleaseStateMgr::GetInstance();
@@ -84,7 +84,7 @@ void StateMgrHelper::SetMechanismStateFromParam
     }
 }
 
-IState* StateMgrHelper::CreateState
+State* StateMgrHelper::CreateState
 (
     Mech*                       mech,
     StateStruc&                 stateInfo,
@@ -99,35 +99,39 @@ IState* StateMgrHelper::CreateState
     auto function1Coeff = targetData->GetFunction1Coeff();
     auto function2Coeff = targetData->GetFunction2Coeff();
     auto type = stateInfo.type;
-    IState* thisState = nullptr;
+    auto xmlString = stateInfo.xmlIdentifier;
+    auto id = stateInfo.id;
+
+    State* thisState = nullptr;
     switch (type)
     {
         case StateType::EXAMPLE_STATE:
-            thisState = new ExampleState(controlData, target);
+            thisState = new ExampleState(xmlString, id, controlData, target);
             break;
 
         case StateType::ARM_STATE:
-            thisState = new IntakeState(controlData, target);
+            thisState = new ArmState(xmlString, id, controlData, target);
             break;
 
         case StateType::FLAGARM_STATE:
-            thisState = new FlagArmState(target);
+            thisState = new FlagArmState(xmlString, id, target);
             break;
 
         case StateType::INTAKE_STATE:
-            thisState = new IntakeState(controlData, target);
+            thisState = new IntakeState(xmlString, id, controlData, target);
             break;
         
         case StateType::RELEASE_STATE:
-            thisState = new ReleaseState(target, secondaryTarget);
+            thisState = new ReleaseState(xmlString, id, target, secondaryTarget);
             break;
 
         // @ADDMECH Add case(s) to create your state(s) 
         //case StateType::SHOOTER:
-        //    thisState = new ShooterState(controlData, 
-        //                                    controlData2, 
-        //                                    target, 
-        //                                    secondaryTarget);
+        //    thisState = new ShooterState(xmlSgtring, 
+        //                                 controlData, 
+        //                                 controlData2, 
+        //                                 target, 
+        //                                 secondaryTarget);
         //    break;
 
         default:

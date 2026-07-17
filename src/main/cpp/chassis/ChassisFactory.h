@@ -58,8 +58,8 @@ class ChassisFactory
 			};
 			static ChassisFactory* GetChassisFactory();
 
-			inline IChassis* GetIChassis(){return m_chassis;};
-			inline IHolonomicChassis* GetHolonomicChassis() {return m_holonomicChassis;};
+			inline IChassis* GetIChassis(){return m_chassis;}
+			inline IHolonomicChassis* GetHolonomicChassis() {return m_holonomicChassis;}
 
 			//inline DifferentialChassis* GetDifferentialChassis() {return static_cast<DifferentialChassis*>(m_chassis); };
 			inline MecanumChassis* GetMecanumChassis() {return static_cast<MecanumChassis*>(m_chassis); };

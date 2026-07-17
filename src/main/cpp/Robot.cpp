@@ -20,20 +20,22 @@
 #include <utils/Logger.h>
 #include <utils/LoggerData.h>
 #include <utils/LoggerEnums.h>
+#include <LoggableItemMgr.h>
 
 using namespace std;
 
 void Robot::RobotInit() 
 {
+    m_startLogging = false;
     Logger::GetLogger()->PutLoggingSelectionsOnDashboard();
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("arrived"));   
+    
+    m_controller = TeleopControl::GetInstance();
 
     // Read the XML file to build the robot 
     auto XmlParser = new RobotXmlParser();
     XmlParser->ParseXML();
 
-    // Get local copies of the teleop controller and the chassis
-    m_controller = TeleopControl::GetInstance();
     auto factory = ChassisFactory::GetChassisFactory();
     m_chassis = factory->GetMecanumChassis();
     m_holonomic = nullptr;
@@ -45,7 +47,10 @@ void Robot::RobotInit()
     StateMgrHelper::InitStateMgrs();
 
     m_cyclePrims = new CyclePrimitives();
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));}
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("RobotInit"), string("end"));
+
+    m_startLogging = true;
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -62,7 +67,11 @@ void Robot::RobotPeriodic()
 //        m_chassis->UpdateOdometry();
 //   }
 
-    Logger::GetLogger()->PeriodicLog();
+    if (m_startLogging)
+    {
+        LoggableItemMgr::GetInstance()->LogData();
+        Logger::GetLogger()->PeriodicLog();
+    }
 }
 
 /**
@@ -112,9 +121,7 @@ void Robot::TeleopPeriodic()
     Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopPeriodic"), string("arrived"));   
     if (m_chassis != nullptr && m_controller != nullptr && m_holonomic != nullptr)
     {
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopPeriodic"), string("before holonomic call"));   
         m_holonomic->Run();
-    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ArrivedAt"), string("TeleopPeriodic"), string("after holonomic call"));   
     }
     StateMgrHelper::RunCurrentMechanismStates();
 

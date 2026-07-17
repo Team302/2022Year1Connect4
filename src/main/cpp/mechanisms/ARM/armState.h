@@ -14,8 +14,10 @@
 //====================================================================================================================================================
 #pragma once
 
+#include <string>
+
 #include <mechanisms/base/Mech1MotorState.h>
-#include <mechanisms/ARM/Arm.h>
+#include <mechanisms/ARM/arm.h>
 
 class ControlData;
 
@@ -27,17 +29,10 @@ class ArmState : public Mech1MotorState
         
         ArmState
         (
+            std::string                     stateName,
+            int                             stateId,
             ControlData*                    control,
             double                          target
         );
         ~ArmState() = default;
-      
-
-        bool AtTarget() const override;
-        Arm* GetArm() const {return m_arm;}
-
-        Arm*        m_arm;
-
-    private:
-        
 };

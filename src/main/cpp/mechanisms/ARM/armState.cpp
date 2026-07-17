@@ -15,8 +15,7 @@
 
 
 // C++ Includes
-
-// FRC includes
+#include <string>
 
 // Team 302 includes
 #include <mechanisms/base/Mech1MotorState.h>
@@ -26,17 +25,14 @@
 
 // Third Party Includes
 
+using namespace std;
 
 ArmState::ArmState
 (
+    string                          stateName,
+    int                             stateId,
     ControlData*                    control, 
     double                          target
-) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetArm(), control, target),
-    m_arm(MechanismFactory::GetMechanismFactory()->GetArm())
+) : Mech1MotorState( MechanismFactory::GetMechanismFactory()->GetArm(), stateName, stateId, control, target)
 {
-}
-
-bool ArmState::AtTarget() const
-{
-    return true;
 }

@@ -14,13 +14,16 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+#include <string>
 
 #include <hw/DragonServo.h>
 #include <hw/usages/ServoUsage.h>
+#include <utils/Logger.h>
 
 #include <frc/Servo.h>
 
 using namespace frc;
+using namespace std;
 
 DragonServo::DragonServo
 (
@@ -34,7 +37,11 @@ DragonServo::DragonServo
 	m_minAngle( minAngle ),
 	m_maxAngle( maxAngle )
 {
-    
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Servo ") + to_string(deviceID), string("min angle "),  m_servo->GetMinAngle());
+    Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Servo ") + to_string(deviceID), string("max angle "),  m_servo->GetMaxAngle());
+    //m_servo->SetBounds(maxAngle, 0.1, 0.0, 0.1, minAngle);    
+    //m_servo->SetPosition(0.0);
+    m_servo->SetAngle(0.0);
 }
 
 void DragonServo::Set(double value)
@@ -64,7 +71,10 @@ void DragonServo::SetAngle(double angle)
 {
     if ( m_servo != nullptr )
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("Servo ") + to_string(m_servo->GetChannel()), string("angle "),  m_servo->GetAngle());
         m_servo->SetAngle( angle );
+        //auto pos = angle - m_minAngle < 1.0 ? 0.0 : 1.0;
+        //m_servo->SetPosition(pos);
     }
 }
 double DragonServo::GetAngle() const

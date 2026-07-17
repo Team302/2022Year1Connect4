@@ -79,8 +79,8 @@ class ReleaseStateMgr : public StateMgr
 
 		static ReleaseStateMgr*	m_instance;
 
-        const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, StateType::RELEASE_STATE, false};
-        const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, StateType::RELEASE_STATE, false};
-        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, StateType::RELEASE_STATE, true};
-        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, StateType::RELEASE_STATE, false};
+        const StateStruc m_openClosedState = {RELEASE_STATE::OPEN_CLOSED, m_releaseOpenClosedXMLString, StateType::RELEASE_STATE, false};
+        const StateStruc m_openOpenState = {RELEASE_STATE::OPEN_OPEN, m_releaseOpenOpenXMLString, StateType::RELEASE_STATE, false};
+        const StateStruc m_closedOpenState = {RELEASE_STATE::CLOSED_OPEN, m_releaseClosedOpenXmlString, StateType::RELEASE_STATE, true};
+        const StateStruc m_closedClosedState = {RELEASE_STATE::CLOSED_CLOSED, m_releaseClosedClosedXmlString, StateType::RELEASE_STATE, false};
 };

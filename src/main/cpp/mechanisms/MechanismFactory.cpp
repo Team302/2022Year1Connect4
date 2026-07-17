@@ -68,7 +68,12 @@ MechanismFactory* MechanismFactory::GetMechanismFactory()
 
 }
 
-MechanismFactory::MechanismFactory() // @ADDMECH Initialize mechanism to NULLPTR
+MechanismFactory::MechanismFactory() : m_arm(nullptr),
+									   m_example(nullptr),
+									   m_flag(nullptr),
+									   m_intake(nullptr),
+									   m_release(nullptr)
+									   // @ADDMECH Initialize mechanism to NULLPTR
 {
 }
 

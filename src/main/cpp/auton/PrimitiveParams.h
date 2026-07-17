@@ -63,27 +63,27 @@ class PrimitiveParams
 
 
         //Some getters
-        PRIMITIVE_IDENTIFIER GetID() const {return m_id;};
-        float GetTime() const {return m_time;};
-        float GetDistance() const {return m_distance;};
-        float GetXLocation() const {return m_xLoc;};
-        float GetYLocation() const {return m_yLoc;};
-        IHolonomicChassis::HEADING_OPTION GetHeadingOption() const {return m_headingOption;};
-        float GetHeading() const {return m_heading;};
-        float GetDriveSpeed() const {return m_startDriveSpeed;};
-        float GetEndDriveSpeed() const {return m_endDriveSpeed;};
-        std::string GetPathName() const {return m_pathName;};
+        PRIMITIVE_IDENTIFIER GetID() const {return m_id;}
+        float GetTime() const {return m_time;}
+        float GetDistance() const {return m_distance;}
+        float GetXLocation() const {return m_xLoc;}
+        float GetYLocation() const {return m_yLoc;}
+        IHolonomicChassis::HEADING_OPTION GetHeadingOption() const {return m_headingOption;}
+        float GetHeading() const {return m_heading;}
+        float GetDriveSpeed() const {return m_startDriveSpeed;}
+        float GetEndDriveSpeed() const {return m_endDriveSpeed;}
+        std::string GetPathName() const {return m_pathName;}
         
         // @ADDMECH Add methods to get the state mgr for mechanism 
-        IntakeStateMgr::INTAKE_STATE GetIntakeState() const {return m_intakeState;};
-        ArmStateMgr::ARM_STATE GetArmState() const {return m_armState;};
-        ReleaseStateMgr::RELEASE_STATE GetReleaseState() const {return m_releaseState;};
-        FlagArmStateManager::FLAG_ARM_STATE GetLFlagArmState() const {return m_flagArmState;};
+        IntakeStateMgr::INTAKE_STATE GetIntakeState() const {return m_intakeState;}
+        ArmStateMgr::ARM_STATE GetArmState() const {return m_armState;}
+        ReleaseStateMgr::RELEASE_STATE GetReleaseState() const {return m_releaseState;}
+        FlagArmStateManager::FLAG_ARM_STATE GetLFlagArmState() const {return m_flagArmState;}
 
 
 
         //Setters
-        void SetDistance(float distance) {m_distance = distance;};
+        void SetDistance(float distance) {m_distance = distance;}
 
     private:
         //Primitive Parameters

@@ -74,6 +74,6 @@ class FlagArmStateManager : public StateMgr
 
         static FlagArmStateManager* m_instance;
 
-        const StateStruc m_openState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN, StateType::FLAGARM_STATE, true};
-        const StateStruc m_closedState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED, StateType::FLAGARM_STATE, false};
+        const StateStruc m_openState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_OPEN, m_openXmlString,  StateType::FLAGARM_STATE, true};
+        const StateStruc m_closedState = {FlagArmStateManager::FLAG_ARM_STATE::GRABBER_CLOSED, m_closedXmlString, StateType::FLAGARM_STATE, false};
 };

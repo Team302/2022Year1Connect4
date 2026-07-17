@@ -18,6 +18,7 @@
 #pragma once
 #include <string>
 
+#include <frc/drive/MecanumDrive.h>
 #include <units/velocity.h>
 #include <units/angular_velocity.h>
 
@@ -79,7 +80,15 @@ class MecanumChassis : public IChassis , public IHolonomicChassis
         bool IsMoving() const override;
 
     private:
+        double CheckMaxVal
+        (
+            double valueToCheck,
+            double currentMax
+        );
+        
         void ZeroEncoder(std::shared_ptr<IDragonMotorController> motor);
+
+        frc::MecanumDrive*                              m_drive;
 
         std::shared_ptr<IDragonMotorController>         m_leftFrontMotor;
         std::shared_ptr<IDragonMotorController>         m_leftBackMotor;

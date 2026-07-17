@@ -32,7 +32,7 @@ class StateMgrHelper
             PrimitiveParams*        params
         );
 
-        static IState* CreateState
+        static State* CreateState
         (
             Mech*                       mech,
             StateStruc&                 stateInfo,

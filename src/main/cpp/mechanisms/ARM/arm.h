@@ -39,8 +39,6 @@ class Arm : public Mech1IndMotor
 	    Arm() = delete;
 	    ~Arm() override = default;
 
-       
-
-        
-
+        bool IsUp() const;
+        bool IsDown() const;       
 };

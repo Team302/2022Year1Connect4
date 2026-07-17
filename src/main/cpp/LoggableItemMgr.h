@@ -15,18 +15,26 @@
 //====================================================================================================================================================
 
 #pragma once
+#include <vector>
 
-///	 @interface     IState
-///  @brief      	Interface for state classes
-class IState
+#include <LoggableItem.h>
+
+class LoggableItemMgr 
 {
-	public:
-        
-        IState() = default;
-        ~IState() = default;
+    public:
 
-        virtual void Init() = 0;
-        virtual void Run() = 0;
-        virtual void Exit() = 0;
-        virtual bool AtTarget() const = 0;
+        static LoggableItemMgr* GetInstance();
+        void RegisterLoggableItem
+        (
+            LoggableItem*       item
+        );
+        void LogData() const;
+
+    private:
+        LoggableItemMgr();
+        ~LoggableItemMgr() = default;
+
+        std::vector<LoggableItem*>  m_loggableItems;
+
+        static LoggableItemMgr* m_instance;
 };

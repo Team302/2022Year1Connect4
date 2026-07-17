@@ -15,6 +15,7 @@
 //====================================================================================================================================================
 
 #pragma once
+#include <string>
        
 enum StateType
 {
@@ -32,6 +33,7 @@ enum StateType
 struct StateStruc
 {
     int         id;
+    std::string xmlIdentifier;
     StateType   type;
     bool        isDefault;
 };

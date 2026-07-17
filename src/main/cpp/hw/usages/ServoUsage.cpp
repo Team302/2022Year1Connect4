@@ -59,6 +59,7 @@ ServoUsage::SERVO_USAGE ServoUsage::GetUsage
     auto it = m_usageMap.find(usageString);
     if (it != m_usageMap.end())
     {
+        Logger::GetLogger()->LogData(LOGGER_LEVEL::PRINT, string("ServoUsage::GetUsage"), usageString, string("found"));
         return it->second;
     }
     Logger::GetLogger()->LogData(LOGGER_LEVEL::ERROR, string("ServoUsage::GetUsage"), string("unknown usage"), usageString);

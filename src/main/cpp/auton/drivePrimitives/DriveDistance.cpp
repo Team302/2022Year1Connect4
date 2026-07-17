@@ -46,9 +46,9 @@ void DriveDistance::Init(PrimitiveParams* params)
 
 	delete m_initialPose;
 	auto chassis = GetChassis();
-	if (chassis.get() != nullptr)
+	if (chassis != nullptr)
 	{
-		m_initialPose = new Pose2d(chassis.get()->GetPose());
+		m_initialPose = new Pose2d(chassis->GetPose());
 	}
 	else
 	{
@@ -59,9 +59,9 @@ void DriveDistance::Init(PrimitiveParams* params)
 bool DriveDistance::IsDone() 
 {
 	auto chassis = GetChassis();
-	if (chassis.get() != nullptr)
+	if (chassis != nullptr)
 	{
-		auto pose = chassis.get()->GetPose();
+		auto pose = chassis->GetPose();
 	    auto currX = pose.X().to<double>();
     	auto currY = pose.Y().to<double>();
 
