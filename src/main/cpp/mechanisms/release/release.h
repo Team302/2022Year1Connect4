@@ -18,19 +18,19 @@
 #include <mechanisms/base/Mech2Servos.h>
 
 class DragonServo;
-class release : public Mech2Servos
+class Release : public Mech2Servos
 {
     public:
         /// @brief Create a generic mechanism wiht 1 servo 
         /// @param [in] std::shared_ptr<DragonServo> servo used by this mechanism
-        release
+        Release
         (
             std::string                                 controlFileName,
             std::string                                 networkTableName,
             DragonServo*                                servo,
             DragonServo*                                servo2
         );
-	    release() = delete;
-	    virtual ~release() = default;
+	    Release() = delete;
+	    virtual ~Release() = default;
 
 };

@@ -26,6 +26,7 @@ enum StateType
     ARM_STATE,
     FLAGARM_STATE,
     MAX_STATE_TYPES
+    
 };
 
 

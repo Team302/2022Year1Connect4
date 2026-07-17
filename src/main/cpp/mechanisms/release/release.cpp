@@ -21,11 +21,11 @@
 // Team 302 includes
 #include <hw/DragonServo.h>
 #include <mechanisms/base/Mech2Servos.h>
-#include <mechanisms/release/release.h>
+#include <mechanisms/Release/Release.h>
 
 using namespace std;
 
-release::release
+Release::Release
 (
     std::string                                 controlFileName,
     std::string                                 networkTableName,

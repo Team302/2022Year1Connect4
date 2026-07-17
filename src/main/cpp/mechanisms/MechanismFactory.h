@@ -90,10 +90,10 @@ class MechanismFactory
 		inline Example* GetExample() const {return m_example;}
 		
 		// @ADDMECH  Add inline Get method for your mechanism
-		inline Intake* GetIntake() const {return m_intake;}
-		inline arm* GetArm() const {return m_arm;}
-		inline release* GetRelease() const {return m_release;}
-		inline FlagArm* GetFlag() const {return m_flag;}
+		inline Intake* GetIntake() const {return m_intake;};
+		inline Arm* GetArm() const {return m_arm;};
+		inline Release* GetRelease() const {return m_release;};
+		inline FlagArm* GetFlag() const {return m_flag;};
 
 		Mech* GetMechanism
 		(
@@ -133,11 +133,10 @@ class MechanismFactory
 		virtual ~MechanismFactory() = default;
 
 		static MechanismFactory*	m_mechanismFactory;
-
-		// @ADDMECH  Add your mechanism here		
-		arm*			m_arm;
 		Example* 		m_example;
-		FlagArm*		m_flag;
+		// @ADDMECH  Add your mechanism here
 		Intake*			m_intake;
-		release*		m_release;
+		Arm*			m_arm;
+		Release*        m_release;
+		FlagArm*		m_flag;
 };
